@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr4qaweu4awh2"]
+
+[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="1_5vl3k"]
+
+[node name="CornerShortcuts" type="VBoxContainer"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Sfx" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureButton" parent="Sfx"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("1_5vl3k")
+
+[node name="HSlider" type="HSlider" parent="Sfx"]
+visible = false
+layout_mode = 2
+
+[node name="Music" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureButton" parent="Music"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("1_5vl3k")
+
+[node name="HSlider" type="HSlider" parent="Music"]
+visible = false
+layout_mode = 2
+
+[node name="Return" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("1_5vl3k")

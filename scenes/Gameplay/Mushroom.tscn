@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc063txtag5sh"]
+
+[ext_resource type="Texture2D" uid="uid://bn3d6e32xvl8" path="res://assets/[ValleyFriends] Edible_Mushrooms/items/Aspen.png" id="1_dlis7"]
+
+[node name="Mushroom" type="Sprite2D"]
+texture = ExtResource("1_dlis7")

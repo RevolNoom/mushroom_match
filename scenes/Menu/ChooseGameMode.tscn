@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2a6gfd1cildk"]
+
+[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="1_ckn4g"]
+
+[node name="ChooseGameMode" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Casual" type="TextureButton" parent="VBox"]
+layout_mode = 2
+texture_normal = ExtResource("1_ckn4g")
+
+[node name="TimeRush" type="TextureButton" parent="VBox"]
+layout_mode = 2
+texture_normal = ExtResource("1_ckn4g")
+
+[node name="FourSeasons" type="TextureButton" parent="VBox"]
+layout_mode = 2
+texture_normal = ExtResource("1_ckn4g")
+
+[node name="CustomMode" type="TextureButton" parent="VBox"]
+layout_mode = 2
+texture_normal = ExtResource("1_ckn4g")

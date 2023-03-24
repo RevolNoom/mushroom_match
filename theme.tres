@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://4o5bkiepftqs"]
+
+[ext_resource type="FontFile" uid="uid://cw5guabrd7ulo" path="res://assets/04b_30/04B_30__.TTF" id="1_ir4ae"]
+
+[resource]
+Button/fonts/font = ExtResource("1_ir4ae")

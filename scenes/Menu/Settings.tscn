@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://4wt75qhapjtd"]
+
+[node name="Settings" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Volume" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+
+[node name="VSlider" type="HSlider" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Sound" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+
+[node name="SSlider" type="HSlider" parent="GridContainer"]
+layout_mode = 2
+
+[node name="EnableAds" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+
+[node name="EAExplanation" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Enable Ads"
+
+[node name="NationalFlag" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Language" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Language"
+horizontal_alignment = 1

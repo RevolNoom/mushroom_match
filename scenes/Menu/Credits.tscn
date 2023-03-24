@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://blpua6noen8lf"]
+
+[node name="Credits" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="GameName" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MadeBy" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Made By"
+horizontal_alignment = 1
+
+[node name="Contributors" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Contributors:"
+horizontal_alignment = 1
+
+[node name="SpecialThanks" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Special thanks to:"
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "This game is open-sourced.
+Everyone is welcomed
+to make a fork of their own."
+horizontal_alignment = 1
+
+[node name="Links" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Links"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="FbIcon" type="TextureButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="FbLink" type="LinkButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="GithubIcon" type="TextureButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="GithubLink" type="LinkButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="PatreonIcon" type="TextureButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="PatreonLink" type="LinkButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2

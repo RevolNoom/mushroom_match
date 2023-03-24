@@ -1,0 +1,191 @@
+[gd_scene load_steps=4 format=3 uid="uid://4y65wmv41de1"]
+
+[ext_resource type="PackedScene" uid="uid://cr4qaweu4awh2" path="res://scenes/Menu/CornerShortcuts.tscn" id="1_3payr"]
+[ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="2_m0jcg"]
+[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="3_y55n8"]
+
+[node name="Gameplay" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelLeft" type="Control" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="HBox/PanelLeft"]
+layout_mode = 1
+offset_right = 452.0
+offset_bottom = 808.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Pad" type="Control" parent="HBox/PanelLeft/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Time" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/Time"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/Time"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "10:11"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad2" type="Control" parent="HBox/PanelLeft/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Score" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/Score"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/Score"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "99999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad3" type="Control" parent="HBox/PanelLeft/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="CornerShortcuts" parent="HBox/PanelLeft" instance=ExtResource("1_3payr")]
+layout_mode = 2
+offset_right = 41.0
+offset_bottom = 89.0
+
+[node name="Board" parent="HBox" instance=ExtResource("2_m0jcg")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 1
+
+[node name="PanelRight" type="HBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NextSpawn" type="VBoxContainer" parent="HBox/PanelRight"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="1" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y55n8")
+stretch_mode = 4
+
+[node name="2" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y55n8")
+stretch_mode = 4
+
+[node name="3" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y55n8")
+stretch_mode = 4
+
+[node name="4" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y55n8")
+stretch_mode = 4
+
+[node name="5" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y55n8")
+stretch_mode = 4
+
+[node name="Button" type="VBoxContainer" parent="HBox/PanelRight"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Pad" type="Control" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Redo" type="TextureButton" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("3_y55n8")
+
+[node name="Pad2" type="Control" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Undo" type="TextureButton" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("3_y55n8")
+
+[node name="Pad3" type="Control" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Save" type="TextureButton" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_y55n8")
+
+[node name="Pad4" type="Control" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Load" type="TextureButton" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_y55n8")
+
+[node name="Pad5" type="Control" parent="HBox/PanelRight/Button"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1

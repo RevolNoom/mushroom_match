@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://34jy5ieik621"]
+
+[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="1_upedr"]
+
+[node name="MainMenu" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Play" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_upedr")
+stretch_mode = 0
+
+[node name="Continue" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_upedr")
+stretch_mode = 0
+
+[node name="HowToPlay" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_upedr")
+stretch_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Settings" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_upedr")
+
+[node name="Credits" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_upedr")
+
+[node name="Leaderboard" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_upedr")
