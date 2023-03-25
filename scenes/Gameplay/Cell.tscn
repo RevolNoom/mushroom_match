@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://citptjun1jxbp"]
+
+[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="1_80pvt"]
+[ext_resource type="Script" path="res://scenes/Gameplay/Cell.gd" id="2_sw661"]
+
+[node name="Cell" type="TextureButton"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("1_80pvt")
+stretch_mode = 0
+script = ExtResource("2_sw661")
+
+[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
