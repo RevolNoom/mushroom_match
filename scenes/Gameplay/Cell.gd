@@ -15,16 +15,22 @@ func _on_pressed():
 
 
 #TODO: Check if there's mushroom already? Is it necessary?
-func AddMushroom(mushroom: Mushroom):
+func Add(mushroom: Mushroom):
 	add_child(mushroom)
-	_mushroom = mushroom
+	if mushroom._grown:
+		_mushroom = mushroom
+	else:
+		_spore = mushroom
 	_on_item_rect_changed()
 
 
-func PopMushroom() -> Mushroom:
-	var mushroom = _mushroom
+func Pop() -> Mushroom:
+	var mushroom = get_child(0)
 	remove_child(mushroom)
-	_mushroom = null
+	if mushroom._grown:
+		_mushroom = null
+	else:
+		_spore = null
 	return mushroom
 
 
@@ -33,18 +39,22 @@ func IsEmpty():
 
 
 func HasMushroom():
-	return get_child_count() > 0 && get_child(0) is Mushroom
+	return _mushroom != null
 	
 	
-#TODO: Create Spore
 func HasSpore():
-	return get_child_count() > 0 && get_child(0) is Sprite2D
+	return _spore != null
 
+
+func GrowSporeIntoMushroom():
+	_spore._grown = true
+	_mushroom = _spore
+	_spore = null
+	_on_item_rect_changed()
 
 func _on_item_rect_changed():
 	for child in get_children():
-		#var c = child as Sprite2D
 		child.scale = size / child.get_rect().size
+		if not child._grown:
+			child.scale /= 3
 		child.position = size/2
-		#print("cell " + str(name) + ": " + str(position) + " size " + str(size))
-		#print("child: " + str(child.position))

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://4y65wmv41de1"]
+[gd_scene load_steps=5 format=3 uid="uid://4y65wmv41de1"]
 
 [ext_resource type="PackedScene" uid="uid://cr4qaweu4awh2" path="res://scenes/Menu/CornerShortcuts.tscn" id="1_3payr"]
+[ext_resource type="Script" path="res://scenes/Menu/Gameplay.gd" id="1_vf8uv"]
 [ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="2_m0jcg"]
 [ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="3_y55n8"]
 
@@ -14,6 +15,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("1_vf8uv")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -189,3 +191,5 @@ texture_normal = ExtResource("3_y55n8")
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
+
+[connection signal="next_turn" from="HBox/Board" to="." method="_on_board_next_turn"]

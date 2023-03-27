@@ -73,7 +73,9 @@ disabled = true
 [connection signal="pressed" from="Margin/VBox/Center/MainMenu/VBoxContainer/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Margin/VBox/Center/MainMenu/VBoxContainer/HBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Margin/VBox/Center/MainMenu/VBoxContainer/HBoxContainer/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="Margin/VBox/Center/ChooseGameMode/VBox/Casual" to="." method="_on_casual_pressed"]
 [connection signal="pressed" from="CornerShortcuts/Return" to="." method="_on_return_pressed"]
 
 [editable path="Margin/VBox/Center/MainMenu"]
+[editable path="Margin/VBox/Center/ChooseGameMode"]
 [editable path="CornerShortcuts"]

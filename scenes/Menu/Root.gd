@@ -38,3 +38,7 @@ func _on_how_to_play_pressed():
 
 func _on_leaderboard_pressed():
 	pass # Replace with function body.
+
+
+func _on_casual_pressed():
+	get_tree().change_scene_to_packed(load("res://scenes/Menu/Gameplay.tscn"))
