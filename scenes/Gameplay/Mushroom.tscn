@@ -6,3 +6,4 @@
 [node name="Mushroom" type="Sprite2D"]
 texture = ExtResource("1_dlis7")
 script = ExtResource("2_2j4ea")
+ID = 1

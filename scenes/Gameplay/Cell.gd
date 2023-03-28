@@ -18,6 +18,7 @@ func _on_pressed():
 func Add(mushroom: Mushroom):
 	add_child(mushroom)
 	if mushroom._grown:
+		pass
 		_mushroom = mushroom
 	else:
 		_spore = mushroom
