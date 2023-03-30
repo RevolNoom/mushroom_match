@@ -2,6 +2,7 @@ extends MarginContainer
 
 @export var spore_per_turn = 5
 
+
 func _ready():
 	GenerateNewSpores()
 	$HBox/Board.AddSpores(ExtractNextTurnSpores())

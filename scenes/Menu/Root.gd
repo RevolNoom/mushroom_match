@@ -41,4 +41,4 @@ func _on_leaderboard_pressed():
 
 
 func _on_casual_pressed():
-	get_tree().change_scene_to_packed(load("res://scenes/Menu/Gameplay.tscn"))
+	get_tree().change_scene_to_packed(load("res://scenes/Gameplay/Gameplay.tscn"))

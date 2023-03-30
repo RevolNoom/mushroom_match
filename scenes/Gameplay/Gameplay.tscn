@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://4y65wmv41de1"]
+[gd_scene load_steps=7 format=3 uid="uid://blghtsmju2blk"]
 
-[ext_resource type="PackedScene" uid="uid://cr4qaweu4awh2" path="res://scenes/Menu/CornerShortcuts.tscn" id="1_3payr"]
-[ext_resource type="Script" path="res://scenes/Menu/Gameplay.gd" id="1_vf8uv"]
-[ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="2_m0jcg"]
-[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="3_y55n8"]
+[ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="1_1eqxi"]
+[ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="2_f0uqp"]
+[ext_resource type="Script" path="res://scenes/Menu/ScoreBoard.gd" id="3_1mhts"]
+[ext_resource type="PackedScene" uid="uid://cr4qaweu4awh2" path="res://scenes/Menu/CornerShortcuts.tscn" id="4_24jsy"]
+[ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="5_1y5v2"]
+[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="6_ppmym"]
 
 [node name="Gameplay" type="MarginContainer"]
 anchors_preset = 15
@@ -15,7 +17,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-script = ExtResource("1_vf8uv")
+script = ExtResource("1_1eqxi")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -36,12 +38,13 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="Time" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
+[node name="Clock" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
+script = ExtResource("2_f0uqp")
 
-[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/Time"]
+[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/Clock"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -50,11 +53,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/Time"]
+[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/Clock"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-text = "10:11"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -63,12 +65,13 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="Score" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
+[node name="ScoreBoard" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
+script = ExtResource("3_1mhts")
 
-[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/Score"]
+[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/ScoreBoard"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -77,11 +80,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/Score"]
+[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/ScoreBoard"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-text = "99999"
+text = "0
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -90,12 +94,12 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="CornerShortcuts" parent="HBox/PanelLeft" instance=ExtResource("1_3payr")]
+[node name="CornerShortcuts" parent="HBox/PanelLeft" instance=ExtResource("4_24jsy")]
 layout_mode = 2
 offset_right = 41.0
 offset_bottom = 89.0
 
-[node name="Board" parent="HBox" instance=ExtResource("2_m0jcg")]
+[node name="Board" parent="HBox" instance=ExtResource("5_1y5v2")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
@@ -112,31 +116,31 @@ size_flags_horizontal = 3
 [node name="1" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("3_y55n8")
+texture = ExtResource("6_ppmym")
 stretch_mode = 4
 
 [node name="2" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("3_y55n8")
+texture = ExtResource("6_ppmym")
 stretch_mode = 4
 
 [node name="3" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("3_y55n8")
+texture = ExtResource("6_ppmym")
 stretch_mode = 4
 
 [node name="4" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("3_y55n8")
+texture = ExtResource("6_ppmym")
 stretch_mode = 4
 
 [node name="5" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("3_y55n8")
+texture = ExtResource("6_ppmym")
 stretch_mode = 4
 
 [node name="Button" type="VBoxContainer" parent="HBox/PanelRight"]
@@ -152,7 +156,7 @@ size_flags_stretch_ratio = 0.1
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-texture_normal = ExtResource("3_y55n8")
+texture_normal = ExtResource("6_ppmym")
 
 [node name="Pad2" type="Control" parent="HBox/PanelRight/Button"]
 layout_mode = 2
@@ -163,7 +167,7 @@ size_flags_stretch_ratio = 0.1
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-texture_normal = ExtResource("3_y55n8")
+texture_normal = ExtResource("6_ppmym")
 
 [node name="Pad3" type="Control" parent="HBox/PanelRight/Button"]
 layout_mode = 2
@@ -174,7 +178,7 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("3_y55n8")
+texture_normal = ExtResource("6_ppmym")
 
 [node name="Pad4" type="Control" parent="HBox/PanelRight/Button"]
 layout_mode = 2
@@ -185,11 +189,12 @@ size_flags_stretch_ratio = 0.1
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("3_y55n8")
+texture_normal = ExtResource("6_ppmym")
 
 [node name="Pad5" type="Control" parent="HBox/PanelRight/Button"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
+[connection signal="add_score" from="HBox/Board" to="HBox/PanelLeft/VBox/ScoreBoard" method="_on_board_add_score"]
 [connection signal="next_turn" from="HBox/Board" to="." method="_on_board_next_turn"]

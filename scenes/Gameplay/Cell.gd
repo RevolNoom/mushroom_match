@@ -3,11 +3,6 @@ extends TextureButton
 class_name Cell
 
 signal chosen(_self)
-signal mushroom_on_spore(_self)
-
-
-var _mushroom: Mushroom
-var _spore
 
 
 func _on_pressed():
@@ -15,42 +10,49 @@ func _on_pressed():
 
 
 #TODO: Check if there's mushroom already? Is it necessary?
-func Add(mushroom: Mushroom):
+func AddMushroom(mushroom: Mushroom):
+	Add(mushroom, "Mushroom")
+func AddSpore(mushroom: Mushroom):
+	Add(mushroom, "Spore")
+func Add(mushroom: Mushroom, mush_name: String):
 	add_child(mushroom)
-	if mushroom._grown:
-		pass
-		_mushroom = mushroom
-	else:
-		_spore = mushroom
+	mushroom.name = mush_name
 	_on_item_rect_changed()
 
 
-func Pop() -> Mushroom:
-	var mushroom = get_child(0)
+func PopMushroom() -> Mushroom:
+	return Pop("Mushroom")
+func PopSpore() -> Mushroom:
+	return Pop("Spore")
+func Pop(type: String) -> Mushroom:
+	var mushroom = get_node(type)
 	remove_child(mushroom)
-	if mushroom._grown:
-		_mushroom = null
-	else:
-		_spore = null
 	return mushroom
 
 
-func IsEmpty():
+func GetMushroom() -> Mushroom:
+	return Get("Mushroom")
+func GetSpore() -> Mushroom:
+	return Get("Spore")
+func Get(type: String) -> Mushroom:
+	return get_node_or_null(type)
+	
+
+func IsEmpty() -> bool:
 	return get_child_count() == 0
 
 
-func HasMushroom():
-	return _mushroom != null
+func HasMushroom() -> bool:
+	return get_node_or_null("Mushroom") != null
 	
 	
-func HasSpore():
-	return _spore != null
+func HasSpore() -> bool:
+	return  get_node_or_null("Spore") != null
 
 
 func GrowSporeIntoMushroom():
-	_spore._grown = true
-	_mushroom = _spore
-	_spore = null
+	get_node("Spore")._grown = true
+	get_node("Spore").name = "Mushroom"
 	_on_item_rect_changed()
 
 func _on_item_rect_changed():
