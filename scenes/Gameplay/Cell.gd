@@ -15,9 +15,9 @@ func AddMushroom(mushroom: Mushroom):
 func AddSpore(mushroom: Mushroom):
 	Add(mushroom, "Spore")
 func Add(mushroom: Mushroom, mush_name: String):
-	add_child(mushroom)
+	$Center.add_child(mushroom)
 	mushroom.name = mush_name
-	_on_item_rect_changed()
+	#_on_item_rect_changed()
 
 
 func PopMushroom() -> Mushroom:
@@ -25,8 +25,8 @@ func PopMushroom() -> Mushroom:
 func PopSpore() -> Mushroom:
 	return Pop("Spore")
 func Pop(type: String) -> Mushroom:
-	var mushroom = get_node(type)
-	remove_child(mushroom)
+	var mushroom = $Center.get_node(type)
+	$Center.remove_child(mushroom)
 	return mushroom
 
 
@@ -35,29 +35,28 @@ func GetMushroom() -> Mushroom:
 func GetSpore() -> Mushroom:
 	return Get("Spore")
 func Get(type: String) -> Mushroom:
-	return get_node_or_null(type)
+	return $Center.get_node_or_null(type)
 	
 
 func IsEmpty() -> bool:
-	return get_child_count() == 0
+	return $Center.get_child_count() == 0
 
 
 func HasMushroom() -> bool:
-	return get_node_or_null("Mushroom") != null
+	return $Center.get_node_or_null("Mushroom") != null
 	
 	
 func HasSpore() -> bool:
-	return  get_node_or_null("Spore") != null
+	return $Center.get_node_or_null("Spore") != null
 
 
 func GrowSporeIntoMushroom():
-	get_node("Spore")._grown = true
-	get_node("Spore").name = "Mushroom"
-	_on_item_rect_changed()
+	$Center.get_node("Spore")._grown = true
+	$Center.get_node("Spore").name = "Mushroom"
+	GetMushroom().scale = Vector2(1, 1)
+	#_on_item_rect_changed()
 
+var MushroomTextureSize = Vector2(16, 16)
 func _on_item_rect_changed():
-	for child in get_children():
-		child.scale = size / child.get_rect().size
-		if not child._grown:
-			child.scale /= 3
-		child.position = size/2
+	$Center.scale = size / MushroomTextureSize
+	$Center.global_position = global_position + size / 2

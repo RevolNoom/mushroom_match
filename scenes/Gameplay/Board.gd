@@ -41,21 +41,23 @@ func _on_grid_container_resized():
 
 var _lastChosenCell: Cell
 func ProcessInput(c: Cell):
-	if not c.HasMushroom():
-		if _lastChosenCell == null:
-			return
-		elif _lastChosenCell.HasMushroom():
-			if _lastChosenCell == c:
-				_lastChosenCell = null
-				#TODO: Turn off animation of last chosen mushroom
-			else:
-				var path = FindPath(_lastChosenCell, c)
-				if path.size() != 0:
-					MoveMushroom(_lastChosenCell, c)
-					if PopLines([c]) == 0:
-						emit_signal("next_turn")
-	else:
+	if c.HasMushroom():
+		if _lastChosenCell != null:
+			_lastChosenCell.GetMushroom().SwingLazily()
 		_lastChosenCell = c
+		c.GetMushroom().BoingBoingOnChosen()
+		
+	elif _lastChosenCell != null and _lastChosenCell.HasMushroom():
+		_lastChosenCell.GetMushroom().SwingLazily()
+		if coord(_lastChosenCell) == coord(c):
+			_lastChosenCell = null
+		else:
+			var path = FindPath(_lastChosenCell, c)
+			if path.size() != 0:
+				MoveMushroom(_lastChosenCell, c)
+				if PopLines([c]) == 0:
+					emit_signal("next_turn")
+			_lastChosenCell = null
 
 
 # Breadth-first search to find path between two cells

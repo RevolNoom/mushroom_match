@@ -33,5 +33,5 @@ func GenerateNewSpores():
 	next_turn_spore = $MushroomGenerator.GenerateMushrooms(spore_per_turn)
 	for i in range(0, spore_per_turn):
 		var slot = $VBox/Top/ARC/NextSpawn.get_child(i)
-		next_turn_spore[i]._grown = false
+		next_turn_spore[i].scale = Vector2(0.33, 0.33)
 		slot.texture = next_turn_spore[i].texture

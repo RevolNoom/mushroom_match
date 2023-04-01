@@ -4,11 +4,15 @@
 [ext_resource type="Script" path="res://scenes/Gameplay/Cell.gd" id="2_sw661"]
 
 [node name="Cell" type="TextureButton"]
+offset_right = 32.0
+offset_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource("1_x0lps")
 stretch_mode = 0
 script = ExtResource("2_sw661")
+
+[node name="Center" type="Node2D" parent="."]
 
 [connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]
