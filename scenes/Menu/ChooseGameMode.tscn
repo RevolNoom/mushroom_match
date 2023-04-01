@@ -1,29 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2a6gfd1cildk"]
+[gd_scene load_steps=3 format=3 uid="uid://d2a6gfd1cildk"]
 
-[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="1_ckn4g"]
+[ext_resource type="Theme" uid="uid://cd5jdqocmvnuw" path="res://theme.tres" id="1_2skkt"]
+[ext_resource type="Script" path="res://scenes/Menu/ChooseGameMode.gd" id="2_7rn64"]
 
-[node name="ChooseGameMode" type="CenterContainer"]
+[node name="ChooseGameMode" type="AspectRatioContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_2skkt")
+ratio = 0.49
+script = ExtResource("2_7rn64")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Casual" type="TextureButton" parent="VBox"]
+[node name="Casual" type="Button" parent="VBox"]
 layout_mode = 2
-texture_normal = ExtResource("1_ckn4g")
+size_flags_vertical = 3
+text = "Casual
+"
 
-[node name="TimeRush" type="TextureButton" parent="VBox"]
+[node name="TimeRush" type="Button" parent="VBox"]
 layout_mode = 2
-texture_normal = ExtResource("1_ckn4g")
+size_flags_vertical = 3
+text = "Time Rush"
 
-[node name="FourSeasons" type="TextureButton" parent="VBox"]
+[node name="FourSeasons" type="Button" parent="VBox"]
 layout_mode = 2
-texture_normal = ExtResource("1_ckn4g")
+size_flags_vertical = 3
+text = " Four Seasons"
 
-[node name="CustomMode" type="TextureButton" parent="VBox"]
+[node name="CustomMode" type="Button" parent="VBox"]
 layout_mode = 2
-texture_normal = ExtResource("1_ckn4g")
+size_flags_vertical = 3
+text = "Custom Mode"
+
+[connection signal="pressed" from="VBox/Casual" to="." method="_on_casual_pressed"]
+[connection signal="pressed" from="VBox/TimeRush" to="." method="_on_time_rush_pressed"]
+[connection signal="pressed" from="VBox/FourSeasons" to="." method="_on_four_seasons_pressed"]
+[connection signal="pressed" from="VBox/CustomMode" to="." method="_on_custom_mode_pressed"]

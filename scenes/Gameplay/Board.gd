@@ -7,7 +7,6 @@ signal add_score(amount)
 func _ready():
 	for c in $Grid.get_children():
 		c.connect("chosen", Callable(self, "ProcessInput"))
-	RandomizeInitialBoard()
 
 
 func CreateCanvas(initial_value):
@@ -120,11 +119,11 @@ func MoveMushroom(from: Cell, to: Cell):
 
 # TODO: Check for poppable lines
 # TODO: Randomize Mushroom type
-func RandomizeInitialBoard():
+func RandomizeInitialBoard(init_mushrooms: Array[Mushroom]):
 	var c = $Grid.get_children()
 	c.shuffle()
-	for i in range(0, 10):
-		c[i].AddMushroom(preload("res://scenes/Gameplay/Mushroom.tscn").instantiate())
+	for i in range(0, init_mushrooms.size()):
+		c[i].AddMushroom(init_mushrooms[i])
 
 
 var spored_cells = []
@@ -248,7 +247,7 @@ func RelocateSporesIfNeeded():
 	if mush_on_spore_cells.size() != 0:
 		for mosc in mush_on_spore_cells:
 			spored_cells.erase(mosc)
-			spores_to_relocate.append(mosc.Pop())
+			spores_to_relocate.append(mosc.PopSpore())
 		AddSpores(spores_to_relocate)
 	
 

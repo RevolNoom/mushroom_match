@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://blghtsmju2blk"]
+[gd_scene load_steps=12 format=3 uid="uid://l1sgd2s0ubed"]
 
 [ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="1_1eqxi"]
+[ext_resource type="Theme" uid="uid://cd5jdqocmvnuw" path="res://theme.tres" id="1_o1yvg"]
 [ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="2_f0uqp"]
+[ext_resource type="Texture2D" uid="uid://ddvimbey1secy" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="2_jlevg"]
 [ext_resource type="Script" path="res://scenes/Menu/ScoreBoard.gd" id="3_1mhts"]
-[ext_resource type="PackedScene" uid="uid://cr4qaweu4awh2" path="res://scenes/Menu/CornerShortcuts.tscn" id="4_24jsy"]
+[ext_resource type="Texture2D" uid="uid://bn3d6e32xvl8" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="4_7yfxa"]
 [ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="5_1y5v2"]
-[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="6_ppmym"]
+[ext_resource type="Texture2D" uid="uid://dfg0vjc3nycmb" path="res://assets/CustomTheme/save.png" id="7_6a105"]
+[ext_resource type="Texture2D" uid="uid://be0s5bubrvd3j" path="res://assets/CustomTheme/load.png" id="8_dajc7"]
+[ext_resource type="Texture2D" uid="uid://chug2tw1a3edq" path="res://assets/CustomTheme/RightArrowButton.png" id="8_l2rh8"]
+[ext_resource type="PackedScene" uid="uid://d01xg0obrpwk5" path="res://scenes/Gameplay/MushroomGenerator.tscn" id="11_hopkt"]
 
 [node name="Gameplay" type="MarginContainer"]
 anchors_preset = 15
@@ -13,38 +18,70 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme = ExtResource("1_o1yvg")
 script = ExtResource("1_1eqxi")
+spore_per_turn = 3
 
-[node name="HBox" type="HBoxContainer" parent="."]
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_jlevg")
+
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="PanelLeft" type="Control" parent="HBox"]
+[node name="Top" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="ARC" type="AspectRatioContainer" parent="VBox/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+ratio = 5.0
+stretch_mode = 1
+alignment_horizontal = 0
+
+[node name="NextSpawn" type="HBoxContainer" parent="VBox/Top/ARC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBox" type="VBoxContainer" parent="HBox/PanelLeft"]
-layout_mode = 1
-offset_right = 452.0
-offset_bottom = 808.0
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="Pad" type="Control" parent="HBox/PanelLeft/VBox"]
+[node name="1" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
+texture = ExtResource("4_7yfxa")
 
-[node name="Clock" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
+[node name="2" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_7yfxa")
+
+[node name="3" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_7yfxa")
+
+[node name="4" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_7yfxa")
+
+[node name="5" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_7yfxa")
+
+[node name="Clock" type="VBoxContainer" parent="VBox/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("2_f0uqp")
 
-[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/Clock"]
+[node name="Label" type="Label" parent="VBox/Top/Clock"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -53,25 +90,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/Clock"]
+[node name="Value" type="Label" parent="VBox/Top/Clock"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pad2" type="Control" parent="HBox/PanelLeft/VBox"]
+[node name="ScoreBoard" type="VBoxContainer" parent="VBox/Top"]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-
-[node name="ScoreBoard" type="VBoxContainer" parent="HBox/PanelLeft/VBox"]
-layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("3_1mhts")
 
-[node name="Label" type="Label" parent="HBox/PanelLeft/VBox/ScoreBoard"]
+[node name="Label" type="Label" parent="VBox/Top/ScoreBoard"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -80,7 +114,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="HBox/PanelLeft/VBox/ScoreBoard"]
+[node name="Value" type="Label" parent="VBox/Top/ScoreBoard"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -89,112 +123,49 @@ text = "0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pad3" type="Control" parent="HBox/PanelLeft/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-
-[node name="CornerShortcuts" parent="HBox/PanelLeft" instance=ExtResource("4_24jsy")]
-layout_mode = 2
-offset_right = 41.0
-offset_bottom = 89.0
-
-[node name="Board" parent="HBox" instance=ExtResource("5_1y5v2")]
+[node name="Board" parent="VBox" instance=ExtResource("5_1y5v2")]
 layout_mode = 2
 size_flags_horizontal = 1
-size_flags_vertical = 1
-stretch_mode = 1
 
-[node name="PanelRight" type="HBoxContainer" parent="HBox"]
+[node name="Bottom" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Progress" type="HBoxContainer" parent="VBox/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NextSpawn" type="VBoxContainer" parent="HBox/PanelRight"]
+[node name="Save" type="TextureButton" parent="VBox/Bottom/Progress"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("7_6a105")
+
+[node name="Load" type="TextureButton" parent="VBox/Bottom/Progress"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("8_dajc7")
+
+[node name="Move" type="HBoxContainer" parent="VBox/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="1" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("6_ppmym")
-stretch_mode = 4
-
-[node name="2" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("6_ppmym")
-stretch_mode = 4
-
-[node name="3" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("6_ppmym")
-stretch_mode = 4
-
-[node name="4" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("6_ppmym")
-stretch_mode = 4
-
-[node name="5" type="TextureRect" parent="HBox/PanelRight/NextSpawn"]
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("6_ppmym")
-stretch_mode = 4
-
-[node name="Button" type="VBoxContainer" parent="HBox/PanelRight"]
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="Pad" type="Control" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[node name="Redo" type="TextureButton" parent="HBox/PanelRight/Button"]
+[node name="Undo" type="TextureButton" parent="VBox/Bottom/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("6_ppmym")
+texture_normal = ExtResource("8_l2rh8")
+stretch_mode = 5
+flip_h = true
 
-[node name="Pad2" type="Control" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[node name="Undo" type="TextureButton" parent="HBox/PanelRight/Button"]
+[node name="Redo" type="TextureButton" parent="VBox/Bottom/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("6_ppmym")
+texture_normal = ExtResource("8_l2rh8")
+stretch_mode = 5
 
-[node name="Pad3" type="Control" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+[node name="MushroomGenerator" parent="." instance=ExtResource("11_hopkt")]
 
-[node name="Save" type="TextureButton" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("6_ppmym")
-
-[node name="Pad4" type="Control" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[node name="Load" type="TextureButton" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("6_ppmym")
-
-[node name="Pad5" type="Control" parent="HBox/PanelRight/Button"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[connection signal="add_score" from="HBox/Board" to="HBox/PanelLeft/VBox/ScoreBoard" method="_on_board_add_score"]
-[connection signal="next_turn" from="HBox/Board" to="." method="_on_board_next_turn"]
+[connection signal="add_score" from="VBox/Board" to="VBox/Top/ScoreBoard" method="_on_board_add_score"]
+[connection signal="next_turn" from="VBox/Board" to="." method="_on_board_next_turn"]

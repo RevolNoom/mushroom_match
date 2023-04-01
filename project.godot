@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="MushroomMatch"
-run/main_scene="res://scenes/Gameplay/Gameplay.tscn"
+run/main_scene="res://scenes/Menu/Root.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1792
-window/size/viewport_height=828
+window/size/viewport_width=720
+window/size/viewport_height=720
+window/handheld/orientation=1
 
 [input_devices]
 

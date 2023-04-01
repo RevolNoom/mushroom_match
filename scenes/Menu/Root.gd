@@ -15,30 +15,44 @@ func changeScene(node):
 	node.show()
 	$CornerShortcuts/Return.disabled = false
 	
-	
-func _on_settings_pressed():
-	changeScene($Margin/VBox/Center/Settings)
 
 
-func _on_credits_pressed():
-	changeScene($Margin/VBox/Center/Creditss)
+
+func _on_main_menu_b_continue():
+	pass # Replace with function body.
 
 
-func _on_play_pressed():
+func _on_main_menu_b_credits():
+	changeScene($Margin/VBox/Center/Credits)
+
+
+func _on_main_menu_b_highscore():
+	#changeScene()
+	pass
+
+func _on_main_menu_b_play():
 	changeScene($Margin/VBox/Center/ChooseGameMode)
 
 
-func _on_continue_pressed():
+func _on_main_menu_b_settings():
+	changeScene($Margin/VBox/Center/Settings)
+
+
+func _on_main_menu_b_tutorial():
 	pass # Replace with function body.
 
 
-func _on_how_to_play_pressed():
-	pass # Replace with function body.
-
-
-func _on_leaderboard_pressed():
-	pass # Replace with function body.
-
-
-func _on_casual_pressed():
+func _on_choose_game_mode_casual():
 	get_tree().change_scene_to_packed(load("res://scenes/Gameplay/Gameplay.tscn"))
+
+
+func _on_choose_game_mode_custom_mode():
+	pass # Replace with function body.
+
+
+func _on_choose_game_mode_four_seasons():
+	pass # Replace with function body.
+
+
+func _on_choose_game_mode_time_rush():
+	pass # Replace with function body.
