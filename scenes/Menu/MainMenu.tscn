@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://34jy5ieik621"]
 
-[ext_resource type="Texture2D" uid="uid://ddvyh6t4p7ray" path="res://assets/CustomTheme/SettingButton.png" id="1_2rghs"]
-[ext_resource type="Theme" uid="uid://cd5jdqocmvnuw" path="res://theme.tres" id="1_leuop"]
-[ext_resource type="Texture2D" uid="uid://nc1f18o1hpxn" path="res://assets/CustomTheme/Credit.png" id="2_5plrm"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/theme.tres" id="1_5q2at"]
 [ext_resource type="Script" path="res://scenes/Menu/MainMenu.gd" id="2_de2p0"]
-[ext_resource type="Texture2D" uid="uid://boj63m8kwp2bo" path="res://assets/CustomTheme/Highscore.png" id="2_hdhwt"]
+[ext_resource type="Texture2D" uid="uid://ddvyh6t4p7ray" path="res://assets/CustomTheme/Original/SettingButton.png" id="3_5gtie"]
+[ext_resource type="Texture2D" uid="uid://nc1f18o1hpxn" path="res://assets/CustomTheme/Original/Credit.png" id="4_ttj2j"]
+[ext_resource type="Texture2D" uid="uid://boj63m8kwp2bo" path="res://assets/CustomTheme/Original/Highscore.png" id="5_riphu"]
 
 [node name="MainMenu" type="AspectRatioContainer"]
 anchors_preset = 15
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("1_leuop")
+theme = ExtResource("1_5q2at")
 ratio = 0.37
 script = ExtResource("2_de2p0")
 
@@ -30,12 +30,12 @@ text = "Play"
 [node name="Continue" type="Button" parent="VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-text = " Continue"
+text = "Continue"
 
 [node name="Tutorial" type="Button" parent="VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-text = " Tutorial"
+text = "Tutorial"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
@@ -43,19 +43,19 @@ layout_mode = 2
 [node name="Settings" type="TextureButton" parent="VBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("1_2rghs")
+texture_normal = ExtResource("3_5gtie")
 stretch_mode = 5
 
 [node name="Credits" type="TextureButton" parent="VBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("2_5plrm")
+texture_normal = ExtResource("4_ttj2j")
 stretch_mode = 5
 
 [node name="Highscore" type="TextureButton" parent="VBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("2_hdhwt")
+texture_normal = ExtResource("5_riphu")
 stretch_mode = 5
 
 [connection signal="pressed" from="VBox/Play" to="." method="_on_play_pressed"]

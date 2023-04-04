@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://cmmvi5ewm7uwg"]
 
-[ext_resource type="Theme" uid="uid://cd5jdqocmvnuw" path="res://theme.tres" id="1_vxe13"]
-[ext_resource type="PackedScene" uid="uid://cr4qaweu4awh2" path="res://scenes/Menu/CornerShortcuts.tscn" id="2_27mt3"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_e4ja6"]
 [ext_resource type="Script" path="res://scenes/Menu/Root.gd" id="2_tm68g"]
-[ext_resource type="Texture2D" uid="uid://det5eupawrhh" path="res://assets/CustomTheme/button.png" id="3_gb220"]
 [ext_resource type="Texture2D" uid="uid://ddvimbey1secy" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_oewi0"]
 [ext_resource type="PackedScene" uid="uid://34jy5ieik621" path="res://scenes/Menu/MainMenu.tscn" id="3_vte2y"]
+[ext_resource type="PackedScene" uid="uid://b1svk6m7jhvse" path="res://scenes/Menu/banner.tscn" id="4_f0323"]
 [ext_resource type="PackedScene" uid="uid://blpua6noen8lf" path="res://scenes/Menu/Credits.tscn" id="5_rvwyd"]
-[ext_resource type="PackedScene" uid="uid://4wt75qhapjtd" path="res://scenes/Menu/Settings.tscn" id="6_xyngn"]
+[ext_resource type="PackedScene" path="res://scenes/Menu/Settings.tscn" id="6_xyngn"]
 [ext_resource type="PackedScene" uid="uid://d2a6gfd1cildk" path="res://scenes/Menu/ChooseGameMode.tscn" id="7_n5bvo"]
+[ext_resource type="Texture2D" uid="uid://gfa02a6hyact" path="res://assets/CustomTheme/Original/LeftArrowButton.png" id="11_7ekqa"]
 
 [node name="Root" type="MarginContainer"]
 clip_contents = true
@@ -17,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_vxe13")
+theme = ExtResource("1_e4ja6")
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -33,41 +33,41 @@ layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="GameName" type="TextureRect" parent="Margin/VBox"]
+[node name="Banner" parent="Margin/VBox" instance=ExtResource("4_f0323")]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("3_gb220")
-stretch_mode = 3
 
-[node name="Center" type="Control" parent="Margin/VBox"]
+[node name="Center" type="MarginContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
 
 [node name="MainMenu" parent="Margin/VBox/Center" instance=ExtResource("3_vte2y")]
-layout_mode = 1
+layout_mode = 2
 
 [node name="Credits" parent="Margin/VBox/Center" instance=ExtResource("5_rvwyd")]
 visible = false
-layout_mode = 1
-
-[node name="Settings" parent="Margin/VBox/Center" instance=ExtResource("6_xyngn")]
-visible = false
-layout_mode = 1
+layout_mode = 2
 
 [node name="ChooseGameMode" parent="Margin/VBox/Center" instance=ExtResource("7_n5bvo")]
 visible = false
-layout_mode = 1
-
-[node name="CornerShortcuts" parent="." instance=ExtResource("2_27mt3")]
 layout_mode = 2
 
-[node name="Return" parent="CornerShortcuts" index="1"]
-disabled = true
+[node name="Settings" parent="Margin/VBox/Center" instance=ExtResource("6_xyngn")]
+visible = false
+layout_mode = 2
+theme = null
+
+[node name="Return" type="TextureButton" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("11_7ekqa")
 
 [connection signal="b_continue" from="Margin/VBox/Center/MainMenu" to="." method="_on_main_menu_b_continue"]
 [connection signal="b_credits" from="Margin/VBox/Center/MainMenu" to="." method="_on_main_menu_b_credits"]
@@ -79,6 +79,4 @@ disabled = true
 [connection signal="custom_mode" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_custom_mode"]
 [connection signal="four_seasons" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_four_seasons"]
 [connection signal="time_rush" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_time_rush"]
-[connection signal="pressed" from="CornerShortcuts/Return" to="." method="_on_return_pressed"]
-
-[editable path="CornerShortcuts"]
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]

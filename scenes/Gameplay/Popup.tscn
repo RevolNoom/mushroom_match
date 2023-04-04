@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvx63rshikhmc"]
+
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/theme.tres" id="1_xp1qe"]
+
+[node name="Popup" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xp1qe")
+
+[node name="ARC" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+ratio = 0.7
+
+[node name="VBox" type="VBoxContainer" parent="ARC"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ARC/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.28
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad" type="Control" parent="ARC/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.17
+
+[node name="Content" type="MarginContainer" parent="ARC/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+
+[node name="Pad2" type="Control" parent="ARC/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2

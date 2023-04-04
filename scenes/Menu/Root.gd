@@ -5,7 +5,7 @@ extends MarginContainer
 
 func _on_return_pressed():
 	_sceneStack.pop_back().hide()
-	$CornerShortcuts/Return.disabled = _sceneStack.size() == 1
+	$Return.visible = _sceneStack.size() > 1
 	_sceneStack.back().show()
 
 
@@ -13,9 +13,7 @@ func changeScene(node):
 	_sceneStack.back().hide()
 	_sceneStack.push_back(node)
 	node.show()
-	$CornerShortcuts/Return.disabled = false
-	
-
+	$Return.visible = true
 
 
 func _on_main_menu_b_continue():

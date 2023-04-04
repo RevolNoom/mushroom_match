@@ -14,7 +14,7 @@ func _on_settings_pressed():
 
 
 func _on_credits_pressed():
-	emit_signal("b_settings")
+	emit_signal("b_credits")
 
 
 func _on_play_pressed():

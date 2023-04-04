@@ -17,7 +17,6 @@ func AddSpore(mushroom: Mushroom):
 func Add(mushroom: Mushroom, mush_name: String):
 	$Center.add_child(mushroom)
 	mushroom.name = mush_name
-	#_on_item_rect_changed()
 
 
 func PopMushroom() -> Mushroom:
@@ -44,8 +43,6 @@ func IsEmpty() -> bool:
 
 func HasMushroom() -> bool:
 	return $Center.get_node_or_null("Mushroom") != null
-	
-	
 func HasSpore() -> bool:
 	return $Center.get_node_or_null("Spore") != null
 
@@ -54,7 +51,7 @@ func GrowSporeIntoMushroom():
 	$Center.get_node("Spore")._grown = true
 	$Center.get_node("Spore").name = "Mushroom"
 	GetMushroom().scale = Vector2(1, 1)
-	#_on_item_rect_changed()
+	
 
 var MushroomTextureSize = Vector2(16, 16)
 func _on_item_rect_changed():

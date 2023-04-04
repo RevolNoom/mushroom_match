@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr4qaweu4awh2"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Texture2D" uid="uid://ddvyh6t4p7ray" path="res://assets/CustomTheme/SettingButton.png" id="1_ha0c3"]
-[ext_resource type="Texture2D" uid="uid://gfa02a6hyact" path="res://assets/CustomTheme/LeftArrowButton.png" id="2_wlosh"]
+[ext_resource type="Texture2D" uid="uid://ddvyh6t4p7ray" path="res://assets/CustomTheme/Original/SettingButton.png" id="1_ha0c3"]
+[ext_resource type="Texture2D" uid="uid://gfa02a6hyact" path="res://assets/CustomTheme/Original/LeftArrowButton.png" id="2_wlosh"]
 
 [node name="CornerShortcuts" type="VBoxContainer"]
 size_flags_horizontal = 0

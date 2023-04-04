@@ -2,6 +2,7 @@ extends MarginContainer
 
 @export var spore_per_turn = 5
 
+#TODO: Put Mushroom Generator inside Board
 
 func _ready():
 	$MushroomGenerator.RandomizeGeneratingMushroomSet(7)
@@ -35,3 +36,24 @@ func GenerateNewSpores():
 		var slot = $VBox/Top/ARC/NextSpawn.get_child(i)
 		next_turn_spore[i].scale = Vector2(0.33, 0.33)
 		slot.texture = next_turn_spore[i].texture
+
+
+func _on_home_pressed():
+	ShowPopup($Popups/ToMenu)
+
+
+func ShowPopup(popup_node):
+	$Popups.show()
+	popup_node.show()
+
+
+func HidePopup(popup_node):
+	$Popups.hide()
+	popup_node.hide()
+
+
+func _on_to_main_menu_to_home(yes):
+	if yes:
+		get_tree().change_scene_to_packed(load("res://scenes/Menu/Root.tscn"))
+	else:
+		HidePopup($Popups/ToMenu)

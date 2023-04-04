@@ -1,16 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://l1sgd2s0ubed"]
+[gd_scene load_steps=14 format=3 uid="uid://l1sgd2s0ubed"]
 
 [ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="1_1eqxi"]
-[ext_resource type="Theme" uid="uid://cd5jdqocmvnuw" path="res://theme.tres" id="1_o1yvg"]
+[ext_resource type="Theme" uid="uid://ddn3qktj1w4tm" path="res://theme.tres" id="1_o1yvg"]
 [ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="2_f0uqp"]
 [ext_resource type="Texture2D" uid="uid://ddvimbey1secy" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="2_jlevg"]
 [ext_resource type="Script" path="res://scenes/Menu/ScoreBoard.gd" id="3_1mhts"]
 [ext_resource type="Texture2D" uid="uid://bn3d6e32xvl8" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="4_7yfxa"]
 [ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="5_1y5v2"]
-[ext_resource type="Texture2D" uid="uid://dfg0vjc3nycmb" path="res://assets/CustomTheme/save.png" id="7_6a105"]
-[ext_resource type="Texture2D" uid="uid://be0s5bubrvd3j" path="res://assets/CustomTheme/load.png" id="8_dajc7"]
-[ext_resource type="Texture2D" uid="uid://chug2tw1a3edq" path="res://assets/CustomTheme/RightArrowButton.png" id="8_l2rh8"]
+[ext_resource type="Texture2D" uid="uid://dfg0vjc3nycmb" path="res://assets/CustomTheme/Original/save.png" id="8_56u4i"]
+[ext_resource type="Texture2D" uid="uid://be0s5bubrvd3j" path="res://assets/CustomTheme/Original/load.png" id="9_t4c1n"]
+[ext_resource type="Texture2D" uid="uid://dkqpv8trwh3mv" path="res://assets/CustomTheme/Original/HomeButton.png" id="10_86y5y"]
 [ext_resource type="PackedScene" uid="uid://d01xg0obrpwk5" path="res://scenes/Gameplay/MushroomGenerator.tscn" id="11_hopkt"]
+[ext_resource type="Texture2D" uid="uid://chug2tw1a3edq" path="res://assets/CustomTheme/Original/RightArrowButton.png" id="11_i1mfc"]
+[ext_resource type="PackedScene" uid="uid://c3fb3eavbjrbf" path="res://scenes/Gameplay/ToMainMenu.tscn" id="13_wn3vf"]
 
 [node name="Gameplay" type="MarginContainer"]
 anchors_preset = 15
@@ -139,13 +141,19 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("7_6a105")
+texture_normal = ExtResource("8_56u4i")
 
 [node name="Load" type="TextureButton" parent="VBox/Bottom/Progress"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("8_dajc7")
+texture_normal = ExtResource("9_t4c1n")
+
+[node name="Home" type="TextureButton" parent="VBox/Bottom/Progress"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("10_86y5y")
 
 [node name="Move" type="HBoxContainer" parent="VBox/Bottom"]
 layout_mode = 2
@@ -155,17 +163,32 @@ alignment = 2
 [node name="Undo" type="TextureButton" parent="VBox/Bottom/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
-texture_normal = ExtResource("8_l2rh8")
+texture_normal = ExtResource("11_i1mfc")
 stretch_mode = 5
 flip_h = true
 
 [node name="Redo" type="TextureButton" parent="VBox/Bottom/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
-texture_normal = ExtResource("8_l2rh8")
+texture_normal = ExtResource("11_i1mfc")
 stretch_mode = 5
 
 [node name="MushroomGenerator" parent="." instance=ExtResource("11_hopkt")]
 
+[node name="Popups" type="Control" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="ToMainMenu" parent="Popups" instance=ExtResource("13_wn3vf")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+theme = null
+
 [connection signal="add_score" from="VBox/Board" to="VBox/Top/ScoreBoard" method="_on_board_add_score"]
 [connection signal="next_turn" from="VBox/Board" to="." method="_on_board_next_turn"]
+[connection signal="pressed" from="VBox/Bottom/Progress/Home" to="." method="_on_home_pressed"]
+[connection signal="to_home" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_to_home"]

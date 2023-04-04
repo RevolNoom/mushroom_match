@@ -1,40 +1,61 @@
-[gd_scene format=3 uid="uid://4wt75qhapjtd"]
+[gd_scene load_steps=4 format=3]
 
-[node name="Settings" type="CenterContainer"]
+[ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Gameplay/Popup.tscn" id="1_ah1fq"]
+[ext_resource type="Texture2D" uid="uid://cj6wyemjw7uvx" path="res://assets/CustomTheme/Original/SoundOn.png" id="2_pryxk"]
+[ext_resource type="Texture2D" uid="uid://slj2hc5s7byl" path="res://assets/CustomTheme/Original/SoundOff.png" id="3_5eef6"]
+
+[node name="Settings" instance=ExtResource("1_ah1fq")]
+
+[node name="Title" parent="ARC/VBox" index="0"]
+text = "SETTINGS"
+
+[node name="Grid" type="GridContainer" parent="ARC/VBox/Content" index="0"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="GridContainer" type="GridContainer" parent="."]
-layout_mode = 2
 columns = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Volume" type="TextureButton" parent="GridContainer"]
+[node name="Music" type="CheckBox" parent="ARC/VBox/Content/Grid" index="0"]
+layout_mode = 2
+expand_icon = true
+
+[node name="MSlider" type="HSlider" parent="ARC/VBox/Content/Grid" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sfx" type="CheckBox" parent="ARC/VBox/Content/Grid" index="2"]
+layout_mode = 2
+theme_override_icons/checked = ExtResource("2_pryxk")
+theme_override_icons/unchecked = ExtResource("3_5eef6")
+
+[node name="SSlider" type="HSlider" parent="ARC/VBox/Content/Grid" index="3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EnableAds" type="CheckBox" parent="ARC/VBox/Content/Grid" index="4"]
 layout_mode = 2
 
-[node name="VSlider" type="HSlider" parent="GridContainer"]
+[node name="EAExplanation" type="Label" parent="ARC/VBox/Content/Grid" index="5"]
 layout_mode = 2
-
-[node name="Sound" type="TextureButton" parent="GridContainer"]
-layout_mode = 2
-
-[node name="SSlider" type="HSlider" parent="GridContainer"]
-layout_mode = 2
-
-[node name="EnableAds" type="CheckButton" parent="GridContainer"]
-layout_mode = 2
-
-[node name="EAExplanation" type="Label" parent="GridContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Enable Ads"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="NationalFlag" type="TextureButton" parent="GridContainer"]
+[node name="NationalFlag" type="TextureButton" parent="ARC/VBox/Content/Grid" index="6"]
 layout_mode = 2
 
-[node name="Language" type="Label" parent="GridContainer"]
+[node name="Language" type="Label" parent="ARC/VBox/Content/Grid" index="7"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Language"
 horizontal_alignment = 1
+vertical_alignment = 1
