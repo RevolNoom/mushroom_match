@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_if7l1"]
+[ext_resource type="Script" path="res://scenes/Popups/GameOver.gd" id="2_gfsmi"]
+
+[node name="GameOver" instance=ExtResource("1_if7l1")]
+script = ExtResource("2_gfsmi")
+
+[node name="Title" parent="ARC/VBox" index="0"]
+text = "GAME OVER"
+
+[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ARC/VBox/Content/VBox" index="0"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Your Score"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="ARC/VBox/Content/VBox" index="1"]
+layout_mode = 2
+size_flags_vertical = 7
+theme_override_font_sizes/font_size = 60
+text = "99999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="ARC/VBox/Content/VBox" index="2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Home" type="Button" parent="ARC/VBox/Content/VBox/HBox" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Home"
+
+[node name="Pad" type="Control" parent="ARC/VBox/Content/VBox/HBox" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Retry" type="Button" parent="ARC/VBox/Content/VBox/HBox" index="2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Retry"

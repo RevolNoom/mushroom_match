@@ -1,13 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmmvi5ewm7uwg"]
+[gd_scene load_steps=10 format=3 uid="uid://d4hqtjg6pq6vj"]
 
 [ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_e4ja6"]
 [ext_resource type="Script" path="res://scenes/Menu/Root.gd" id="2_tm68g"]
 [ext_resource type="Texture2D" uid="uid://ddvimbey1secy" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_oewi0"]
 [ext_resource type="PackedScene" uid="uid://34jy5ieik621" path="res://scenes/Menu/MainMenu.tscn" id="3_vte2y"]
 [ext_resource type="PackedScene" uid="uid://b1svk6m7jhvse" path="res://scenes/Menu/banner.tscn" id="4_f0323"]
-[ext_resource type="PackedScene" uid="uid://blpua6noen8lf" path="res://scenes/Menu/Credits.tscn" id="5_rvwyd"]
-[ext_resource type="PackedScene" path="res://scenes/Menu/Settings.tscn" id="6_xyngn"]
+[ext_resource type="PackedScene" uid="uid://cuh8pj245mgas" path="res://scenes/Menu/Credits.tscn" id="5_rvwyd"]
 [ext_resource type="PackedScene" uid="uid://d2a6gfd1cildk" path="res://scenes/Menu/ChooseGameMode.tscn" id="7_n5bvo"]
+[ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="8_gnpmw"]
 [ext_resource type="Texture2D" uid="uid://gfa02a6hyact" path="res://assets/CustomTheme/Original/LeftArrowButton.png" id="11_7ekqa"]
 
 [node name="Root" type="MarginContainer"]
@@ -57,13 +57,10 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Settings" parent="Margin/VBox/Center" instance=ExtResource("6_xyngn")]
-visible = false
+[node name="Settings" parent="Margin/VBox/Center" instance=ExtResource("8_gnpmw")]
 layout_mode = 2
-theme = null
 
 [node name="Return" type="TextureButton" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

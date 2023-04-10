@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjhsr4vr41g4j"]
+
+[ext_resource type="Script" path="res://scenes/GlobalSettings.gd" id="1_orkt1"]
+[ext_resource type="AudioStream" uid="uid://4xdoph2f130x" path="res://assets/Music_SFX/memories-relaxing-acoustic-nylon-guitar-138313.mp3" id="2_vx5rm"]
+[ext_resource type="AudioStream" uid="uid://b1wyq528gcjme" path="res://assets/Music_SFX/boing-98466.mp3" id="3_vw7hh"]
+[ext_resource type="AudioStream" uid="uid://o7svhuqllksi" path="res://assets/Music_SFX/mixkit-cartoon-punch-2149-1.wav" id="4_7l2mu"]
+
+[node name="Settings" type="Node"]
+script = ExtResource("1_orkt1")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vx5rm")
+volume_db = -2.849
+autoplay = true
+
+[node name="Sfx" type="Node" parent="."]
+
+[node name="Mushroom" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource("3_vw7hh")
+
+[node name="UI" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource("4_7l2mu")

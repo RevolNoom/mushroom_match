@@ -2,14 +2,19 @@ extends MarginContainer
 
 @onready var _sceneStack = [$Margin/VBox/Center/MainMenu]
 
+func PlayButtonSfx():
+	$"/root/Settings".PlaySfx("UI")
+
 
 func _on_return_pressed():
+	PlayButtonSfx()
 	_sceneStack.pop_back().hide()
 	$Return.visible = _sceneStack.size() > 1
 	_sceneStack.back().show()
 
 
 func changeScene(node):
+	PlayButtonSfx()
 	_sceneStack.back().hide()
 	_sceneStack.push_back(node)
 	node.show()

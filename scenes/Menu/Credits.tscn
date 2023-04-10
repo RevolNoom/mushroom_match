@@ -1,14 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://blpua6noen8lf"]
+[gd_scene load_steps=2 format=3 uid="uid://cuh8pj245mgas"]
 
-[ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Gameplay/Popup.tscn" id="1_14k5v"]
+[ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_c57hs"]
 
-[node name="Credits" instance=ExtResource("1_14k5v")]
+[node name="Credits" instance=ExtResource("1_c57hs")]
 
 [node name="Title" parent="ARC/VBox" index="0"]
 text = "CREDITS"
 
 [node name="Scroll" type="ScrollContainer" parent="ARC/VBox/Content" index="0"]
 layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content/Scroll" index="0"]
 layout_mode = 2
@@ -39,7 +41,7 @@ horizontal_alignment = 1
 
 [node name="Links" type="Label" parent="ARC/VBox/Content/Scroll/VBox" index="4"]
 layout_mode = 2
-text = "Links"
+text = "Credits:"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="ARC/VBox/Content/Scroll/VBox" index="5"]
@@ -71,8 +73,13 @@ alignment = 1
 
 [node name="UIButtons1" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/Attributions" index="0"]
 layout_mode = 2
-text = "UI Buttons 1"
+text = "UI from Freepik."
 uri = "https://www.freepik.com/free-vector/design-complete-set-score-button-game-pop-up-icon-window-elements-creating-medieval-rpg-video-games_14246137.htm"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ARC/VBox/Content/Scroll/VBox/Attributions/UIButtons1" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="UIButtons2" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/Attributions" index="1"]
 layout_mode = 2

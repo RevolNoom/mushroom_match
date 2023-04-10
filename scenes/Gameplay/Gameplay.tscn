@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://l1sgd2s0ubed"]
+[gd_scene load_steps=19 format=3 uid="uid://bxkh7ovl4r1rb"]
 
 [ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="1_1eqxi"]
-[ext_resource type="Theme" uid="uid://ddn3qktj1w4tm" path="res://theme.tres" id="1_o1yvg"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_o1yvg"]
 [ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="2_f0uqp"]
 [ext_resource type="Texture2D" uid="uid://ddvimbey1secy" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="2_jlevg"]
 [ext_resource type="Script" path="res://scenes/Menu/ScoreBoard.gd" id="3_1mhts"]
@@ -9,10 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="5_1y5v2"]
 [ext_resource type="Texture2D" uid="uid://dfg0vjc3nycmb" path="res://assets/CustomTheme/Original/save.png" id="8_56u4i"]
 [ext_resource type="Texture2D" uid="uid://be0s5bubrvd3j" path="res://assets/CustomTheme/Original/load.png" id="9_t4c1n"]
+[ext_resource type="Texture2D" uid="uid://ddvyh6t4p7ray" path="res://assets/CustomTheme/Original/SettingButton.png" id="10_7mchj"]
 [ext_resource type="Texture2D" uid="uid://dkqpv8trwh3mv" path="res://assets/CustomTheme/Original/HomeButton.png" id="10_86y5y"]
 [ext_resource type="PackedScene" uid="uid://d01xg0obrpwk5" path="res://scenes/Gameplay/MushroomGenerator.tscn" id="11_hopkt"]
 [ext_resource type="Texture2D" uid="uid://chug2tw1a3edq" path="res://assets/CustomTheme/Original/RightArrowButton.png" id="11_i1mfc"]
-[ext_resource type="PackedScene" uid="uid://c3fb3eavbjrbf" path="res://scenes/Gameplay/ToMainMenu.tscn" id="13_wn3vf"]
+[ext_resource type="PackedScene" uid="uid://bsirh5bwycn0u" path="res://scenes/Popups/ToMainMenu.tscn" id="13_wn3vf"]
+[ext_resource type="Texture2D" uid="uid://nqah4moxe35w" path="res://assets/CustomTheme/Original/X.png" id="16_2utfm"]
+[ext_resource type="PackedScene" path="res://scenes/Popups/GameOver.tscn" id="16_7ycph"]
+[ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="16_gu6ni"]
+[ext_resource type="PackedScene" uid="uid://dxuerlu0buwg5" path="res://scenes/Popups/SavePopup.tscn" id="17_jovr5"]
 
 [node name="Gameplay" type="MarginContainer"]
 anchors_preset = 15
@@ -22,7 +27,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_o1yvg")
 script = ExtResource("1_1eqxi")
-spore_per_turn = 3
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 2
@@ -133,23 +137,29 @@ size_flags_horizontal = 1
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Progress" type="HBoxContainer" parent="VBox/Bottom"]
+[node name="Options" type="HBoxContainer" parent="VBox/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Save" type="TextureButton" parent="VBox/Bottom/Progress"]
+[node name="Save" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("8_56u4i")
 
-[node name="Load" type="TextureButton" parent="VBox/Bottom/Progress"]
+[node name="Load" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("9_t4c1n")
 
-[node name="Home" type="TextureButton" parent="VBox/Bottom/Progress"]
+[node name="Settings" type="TextureButton" parent="VBox/Bottom/Options"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("10_7mchj")
+
+[node name="Home" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -175,20 +185,47 @@ stretch_mode = 5
 
 [node name="MushroomGenerator" parent="." instance=ExtResource("11_hopkt")]
 
-[node name="Popups" type="Control" parent="."]
+[node name="Popups" type="MarginContainer" parent="."]
+visible = false
+z_index = 10
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="ToMainMenu" parent="Popups" instance=ExtResource("13_wn3vf")]
+visible = false
+layout_mode = 2
+theme = null
+
+[node name="Settings" parent="Popups" instance=ExtResource("16_gu6ni")]
 visible = false
 layout_mode = 2
 
-[node name="ToMainMenu" parent="Popups" instance=ExtResource("13_wn3vf")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-theme = null
+[node name="GameOver" parent="Popups" instance=ExtResource("16_7ycph")]
+visible = false
+layout_mode = 2
+
+[node name="SavePopup" parent="Popups" instance=ExtResource("17_jovr5")]
+visible = false
+layout_mode = 2
+
+[node name="X" type="TextureButton" parent="Popups"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("16_2utfm")
+flip_h = true
 
 [connection signal="add_score" from="VBox/Board" to="VBox/Top/ScoreBoard" method="_on_board_add_score"]
+[connection signal="full" from="VBox/Board" to="." method="_on_board_full"]
 [connection signal="next_turn" from="VBox/Board" to="." method="_on_board_next_turn"]
-[connection signal="pressed" from="VBox/Bottom/Progress/Home" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Options/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Options/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Options/Home" to="." method="_on_home_pressed"]
 [connection signal="to_home" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_to_home"]
+[connection signal="b_home" from="Popups/GameOver" to="." method="_on_game_over_b_home"]
+[connection signal="b_retry" from="Popups/GameOver" to="." method="_on_game_over_b_retry"]
+[connection signal="pressed" from="Popups/X" to="." method="_on_x_pressed"]

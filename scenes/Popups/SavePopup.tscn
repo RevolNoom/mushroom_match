@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxuerlu0buwg5"]
+
+[ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_x8m5x"]
+[ext_resource type="Texture2D" uid="uid://jedax7al6tpo" path="res://assets/CustomTheme/Resized/LeftButton.png" id="2_583km"]
+[ext_resource type="Script" path="res://scenes/Popups/SavePopup.gd" id="2_m4525"]
+[ext_resource type="Texture2D" uid="uid://bxgd5ibb4x1qh" path="res://assets/CustomTheme/Resized/RightButton.png" id="3_3o121"]
+
+[node name="SavePopup" instance=ExtResource("1_x8m5x")]
+script = ExtResource("2_m4525")
+
+[node name="Title" parent="ARC/VBox" index="0"]
+text = "SAVE"
+
+[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content" index="0"]
+layout_mode = 2
+
+[node name="ARC" type="AspectRatioContainer" parent="ARC/VBox/Content/VBox" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Image" type="TextureRect" parent="ARC/VBox/Content/VBox/ARC" index="0"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+expand_mode = 1
+
+[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content/VBox/ARC" index="1"]
+visible = false
+layout_mode = 2
+alignment = 2
+
+[node name="Score" type="Label" parent="ARC/VBox/Content/VBox/ARC/VBox" index="0"]
+layout_mode = 2
+text = "Score:"
+
+[node name="Date" type="Label" parent="ARC/VBox/Content/VBox/ARC/VBox" index="1"]
+layout_mode = 2
+text = "Saved: "
+
+[node name="Duration" type="Label" parent="ARC/VBox/Content/VBox/ARC/VBox" index="2"]
+layout_mode = 2
+text = "Duration:"
+
+[node name="SaveArea" type="Button" parent="ARC/VBox/Content/VBox/ARC" index="2"]
+layout_mode = 2
+text = "Empty Slot
+
+Touch To Save"
+flat = true
+
+[node name="HBox" type="HBoxContainer" parent="ARC/VBox/Content/VBox" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="Left" type="TextureButton" parent="ARC/VBox/Content/VBox/HBox" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture_normal = ExtResource("2_583km")
+stretch_mode = 5
+
+[node name="Numbering" type="Label" parent="ARC/VBox/Content/VBox/HBox" index="1"]
+layout_mode = 2
+text = "1/1"
+horizontal_alignment = 1
+
+[node name="Right" type="TextureButton" parent="ARC/VBox/Content/VBox/HBox" index="2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture_normal = ExtResource("3_3o121")
+stretch_mode = 5
+
+[connection signal="pressed" from="ARC/VBox/Content/VBox/ARC/SaveArea" to="." method="_on_save_area_pressed"]
+[connection signal="pressed" from="ARC/VBox/Content/VBox/HBox/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="ARC/VBox/Content/VBox/HBox/Right" to="." method="_on_right_pressed"]

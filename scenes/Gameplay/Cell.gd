@@ -3,20 +3,28 @@ extends TextureButton
 class_name Cell
 
 signal chosen(_self)
+#signal grow_anim_finish
 
 
 func _on_pressed():
 	emit_signal("chosen", self)
 
 
-#TODO: Check if there's mushroom already? Is it necessary?
 func AddMushroom(mushroom: Mushroom):
 	Add(mushroom, "Mushroom")
+	mushroom.z_index = 3
+	
 func AddSpore(mushroom: Mushroom):
+	mushroom.scale = Vector2()
 	Add(mushroom, "Spore")
-func Add(mushroom: Mushroom, mush_name: String):
+	mushroom.PlayAnim("sprout")
+	mushroom.z_index = 2
+	
+func Add(mushroom: Mushroom, type: String):
+	#print(name + " Added " + type)#("Yes" if has else "No"))
 	$Center.add_child(mushroom)
-	mushroom.name = mush_name
+	mushroom.name = type
+	mushroom.position = Vector2()
 
 
 func PopMushroom() -> Mushroom:
@@ -48,9 +56,8 @@ func HasSpore() -> bool:
 
 
 func GrowSporeIntoMushroom():
-	$Center.get_node("Spore")._grown = true
+	$Center.get_node("Spore").PlayAnim("grow")
 	$Center.get_node("Spore").name = "Mushroom"
-	GetMushroom().scale = Vector2(1, 1)
 	
 
 var MushroomTextureSize = Vector2(16, 16)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2a6gfd1cildk"]
 
-[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/theme.tres" id="1_asq07"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_asq07"]
 [ext_resource type="Script" path="res://scenes/Menu/ChooseGameMode.gd" id="2_7rn64"]
 
 [node name="ChooseGameMode" type="AspectRatioContainer"]
