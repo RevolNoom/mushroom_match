@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_1j2c7"]
 [ext_resource type="Script" path="res://scenes/Popups/ToMainMenu.gd" id="2_vvmja"]
 
-[node name="ToMainMenu" instance=ExtResource("1_1j2c7")]
+[node name="YesNoPopup" instance=ExtResource("1_1j2c7")]
 script = ExtResource("2_vvmja")
 
 [node name="Title" parent="ARC/VBox" index="0"]
@@ -34,6 +34,7 @@ text = "Yes"
 [node name="Pad" type="Control" parent="ARC/VBox/Content/VBox/HBox" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 
 [node name="No" type="Button" parent="ARC/VBox/Content/VBox/HBox" index="2"]
 layout_mode = 2

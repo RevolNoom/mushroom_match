@@ -1,21 +1,40 @@
 extends MarginContainer
 
+signal to_main_menu
 
-#TODO: Put Mushroom Generator inside Board
 
 func _ready():
-	$VBox/Top/ARC.ratio = $VBox/Board.spore_per_turn
-	_on_board_next_turn()
+	#$VBox/Top/ARC.ratio = $VBox/Board.spore_per_turn
+	UpdateNextTurnSpores()
+	#Pause()
+
+
+func Play():
+	$VBox/Top/Clock.Resume()
+	$VBox/Board.EnableInput(true)
+
+
+func Pause():
+	$VBox/Top/Clock.Pause()
+	$VBox/Board.EnableInput(false)
 	
 
 func _on_board_next_turn():
-	for i in range(0, $VBox/Top/ARC/NextSpawn.get_child_count()):
-		var cell = $VBox/Top/ARC/NextSpawn.get_child(i)
+	UpdateNextTurnSpores()
+
+
+func UpdateNextTurnSpores():
+	for i in range(0, $VBox/Top/NextSpawn.get_child_count()):
+		var cell = $VBox/Top/NextSpawn.get_child(i)
 		if i < $VBox/Board.spore_per_turn:
 			cell.visible = true
 			cell.texture = $VBox/Board.GetNextTurnSpores()[i].texture
 		else:
 			cell.visible = false
+
+
+func _on_board_add_score(amount):
+	$VBox/Top/ScoreBoard/Value.text = str(int($VBox/Top/ScoreBoard/Value.text)+amount)
 
 
 func _on_home_pressed():
@@ -34,9 +53,9 @@ func HidePopup():
 		each.hide()
 
 
-func _on_to_main_menu_to_home(yes):
+func _on_to_main_menu_confirm(yes):
 	if yes:
-		get_tree().change_scene_to_packed(load("res://scenes/Menu/Root.tscn"))
+		emit_signal("to_main_menu")
 	else:
 		HidePopup()
 
@@ -48,7 +67,7 @@ func _on_board_full():
 
 #TODO: Update highscores
 func _on_game_over_b_home():
-	_on_to_main_menu_to_home(true)
+	_on_to_main_menu_confirm(true)
 	
 	
 func _on_game_over_b_retry():
@@ -63,8 +82,24 @@ func _on_x_pressed():
 	HidePopup()
 
 
-func _on_save_pressed():
-	$Popups/SavePopup.SetSaveData($VBox/Board.GetScreenshot(),\
-								$VBox/Top/ScoreBoard/Value.text,\
-								$VBox/Top/Clock/Value.text)
+func _on_save_load_pressed():
+	$Popups/SavePopup.GatherCurrentSaveData()
 	ShowPopup($Popups/SavePopup)
+
+
+
+func GetSaveData():
+	return {
+		"type": "gameplay",
+		"path": get_path(),
+		"score": $VBox/Top/ScoreBoard/Value.text,
+		"time_elapsed": $VBox/Top/Clock/Value.text
+		# undo/redo array
+		# index of un/redo array
+	}
+
+
+func LoadSaveData(save_data: Dictionary):
+	$VBox/Top/ScoreBoard/Value.text = save_data["score"]
+	$VBox/Top/Clock.time_elapsed = $VBox/Top/Clock.ConvertFromString(save_data["time_elapsed"])
+

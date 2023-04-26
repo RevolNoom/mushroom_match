@@ -2,7 +2,8 @@ extends Node
 
 
 func _ready():
-	$Music.play()
+	#$Music.play()
+	pass
 
 var sfx_enabled = true
 func EnableSfx(enable: bool):

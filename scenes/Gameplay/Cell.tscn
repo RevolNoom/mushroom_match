@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8f3iyitemds0"]
+[gd_scene load_steps=3 format=3 uid="uid://b5uxslxvdjakk"]
 
-[ext_resource type="Texture2D" uid="uid://2ijqakfbdnv5" path="res://assets/CustomTheme/Original/cell.svg" id="1_x0lps"]
+[ext_resource type="Texture2D" uid="uid://64akjab226l3" path="res://assets/CustomTheme/Original/cell.svg" id="1_x0lps"]
 [ext_resource type="Script" path="res://scenes/Gameplay/Cell.gd" id="2_sw661"]
 
 [node name="Cell" type="TextureButton"]

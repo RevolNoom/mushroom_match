@@ -1,5 +1,6 @@
 extends AspectRatioContainer
 
+
 signal next_turn
 signal add_score(amount)
 signal full
@@ -7,11 +8,14 @@ signal full
 
 func _ready():
 	$InputProcessor.SetUp()
-	$MushroomGenerator.RandomizeGeneratingMushroomSet(7)
-	RandomizeInitialBoard($MushroomGenerator.GenerateMushrooms(10))
+	RandomizeInitialBoard()
 	AddSpores($MushroomGenerator.GenerateMushrooms(spore_per_turn))
 	next_turn_spore = $MushroomGenerator.GenerateMushrooms(spore_per_turn)
-	
+
+
+func EnableInput(enable: bool):
+	$InputProcessor.EnableInput(enable)
+
 
 # iv = initial value
 func CreateCanvas(iv):
@@ -24,7 +28,7 @@ func CreateCanvas(iv):
 			[iv, iv, iv, iv, iv, iv, iv, iv, iv],
 			[iv, iv, iv, iv, iv, iv, iv, iv, iv],
 			[iv, iv, iv, iv, iv, iv, iv, iv, iv]]
-			
+
 
 func cell(coordinate: Vector2i) -> Cell:
 	if coordinate.x < 0 or coordinate.x > 8 or\
@@ -56,10 +60,6 @@ func AddSpores(spore_list: Array):
 func coord(board_cell: Cell) -> Vector2i:
 	var id = int(board_cell.name.substr(0))
 	return Vector2i(id % $Grid.columns, id / $Grid.columns)
-	
-	
-func _on_grid_container_resized():
-	custom_minimum_size = $Grid.size
 
 
 func _on_input_processor_mushroom_moved_to(new_cell):
@@ -68,10 +68,10 @@ func _on_input_processor_mushroom_moved_to(new_cell):
 		AddSpores(next_turn_spore)
 		next_turn_spore = $MushroomGenerator.GenerateMushrooms(spore_per_turn)
 		emit_signal("next_turn")
-		
 
-# TODO: Randomize Mushroom type
-func RandomizeInitialBoard(init_mushrooms: Array[Mushroom]):
+
+func RandomizeInitialBoard():
+	var init_mushrooms = $MushroomGenerator.GenerateMushrooms(10)
 	var c = $Grid.get_children()
 	c.shuffle()
 	for i in range(0, init_mushrooms.size()):
@@ -86,7 +86,6 @@ func RandomizeInitialBoard(init_mushrooms: Array[Mushroom]):
 # All mushrooms have been grown before searching is initiated
 # Return amount of score increased
 func PopLines(startingCell: Vector2i) -> int:
-	
 	#Note: Color_canvas is actually transposed Board
 	# Actually, its transposition depends on how you lay it out
 	# As long as you are consistent in indexing rule, you are fine
@@ -118,7 +117,7 @@ func pop_lines(color_canvas: Array) -> int:
 				var mshr = cell(Vector2i(i, j)).GetMushroom()
 				mshr.PlayAnim("diminish")
 				mshr.connect("anim_finished", free_mushroom.bind(cell(Vector2i(i, j))), CONNECT_ONE_SHOT)
-				
+
 	var score = count * (count-4)
 	emit_signal("add_score", score)
 	return score
@@ -201,3 +200,55 @@ func GetScreenshot() -> ImageTexture:
 	var rect = $Grid.get_rect()
 	rect.position = $Grid.get_screen_position()
 	return ImageTexture.create_from_image(get_viewport().get_texture().get_image().get_region(rect))
+
+
+
+func GetSaveData():
+	var canvas = CreateCanvas(0)
+	for cll in $Grid.get_children():
+		var c = coord(cll)
+		if cll.HasMushroom():
+			canvas[c.x][c.y] = cll.GetMushroom().ID
+		elif cll.HasSpore():
+			canvas[c.x][c.y] = - cll.GetSpore().ID
+	
+	var nts = []
+	for i in next_turn_spore:
+		nts.push_back(i.ID)
+		
+	return {
+		"type": "board",
+		"path": get_path(),
+		
+		# Positive id is mushroom. Negative is Spore
+		"canvas": canvas,
+		"next_turn_spore": nts,
+		"generator": $MushroomGenerator.GetSaveData()
+		}
+
+
+func LoadSaveData(save_data: Dictionary):
+	$MushroomGenerator.LoadSaveData(save_data["generator"])
+	
+	# TODO: Freeing is not my concern for now
+	#for sc in spored_cells:
+	#	spored_cells.free()
+	
+	spored_cells.clear()
+	for i in range(0, 9):
+		for j in range(0, 9):
+			var c = cell(Vector2i(i, j))
+			c.Clear()
+			
+			var id = save_data["canvas"][i][j]
+			if id < 0:
+				c.AddSpore($MushroomGenerator.GetNewMushroom(-id))
+				spored_cells.push_back(c)
+			elif id > 0:
+				c.AddMushroom($MushroomGenerator.GetNewMushroom(id))
+				
+	# TODO: Freeing is not my concern for now
+	next_turn_spore.clear()
+	for id in save_data["next_turn_spore"]:
+		next_turn_spore.push_back($MushroomGenerator.GetNewMushroom(id))
+	

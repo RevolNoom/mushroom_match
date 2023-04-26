@@ -1,36 +1,35 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxkh7ovl4r1rb"]
+[gd_scene load_steps=16 format=3 uid="uid://cuy5gd2to2yp4"]
 
-[ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="1_1eqxi"]
-[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_o1yvg"]
-[ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="2_f0uqp"]
-[ext_resource type="Texture2D" uid="uid://ddvimbey1secy" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="2_jlevg"]
-[ext_resource type="Script" path="res://scenes/Menu/ScoreBoard.gd" id="3_1mhts"]
-[ext_resource type="Texture2D" uid="uid://bn3d6e32xvl8" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="4_7yfxa"]
-[ext_resource type="PackedScene" uid="uid://h1eoycpg67jj" path="res://scenes/Gameplay/Board.tscn" id="5_1y5v2"]
-[ext_resource type="Texture2D" uid="uid://dfg0vjc3nycmb" path="res://assets/CustomTheme/Original/save.png" id="8_56u4i"]
-[ext_resource type="Texture2D" uid="uid://be0s5bubrvd3j" path="res://assets/CustomTheme/Original/load.png" id="9_t4c1n"]
-[ext_resource type="Texture2D" uid="uid://ddvyh6t4p7ray" path="res://assets/CustomTheme/Original/SettingButton.png" id="10_7mchj"]
-[ext_resource type="Texture2D" uid="uid://dkqpv8trwh3mv" path="res://assets/CustomTheme/Original/HomeButton.png" id="10_86y5y"]
-[ext_resource type="PackedScene" uid="uid://d01xg0obrpwk5" path="res://scenes/Gameplay/MushroomGenerator.tscn" id="11_hopkt"]
-[ext_resource type="Texture2D" uid="uid://chug2tw1a3edq" path="res://assets/CustomTheme/Original/RightArrowButton.png" id="11_i1mfc"]
-[ext_resource type="PackedScene" uid="uid://bsirh5bwycn0u" path="res://scenes/Popups/ToMainMenu.tscn" id="13_wn3vf"]
-[ext_resource type="Texture2D" uid="uid://nqah4moxe35w" path="res://assets/CustomTheme/Original/X.png" id="16_2utfm"]
-[ext_resource type="PackedScene" path="res://scenes/Popups/GameOver.tscn" id="16_7ycph"]
-[ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="16_gu6ni"]
-[ext_resource type="PackedScene" uid="uid://dxuerlu0buwg5" path="res://scenes/Popups/SavePopup.tscn" id="17_jovr5"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_44wjr"]
+[ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="2_rs7im"]
+[ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_l6g7i"]
+[ext_resource type="Texture2D" uid="uid://c2a8vhc28w6gl" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="4_5u4ug"]
+[ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="5_2s72k"]
+[ext_resource type="PackedScene" uid="uid://csxalycdojsqd" path="res://scenes/Gameplay/Board.tscn" id="6_itgpe"]
+[ext_resource type="Texture2D" uid="uid://vfwcbfcaxkmq" path="res://assets/CustomTheme/Resized/flaticon_yogi_aprelliyanto.png" id="7_01mw8"]
+[ext_resource type="Texture2D" uid="uid://cj27djmj7ha8s" path="res://assets/CustomTheme/Original/SettingButton.png" id="8_0678b"]
+[ext_resource type="Texture2D" uid="uid://bu0o5dfvrq1lx" path="res://assets/CustomTheme/Original/HomeButton.png" id="9_bey7g"]
+[ext_resource type="Texture2D" uid="uid://03k486rv50m" path="res://assets/CustomTheme/Original/RightArrowButton.png" id="10_oj4sa"]
+[ext_resource type="PackedScene" uid="uid://bsirh5bwycn0u" path="res://scenes/Popups/ToMainMenu.tscn" id="11_g477v"]
+[ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="12_ksbu7"]
+[ext_resource type="PackedScene" path="res://scenes/Popups/GameOver.tscn" id="13_sc8i3"]
+[ext_resource type="PackedScene" uid="uid://dxuerlu0buwg5" path="res://scenes/Popups/SavePopup.tscn" id="14_5tkq4"]
+[ext_resource type="Texture2D" uid="uid://cktt68qkxost4" path="res://assets/CustomTheme/Original/X.png" id="15_g4616"]
 
-[node name="Gameplay" type="MarginContainer"]
+[node name="Gameplay" type="MarginContainer" groups=["savable"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_o1yvg")
-script = ExtResource("1_1eqxi")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_44wjr")
+script = ExtResource("2_rs7im")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 2
-texture = ExtResource("2_jlevg")
+texture = ExtResource("3_l6g7i")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -38,54 +37,56 @@ layout_mode = 2
 [node name="Top" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
 
-[node name="ARC" type="AspectRatioContainer" parent="VBox/Top"]
+[node name="NextSpawn" type="HBoxContainer" parent="VBox/Top"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-ratio = 5.0
-stretch_mode = 1
-alignment_horizontal = 0
+size_flags_horizontal = 2
 
-[node name="NextSpawn" type="HBoxContainer" parent="VBox/Top/ARC"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="1" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+[node name="1" type="TextureRect" parent="VBox/Top/NextSpawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("4_7yfxa")
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
 
-[node name="2" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+[node name="2" type="TextureRect" parent="VBox/Top/NextSpawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("4_7yfxa")
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
 
-[node name="3" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+[node name="3" type="TextureRect" parent="VBox/Top/NextSpawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("4_7yfxa")
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
 
-[node name="4" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+[node name="4" type="TextureRect" parent="VBox/Top/NextSpawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("4_7yfxa")
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
 
-[node name="5" type="TextureRect" parent="VBox/Top/ARC/NextSpawn"]
+[node name="5" type="TextureRect" parent="VBox/Top/NextSpawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("4_7yfxa")
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Clock" type="VBoxContainer" parent="VBox/Top"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-script = ExtResource("2_f0uqp")
+script = ExtResource("5_2s72k")
 
 [node name="Label" type="Label" parent="VBox/Top/Clock"]
 layout_mode = 2
@@ -109,7 +110,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-script = ExtResource("3_1mhts")
 
 [node name="Label" type="Label" parent="VBox/Top/ScoreBoard"]
 layout_mode = 2
@@ -129,7 +129,7 @@ text = "0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Board" parent="VBox" instance=ExtResource("5_1y5v2")]
+[node name="Board" parent="VBox" groups=["savable"] instance=ExtResource("6_itgpe")]
 layout_mode = 2
 size_flags_horizontal = 1
 
@@ -141,29 +141,23 @@ size_flags_vertical = 8
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Save" type="TextureButton" parent="VBox/Bottom/Options"]
+[node name="SaveLoad" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("8_56u4i")
-
-[node name="Load" type="TextureButton" parent="VBox/Bottom/Options"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("9_t4c1n")
+texture_normal = ExtResource("7_01mw8")
 
 [node name="Settings" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("10_7mchj")
+texture_normal = ExtResource("8_0678b")
 
 [node name="Home" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("10_86y5y")
+texture_normal = ExtResource("9_bey7g")
 
 [node name="Move" type="HBoxContainer" parent="VBox/Bottom"]
 layout_mode = 2
@@ -173,17 +167,15 @@ alignment = 2
 [node name="Undo" type="TextureButton" parent="VBox/Bottom/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
-texture_normal = ExtResource("11_i1mfc")
+texture_normal = ExtResource("10_oj4sa")
 stretch_mode = 5
 flip_h = true
 
 [node name="Redo" type="TextureButton" parent="VBox/Bottom/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
-texture_normal = ExtResource("11_i1mfc")
+texture_normal = ExtResource("10_oj4sa")
 stretch_mode = 5
-
-[node name="MushroomGenerator" parent="." instance=ExtResource("11_hopkt")]
 
 [node name="Popups" type="MarginContainer" parent="."]
 visible = false
@@ -194,20 +186,20 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="ToMainMenu" parent="Popups" instance=ExtResource("13_wn3vf")]
+[node name="ToMainMenu" parent="Popups" instance=ExtResource("11_g477v")]
 visible = false
 layout_mode = 2
 theme = null
 
-[node name="Settings" parent="Popups" instance=ExtResource("16_gu6ni")]
+[node name="Settings" parent="Popups" instance=ExtResource("12_ksbu7")]
 visible = false
 layout_mode = 2
 
-[node name="GameOver" parent="Popups" instance=ExtResource("16_7ycph")]
+[node name="GameOver" parent="Popups" instance=ExtResource("13_sc8i3")]
 visible = false
 layout_mode = 2
 
-[node name="SavePopup" parent="Popups" instance=ExtResource("17_jovr5")]
+[node name="SavePopup" parent="Popups" instance=ExtResource("14_5tkq4")]
 visible = false
 layout_mode = 2
 
@@ -216,16 +208,16 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource("16_2utfm")
+texture_normal = ExtResource("15_g4616")
 flip_h = true
 
-[connection signal="add_score" from="VBox/Board" to="VBox/Top/ScoreBoard" method="_on_board_add_score"]
+[connection signal="add_score" from="VBox/Board" to="." method="_on_board_add_score"]
 [connection signal="full" from="VBox/Board" to="." method="_on_board_full"]
 [connection signal="next_turn" from="VBox/Board" to="." method="_on_board_next_turn"]
-[connection signal="pressed" from="VBox/Bottom/Options/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Options/SaveLoad" to="." method="_on_save_load_pressed"]
 [connection signal="pressed" from="VBox/Bottom/Options/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBox/Bottom/Options/Home" to="." method="_on_home_pressed"]
-[connection signal="to_home" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_to_home"]
+[connection signal="confirm" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_confirm"]
 [connection signal="b_home" from="Popups/GameOver" to="." method="_on_game_over_b_home"]
 [connection signal="b_retry" from="Popups/GameOver" to="." method="_on_game_over_b_retry"]
 [connection signal="pressed" from="Popups/X" to="." method="_on_x_pressed"]

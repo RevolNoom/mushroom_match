@@ -7,18 +7,18 @@ signal chosen(_self)
 
 
 func _on_pressed():
+	#print("pressed " + name)
 	emit_signal("chosen", self)
 
 
 func AddMushroom(mushroom: Mushroom):
 	Add(mushroom, "Mushroom")
-	mushroom.z_index = 3
+	#mushroom.z_index = 1
 	
 func AddSpore(mushroom: Mushroom):
 	mushroom.scale = Vector2()
 	Add(mushroom, "Spore")
 	mushroom.PlayAnim("sprout")
-	mushroom.z_index = 2
 	
 func Add(mushroom: Mushroom, type: String):
 	#print(name + " Added " + type)#("Yes" if has else "No"))
@@ -35,6 +35,14 @@ func Pop(type: String) -> Mushroom:
 	var mushroom = $Center.get_node(type)
 	$Center.remove_child(mushroom)
 	return mushroom
+
+
+func Clear():
+	if not IsEmpty():
+		if HasSpore():
+			PopSpore().queue_free()
+		else:
+			PopMushroom().queue_free()
 
 
 func GetMushroom() -> Mushroom:
@@ -57,6 +65,7 @@ func HasSpore() -> bool:
 
 func GrowSporeIntoMushroom():
 	$Center.get_node("Spore").PlayAnim("grow")
+	#$Center.get_node("Spore").z_index = 1
 	$Center.get_node("Spore").name = "Mushroom"
 	
 

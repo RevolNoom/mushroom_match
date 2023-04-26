@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1pgx6fnv8org"]
+
+[ext_resource type="Script" path="res://scenes/Gameplay/CommandCenter/MovementHandler.gd" id="1_3psye"]
+
+[sub_resource type="Curve2D" id="Curve2D_1a6jw"]
+
+[node name="MovementHandler" type="Path2D"]
+z_index = 1
+curve = SubResource("Curve2D_1a6jw")
+script = ExtResource("1_3psye")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+z_index = 1
+update_rotation = false
+update_scale = false

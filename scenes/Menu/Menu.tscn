@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4uyws5r0r76f"]
+
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_5q2at"]
+[ext_resource type="Script" path="res://scenes/Menu/Menu.gd" id="2_vvhj1"]
+[ext_resource type="Texture2D" uid="uid://cj27djmj7ha8s" path="res://assets/CustomTheme/Original/SettingButton.png" id="3_5gtie"]
+[ext_resource type="Texture2D" uid="uid://c5vpioee4qinq" path="res://assets/CustomTheme/Original/Credit.png" id="4_ttj2j"]
+[ext_resource type="Texture2D" uid="uid://bq6aaoba5ec27" path="res://assets/CustomTheme/Original/Highscore.png" id="5_riphu"]
+
+[node name="Menu" type="AspectRatioContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_5q2at")
+ratio = 0.37
+script = ExtResource("2_vvhj1")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Play"
+
+[node name="Continue" type="Button" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Continue"
+
+[node name="Tutorial" type="Button" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Tutorial"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Settings" type="TextureButton" parent="VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("3_5gtie")
+stretch_mode = 5
+
+[node name="Credits" type="TextureButton" parent="VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_ttj2j")
+stretch_mode = 5
+
+[node name="Highscore" type="TextureButton" parent="VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_riphu")
+stretch_mode = 5
+
+[connection signal="pressed" from="VBox/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBox/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBox/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="VBox/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBox/HBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBox/HBoxContainer/Highscore" to="." method="_on_highscore_pressed"]

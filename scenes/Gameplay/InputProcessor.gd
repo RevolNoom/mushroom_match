@@ -2,33 +2,37 @@ extends Node
 
 signal mushroom_moved_to(new_cell)
 
+
+func EnableInput(enable: bool):
+	_inputProcessEnabled = enable
+
+
 var _board
 func SetUp():
 	_board = get_parent()
 	for c in _board.get_node("Grid").get_children():
 		c.connect("chosen", ProcessInput)#Callable(self, "ProcessInput"))
-	_lastChosenCell = null
-	_chosenCell = null
-	_inputProcessEnabled = true
 
 
-var _inputProcessEnabled: bool
-var _lastChosenCell: Cell
-var _chosenCell: Cell
+var _inputProcessEnabled: bool = true
+var _lastChosenCell: Cell = null
+var _chosenCell: Cell = null
 func ProcessInput(c: Cell):
-	#print("picking: " + c.name)
-	#print("c " + ("has" if c.HasMushroom() else "doesn't have ") + "mushroom")
+	#print("processing")
 	if not _inputProcessEnabled:
 		return
 	
+	#print("enabled")
 	if c.HasMushroom():
 		if _lastChosenCell != null:
 			_lastChosenCell.GetMushroom().SwingLazily()
 		_lastChosenCell = c
 		$"/root/Settings".PlaySfx("Mushroom")
 		c.GetMushroom().BoingBoingOnChosen()
+		#print("processing1")
 		
 	elif _lastChosenCell != null and _lastChosenCell.HasMushroom():
+		#print("processing2")
 		_lastChosenCell.GetMushroom().SwingLazily()
 		if _board.coord(_lastChosenCell) == _board.coord(c):
 			_lastChosenCell = null
@@ -101,7 +105,6 @@ func FindPath(from: Cell, to: Cell) -> Array:
 	return path
 
 
-#TODO: Align mushroom movement to cell center
 func MoveMushroom(path: Array):
 	$"/root/Settings".PlaySfx("Mushroom")
 	
@@ -112,6 +115,7 @@ func MoveMushroom(path: Array):
 	
 	$Path2D/PathFollow2D.progress_ratio = 0
 	$Path2D/PathFollow2D/RemoteTransform2D.remote_path = _lastChosenCell.GetMushroom().get_path()
+	_lastChosenCell.GetMushroom().z_index = $Path2D/PathFollow2D/RemoteTransform2D.z_index
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property($Path2D/PathFollow2D, "progress_ratio", 1, 0.3 + path.size()*0.06).set_trans(Tween.TRANS_SINE)
@@ -121,6 +125,7 @@ func MoveMushroom(path: Array):
 
 func _on_tween_movement_complete():
 	$Path2D/PathFollow2D/RemoteTransform2D.remote_path = ""
+	_lastChosenCell.GetMushroom().z_index = 0
 	_chosenCell.AddMushroom(_lastChosenCell.PopMushroom())
 	var cell = _chosenCell
 	_chosenCell = null

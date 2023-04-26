@@ -1,15 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxuerlu0buwg5"]
+[gd_scene load_steps=14 format=3 uid="uid://dxuerlu0buwg5"]
 
 [ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_x8m5x"]
-[ext_resource type="Texture2D" uid="uid://jedax7al6tpo" path="res://assets/CustomTheme/Resized/LeftButton.png" id="2_583km"]
+[ext_resource type="Texture2D" uid="uid://cjei5bm02lu3j" path="res://assets/CustomTheme/Resized/LeftButton.png" id="2_583km"]
 [ext_resource type="Script" path="res://scenes/Popups/SavePopup.gd" id="2_m4525"]
-[ext_resource type="Texture2D" uid="uid://bxgd5ibb4x1qh" path="res://assets/CustomTheme/Resized/RightButton.png" id="3_3o121"]
+[ext_resource type="Texture2D" uid="uid://dra7eyevb3wlm" path="res://assets/CustomTheme/Resized/RightButton.png" id="3_3o121"]
+[ext_resource type="Texture2D" uid="uid://cfo7grju6iqkg" path="res://assets/CustomTheme/Resized/XRed.png" id="3_kykl7"]
+[ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_wyfa8"]
+[ext_resource type="PackedScene" uid="uid://csxalycdojsqd" path="res://scenes/Gameplay/Board.tscn" id="4_a7185"]
+[ext_resource type="PackedScene" uid="uid://bsirh5bwycn0u" path="res://scenes/Popups/ToMainMenu.tscn" id="6_gsn3l"]
 
-[node name="SavePopup" instance=ExtResource("1_x8m5x")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6m7ru"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucx0x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8hjpk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r6muj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ou62e"]
+
+[node name="SavePopup" groups=["savable"] instance=ExtResource("1_x8m5x")]
 script = ExtResource("2_m4525")
 
 [node name="Title" parent="ARC/VBox" index="0"]
-text = "SAVE"
+text = "SAVE/LOAD"
 
 [node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content" index="0"]
 layout_mode = 2
@@ -19,35 +33,52 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Image" type="TextureRect" parent="ARC/VBox/Content/VBox/ARC" index="0"]
-visible = false
+[node name="EmptySlotNotice" type="Label" parent="ARC/VBox/Content/VBox/ARC" index="0"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 6.0
-expand_mode = 1
-
-[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content/VBox/ARC" index="1"]
-visible = false
-layout_mode = 2
-alignment = 2
-
-[node name="Score" type="Label" parent="ARC/VBox/Content/VBox/ARC/VBox" index="0"]
-layout_mode = 2
-text = "Score:"
-
-[node name="Date" type="Label" parent="ARC/VBox/Content/VBox/ARC/VBox" index="1"]
-layout_mode = 2
-text = "Saved: "
-
-[node name="Duration" type="Label" parent="ARC/VBox/Content/VBox/ARC/VBox" index="2"]
-layout_mode = 2
-text = "Duration:"
-
-[node name="SaveArea" type="Button" parent="ARC/VBox/Content/VBox/ARC" index="2"]
-layout_mode = 2
+size_flags_vertical = 1
 text = "Empty Slot
 
 Touch To Save"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MC" type="MarginContainer" parent="ARC/VBox/Content/VBox/ARC" index="1"]
+visible = false
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="ARC/VBox/Content/VBox/ARC/MC" index="0"]
+layout_mode = 2
+texture = ExtResource("3_wyfa8")
+
+[node name="Board" parent="ARC/VBox/Content/VBox/ARC/MC" index="1" instance=ExtResource("4_a7185")]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content/VBox/ARC/MC/Board" index="3"]
+layout_mode = 2
+alignment = 2
+
+[node name="Score" type="Label" parent="ARC/VBox/Content/VBox/ARC/MC/Board/VBox" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Score:"
+
+[node name="Date" type="Label" parent="ARC/VBox/Content/VBox/ARC/MC/Board/VBox" index="1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Date:"
+
+[node name="Gametime" type="Label" parent="ARC/VBox/Content/VBox/ARC/MC/Board/VBox" index="2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Gametime:"
+
+[node name="SaveArea" type="Button" parent="ARC/VBox/Content/VBox/ARC" index="2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6m7ru")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ucx0x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8hjpk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_r6muj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ou62e")
 flat = true
 
 [node name="HBox" type="HBoxContainer" parent="ARC/VBox/Content/VBox" index="1"]
@@ -56,23 +87,73 @@ alignment = 1
 
 [node name="Left" type="TextureButton" parent="ARC/VBox/Content/VBox/HBox" index="0"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 4
 texture_normal = ExtResource("2_583km")
 stretch_mode = 5
 
-[node name="Numbering" type="Label" parent="ARC/VBox/Content/VBox/HBox" index="1"]
+[node name="HBox" type="HBoxContainer" parent="ARC/VBox/Content/VBox/HBox" index="1"]
 layout_mode = 2
-text = "1/1"
+
+[node name="Current" type="Label" parent="ARC/VBox/Content/VBox/HBox/HBox" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
 horizontal_alignment = 1
+
+[node name="Slash" type="Label" parent="ARC/VBox/Content/VBox/HBox/HBox" index="1"]
+layout_mode = 2
+text = "/"
+
+[node name="Max" type="Label" parent="ARC/VBox/Content/VBox/HBox/HBox" index="2"]
+layout_mode = 2
+text = "1"
 
 [node name="Right" type="TextureButton" parent="ARC/VBox/Content/VBox/HBox" index="2"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 4
 texture_normal = ExtResource("3_3o121")
 stretch_mode = 5
 
+[node name="Delete" type="TextureButton" parent="ARC/VBox/Content" index="1"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("3_kykl7")
+
+[node name="PromptDelete" parent="ARC/VBox/Content" index="2" instance=ExtResource("6_gsn3l")]
+visible = false
+layout_mode = 2
+
+[node name="Title" parent="ARC/VBox/Content/PromptDelete/ARC/VBox" index="0"]
+text = "DELETE"
+
+[node name="Message" parent="ARC/VBox/Content/PromptDelete/ARC/VBox/Content/VBox" index="0"]
+text = "Deleting Save File
+Are you sure?"
+
+[node name="PromptLoad" parent="ARC/VBox/Content" index="3" instance=ExtResource("6_gsn3l")]
+visible = false
+layout_mode = 2
+
+[node name="Title" parent="ARC/VBox/Content/PromptLoad/ARC/VBox" index="0"]
+theme_override_font_sizes/font_size = 35
+text = "Load Game"
+
+[node name="Message" parent="ARC/VBox/Content/PromptLoad/ARC/VBox/Content/VBox" index="0"]
+text = "Loading will lose
+current game progress
+
+Are you sure?"
+
 [connection signal="pressed" from="ARC/VBox/Content/VBox/ARC/SaveArea" to="." method="_on_save_area_pressed"]
 [connection signal="pressed" from="ARC/VBox/Content/VBox/HBox/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="ARC/VBox/Content/VBox/HBox/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="ARC/VBox/Content/Delete" to="." method="_on_delete_pressed"]
+[connection signal="confirm" from="ARC/VBox/Content/PromptDelete" to="." method="_on_prompt_delete_confirm"]
+[connection signal="confirm" from="ARC/VBox/Content/PromptLoad" to="." method="_on_prompt_load_confirm"]
+
+[editable path="ARC/VBox/Content/PromptDelete"]
+[editable path="ARC/VBox/Content/PromptLoad"]
