@@ -3,71 +3,68 @@ extends TextureButton
 class_name Cell
 
 signal chosen(_self)
-#signal grow_anim_finish
 
 
 func _on_pressed():
-	#print("pressed " + name)
 	emit_signal("chosen", self)
 
 
-func AddMushroom(mushroom: Mushroom):
-	Add(mushroom, "Mushroom")
-	#mushroom.z_index = 1
-	
-func AddSpore(mushroom: Mushroom):
-	mushroom.scale = Vector2()
-	Add(mushroom, "Spore")
-	mushroom.PlayAnim("sprout")
-	
-func Add(mushroom: Mushroom, type: String):
-	#print(name + " Added " + type)#("Yes" if has else "No"))
-	$Center.add_child(mushroom)
-	mushroom.name = type
+func Add(mushroom: Mushroom):
+	if mushroom.IsSpore():
+		$Center/Spore.add_child(mushroom)
+	else:
+		$Center/Mushroom.add_child(mushroom)
 	mushroom.position = Vector2()
+	mushroom.connect("ungrown", _on_mushroom_ungrown)
+	mushroom.connect("grown", _on_mushroom_ungrown)
+	mushroom.connect("popped", _on_mushroom_popped)
 
 
-func PopMushroom() -> Mushroom:
-	return Pop("Mushroom")
-func PopSpore() -> Mushroom:
-	return Pop("Spore")
-func Pop(type: String) -> Mushroom:
-	var mushroom = $Center.get_node(type)
-	$Center.remove_child(mushroom)
-	return mushroom
+func _on_mushroom_ungrown(mushroom):
+	mushroom.get_parent().remove_child(mushroom)
+	$Center/Spore.add_child(mushroom)
+	
+	
+func _on_mushroom_grown(mushroom):
+	mushroom.get_parent().remove_child(mushroom)
+	$Center/Mushroom.add_child(mushroom)
+
+
+# TODO: Disconnect signals then delete it?
+func _on_mushroom_popped(mushroom):
+	pass
+	#mushroom.get_parent().remove_child(mushroom)
+	#$Center/Mushroom.add_child(mushroom)
+
 
 
 func Clear():
-	if not IsEmpty():
-		if HasSpore():
-			PopSpore().queue_free()
-		else:
-			PopMushroom().queue_free()
+	if HasSpore():
+		GetSpore().Pop()
+	elif HasMushroom():
+		GetMushroom().Pop()
 
 
 func GetMushroom() -> Mushroom:
-	return Get("Mushroom")
+	return $Center/Mushroom.get_child(0)
 func GetSpore() -> Mushroom:
-	return Get("Spore")
-func Get(type: String) -> Mushroom:
-	return $Center.get_node_or_null(type)
+	return $Center/Spore.get_child(0)
 	
 
+func PopMushroom() -> Mushroom:
+	return $Center/Mushroom.get_child(0)
+func PopSpore() -> Mushroom:
+	return $Center/Spore.get_child(0)
+	
 func IsEmpty() -> bool:
-	return $Center.get_child_count() == 0
+	return not (HasMushroom() or HasSpore())
 
 
 func HasMushroom() -> bool:
-	return $Center.get_node_or_null("Mushroom") != null
+	return $Center/Mushroom.get_child_count()
 func HasSpore() -> bool:
-	return $Center.get_node_or_null("Spore") != null
+	return $Center/Spore.get_child_count()
 
-
-func GrowSporeIntoMushroom():
-	$Center.get_node("Spore").PlayAnim("grow")
-	#$Center.get_node("Spore").z_index = 1
-	$Center.get_node("Spore").name = "Mushroom"
-	
 
 var MushroomTextureSize = Vector2(16, 16)
 func _on_item_rect_changed():

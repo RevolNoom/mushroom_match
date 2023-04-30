@@ -4,19 +4,32 @@ class_name Mushroom
 
 @export var ID = 0
 
+
+# Signals emitted after animation is complete
+
+signal sprouted(_self: Mushroom)
+signal unsprouted(_self: Mushroom)
+
+signal grown(_self: Mushroom)
+signal ungrown(_self: Mushroom)
+
+signal popped(_self: Mushroom)
+signal unpopped(_self: Mushroom)
+
 const SPORE_SCALE = Vector2(0.3, 0.3)
 const GROWN_SCALE = Vector2(1, 1)
-
-
-signal anim_finished(_this: Mushroom, anim_name: String)
 
 
 func _ready():
 	SwingLazily()
 
 
+func IsSpore():
+	return is_in_group("spore")
+	
+
 func SwingLazily():
-	$AnimationPlayer.stop()
+	$AP.stop()
 	aperiodically_swing()
 
 
@@ -29,29 +42,60 @@ func _on_timer_timeout():
 	# Something else is playing.
 	# Probably "grow" or "boing boing"
 	# Wait until it's done
-	if $AnimationPlayer.is_playing():
+	if $AP.is_playing():
 		aperiodically_swing()
 	else:
-
-		$AnimationPlayer.play("swing_lazily")
+		$AP.play("swing_lazily")
 	
 	
-func _on_animation_player_animation_finished(anim_name):
-	#if ["swing_lazily", "grow"].has(anim_name):
-	if anim_name != "boing_boing":
-		aperiodically_swing()
-	emit_signal("anim_finished", self, anim_name)
+func _on_animation_player_animation_finished(_anim_name):
+	aperiodically_swing()
 
 
-func BoingBoingOnChosen():
-	$AnimationPlayer.play("boing_boing")
+func BoingBoing():
+	$AP.play("boing_boing")
 
 
-func PlayAnim(anim_name: String):
-	$AnimationPlayer.play(anim_name)
+func GetCell():
+	return get_parent()
 
 
+func Sprout():
+	$AP.play("sprout")
+	await $AP.animation_finished
+	add_to_group("spore")
+	emit_signal("sprouted", self)
 
 
+func Unsprout():
+	$AP.play_backwards("sprout")
+	await $AP.animation_finished
+	add_to_group("spore")
+	emit_signal("unsprout", self)
 
 
+func Grow():
+	$AP.play("grow")
+	await $AP.animation_finished
+	remove_from_group("spore")
+	emit_signal("grown", self)
+
+
+func Ungrow():
+	$AP.play_backwards("grow")
+	await $AP.animation_finished
+	add_to_group("spore")
+	emit_signal("ungrown", self)
+
+
+func Pop():
+	$AP.play("pop")
+	await $AP.animation_finished
+	emit_signal("popped", self)
+	
+
+func Unpop():
+	$AP.play_backwards("pop")
+	await $AP.animation_finished
+	remove_from_group("spore")
+	emit_signal("unpopped", self)

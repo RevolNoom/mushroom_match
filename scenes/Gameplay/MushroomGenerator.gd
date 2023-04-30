@@ -37,11 +37,13 @@ func RandomizeGeneratingMushroomSet(differrent_mushroom_types: int):
 			break
 
 
-func GenerateMushrooms(amount: int) -> Array[Mushroom]:
-	var result: Array[Mushroom] = []
-	for i in range(0, amount):
-		result.append(gen_set.pick_random().duplicate())
+func GenerateNewIDs(amount: int) -> PackedInt32Array:
+	var result = PackedInt32Array()
+	while amount > 0:
+		result.append(randi_range(1, gen_set_size))
+		amount -= 1
 	return result
+
 
 
 func GetNewMushroom(id: int):

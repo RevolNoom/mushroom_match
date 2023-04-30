@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://csxalycdojsqd"]
+[gd_scene load_steps=4 format=3 uid="uid://csxalycdojsqd"]
 
 [ext_resource type="Script" path="res://scenes/Gameplay/Board.gd" id="1_2u2a1"]
 [ext_resource type="PackedScene" uid="uid://b5uxslxvdjakk" path="res://scenes/Gameplay/Cell.tscn" id="2_xab4r"]
 [ext_resource type="PackedScene" uid="uid://62xvfeetnjw" path="res://scenes/Gameplay/MushroomGenerator.tscn" id="3_1efq1"]
-[ext_resource type="PackedScene" uid="uid://5pqt026od858" path="res://scenes/Gameplay/InputProcessor.tscn" id="4_ksaus"]
-[ext_resource type="PackedScene" uid="uid://dhahs7thq50m7" path="res://scenes/Gameplay/CommandCenter/CommandCenter.tscn" id="5_7yvtr"]
 
 [node name="Board" type="AspectRatioContainer"]
 anchors_preset = 15
@@ -15,7 +13,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_2u2a1")
-spore_per_turn = 3
 
 [node name="Grid" type="GridContainer" parent="."]
 layout_mode = 2
@@ -265,9 +262,3 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="MushroomGenerator" parent="." instance=ExtResource("3_1efq1")]
-
-[node name="InputProcessor" parent="." instance=ExtResource("4_ksaus")]
-
-[node name="CommandCenter" parent="." instance=ExtResource("5_7yvtr")]
-
-[connection signal="mushroom_moved_to" from="InputProcessor" to="." method="_on_input_processor_mushroom_moved_to"]

@@ -7,11 +7,16 @@ func EnableInput(enable: bool):
 	_inputProcessEnabled = enable
 
 
+# It must be guaranteed that there's a path between them
+func Move(start: Vector2i, end: Vector2i):
+	MoveMushroom(FindPath(_board.cell(start), _board.cell(end)))
+
+
 var _board
 func SetUp():
 	_board = get_parent()
 	for c in _board.get_node("Grid").get_children():
-		c.connect("chosen", ProcessInput)#Callable(self, "ProcessInput"))
+		c.connect("chosen", ProcessInput)
 
 
 var _inputProcessEnabled: bool = true
@@ -28,7 +33,7 @@ func ProcessInput(c: Cell):
 			_lastChosenCell.GetMushroom().SwingLazily()
 		_lastChosenCell = c
 		$"/root/Settings".PlaySfx("Mushroom")
-		c.GetMushroom().BoingBoingOnChosen()
+		c.GetMushroom().BoingBoing()
 		#print("processing1")
 		
 	elif _lastChosenCell != null and _lastChosenCell.HasMushroom():
@@ -77,15 +82,8 @@ func FindPath(from: Cell, to: Cell) -> Array:
 	
 	var c_to = _board.coord(to)
 	
-	#for i in range(0, 9):
-	#	var row = str(pathLengthChart[i][0])
-	#	for j in range(1, 9):
-	#		row += " " + str(pathLengthChart[i][j])
-	#	print(row)
-	
 	# Destination unreachable
 	if pathLengthChart[c_to.x][c_to.y] == INFI:
-		#print("No path")
 		return []
 		
 	var path = [c_to]

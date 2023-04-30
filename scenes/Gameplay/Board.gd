@@ -1,20 +1,70 @@
 extends AspectRatioContainer
 
 
-signal next_turn
-signal add_score(amount)
-signal full
+@export var spore_per_turn = 3
+var spores: Array[Vector2i] = []
+var spores_unfilled: Array[Vector2i] = []
 
+var undo_queue = UndoQueue.new()
+
+#TODO: Keep track of consistent state across move logic functions
+var board_state = CreateCanvas(0)
 
 func _ready():
-	$InputProcessor.SetUp()
+	for c in $Grid.get_children():
+		c.connect("chosen", _on_Cell_pressed)
 	RandomizeInitialBoard()
-	AddSpores($MushroomGenerator.GenerateMushrooms(spore_per_turn))
-	next_turn_spore = $MushroomGenerator.GenerateMushrooms(spore_per_turn)
 
 
-func EnableInput(enable: bool):
-	$InputProcessor.EnableInput(enable)
+func RandomizeInitialBoard():
+	const INI_AMOUNT = 4
+	var init_ids = $MushroomGenerator.GenerateNewIDs(INI_AMOUNT + spore_per_turn)
+	var c = $Grid.get_children()
+	c.shuffle()
+	for i in range(0, init_ids.size()):
+		var m = $MushroomGenerator.GetNewMushroom(init_ids[i])
+		c[i].Add(m)
+		if i < INI_AMOUNT:
+			m.Grow()
+			var cord = coord(c[i])
+			board_state[cord.x][cord.y] = init_ids[i]
+		else:
+			m.Sprout()
+
+
+func cell(coordinate: Vector2i) -> Cell:
+	if coordinate.x < 0 or coordinate.x > 8 or\
+		coordinate.y < 0 or coordinate.y > 8:
+		return null
+	return get_node(str(coordinate.y * $Grid.columns + coordinate.x))
+
+
+# Return cell coordinate in [x, y]
+func coord(board_cell: Cell) -> Vector2i:
+	var id = int(board_cell.name.substr(0))
+	return Vector2i(id % $Grid.columns, id / $Grid.columns)
+
+
+var pressEnabled: bool = true
+var lastPressed: Cell = null
+func _on_Cell_pressed(c: Cell):
+	if not pressEnabled:
+		return
+	if c.HasMushroom():
+		if lastPressed != null:
+			lastPressed.GetMushroom().SwingLazily()
+		lastPressed = c
+		#TODO: Move sfx to move function
+		$"/root/Settings".PlaySfx("Mushroom")
+		c.GetMushroom().BoingBoing()
+	elif lastPressed:
+		lastPressed.GetMushroom().SwingLazily()
+		if coord(lastPressed) == coord(c):
+			lastPressed = null
+		else:
+			var path = FindPath(coord(lastPressed), coord(c))
+			if path.size() != 0:
+				CalculateMoveLogic(path.front(), path.back())
 
 
 # iv = initial value
@@ -30,70 +80,75 @@ func CreateCanvas(iv):
 			[iv, iv, iv, iv, iv, iv, iv, iv, iv]]
 
 
-func cell(coordinate: Vector2i) -> Cell:
-	if coordinate.x < 0 or coordinate.x > 8 or\
-		coordinate.y < 0 or coordinate.y > 8:
-		return null
-	return $Grid.get_node(str(coordinate.y*$Grid.columns + coordinate.x))
-
-
-@export var spore_per_turn = 5
-var spored_cells = []
-var next_turn_spore: Array
-func GetNextTurnSpores():
-	return next_turn_spore
-
-
-func AddSpores(spore_list: Array):
-	var cells = $Grid.get_children()
-	cells.shuffle()
-
-	for c in cells:
-		if spore_list.size() == 0:
-			return
-		if c.IsEmpty():
-			c.AddSpore(spore_list.pop_back())
-			spored_cells.append(c)
+# Breadth-first search to find path between two cells
+# A cell can only go horizontally and vertically. Not diagonally
+# Return arrays of cells that makes up the shortest path from @from to @to (inclusive both)
+# Return empty array if there's no feasible path
+func FindPath(from: Vector2i, to: Vector2i) -> Array[Vector2i]:
+	const INFI = 99999
+	var pathLengthChart = CreateCanvas(INFI)
 	
-
-# Return cell coordinate in [x, y]
-func coord(board_cell: Cell) -> Vector2i:
-	var id = int(board_cell.name.substr(0))
-	return Vector2i(id % $Grid.columns, id / $Grid.columns)
-
-
-func _on_input_processor_mushroom_moved_to(new_cell):
-	if PopLines(coord(new_cell)) == 0:
-		GrowSpores()
-		AddSpores(next_turn_spore)
-		next_turn_spore = $MushroomGenerator.GenerateMushrooms(spore_per_turn)
-		emit_signal("next_turn")
-
-
-func RandomizeInitialBoard():
-	var init_mushrooms = $MushroomGenerator.GenerateMushrooms(10)
-	var c = $Grid.get_children()
-	c.shuffle()
-	for i in range(0, init_mushrooms.size()):
-		c[i].AddMushroom(init_mushrooms[i])
+	var queue = [from]
+	
+	pathLengthChart[queue.back().x][queue.back().y] = 0
+	
+	while queue.size():
+		var start = queue.pop_front()
+		for direction in [Vector2i(0, 1),
+							Vector2i(1, 0),
+							Vector2i(0, -1),
+							Vector2i(-1, 0)]:
+			var hop = start+direction
+			if cell(hop) == null or cell(hop).HasMushroom():
+				continue
+			if pathLengthChart[start.x][start.y] + 1 < pathLengthChart[hop.x][hop.y]:
+				queue.push_back(hop)
+				pathLengthChart[hop.x][hop.y] = pathLengthChart[start.x][start.y] + 1
+	
+	# Destination unreachable
+	if pathLengthChart[to.x][to.y] == INFI:
+		return []
 		
-	for i in c.slice(0, init_mushrooms.size(), 1, true):
-		if i.HasMushroom():
-			PopLines(coord(i))
+	# Traceback path from destination to start
+	var path: Array[Vector2i] = [to]
+	while pathLengthChart[path.back().x][path.back().y] != 0:
+		for direction in [Vector2i(0, 1),
+							Vector2i(1, 0),
+							Vector2i(0, -1),
+							Vector2i(-1, 0)]:
+			var cur_hop = path.back()+direction
+			if cell(cur_hop) != null and\
+				pathLengthChart[cur_hop.x][cur_hop.y] < pathLengthChart[path.back().x][path.back().y]:
+				path.append(cur_hop)
+				break
+	
+	# Flip destination->start to start->destination
+	path.reverse()
+	return path
 
 
-# Pop lines of mushrooms, with line searching starts from startingCells
-# All mushrooms have been grown before searching is initiated
-# Return amount of score increased
-func PopLines(startingCell: Vector2i) -> int:
-	#Note: Color_canvas is actually transposed Board
-	# Actually, its transposition depends on how you lay it out
-	# As long as you are consistent in indexing rule, you are fine
-	var color_canvas=CreateCanvas(0)
+func CalculateMoveLogic(from: Vector2i, to: Vector2i):
+	undo_queue.PushMove(from, to)
 	
-	var c = startingCell
-	
-	var stack = [c]
+	board_state[to.x][to.y] = board_state[from.x][from.y]
+	board_state[from.x][from.y] = 0
+
+	if not PopLines(to):
+		Grow()
+		Sprout()
+	Execute(undo_queue.GetActivities())
+		
+
+# Pop lines of mushrooms, with line searching starts from @at
+# Modify @board_state as it pops
+# Add POPs to undo_queue 
+# Return true if POPs were made
+func PopLines(at: Vector2i) -> bool:
+	if board_state[at.x][at.y] == 0:
+		return false
+		
+	var stack = [at]
+	var poppables: Dictionary = {}
 	
 	while stack.size():
 		var startPoint = stack.pop_back()
@@ -101,63 +156,51 @@ func PopLines(startingCell: Vector2i) -> int:
 							Vector2i(1, 1),	# Diagonal /
 							Vector2i(1, 0),	# Vertical
 							Vector2i(1,-1)]:# Diagonal \
-			if count_dir(cell(startPoint), direction) >= 5:
-				color_canvas[c.x][c.y] = 1
-				stack.append_array(paint_dir(cell(startPoint), direction, color_canvas))
-
-	return pop_lines(color_canvas)
-
-
-func pop_lines(color_canvas: Array) -> int:
-	var count = 0
-	for i in range(0, 9):
-		for j in range(0, 9):
-			if color_canvas[i][j] == 1:
-				count+=1
-				var mshr = cell(Vector2i(i, j)).GetMushroom()
-				mshr.PlayAnim("diminish")
-				mshr.connect("anim_finished", free_mushroom.bind(cell(Vector2i(i, j))), CONNECT_ONE_SHOT)
-
-	var score = count * (count-4)
-	emit_signal("add_score", score)
-	return score
+			var poppable_cells = count_dir(startPoint, direction)
+			if poppable_cells.size() >= 5:
+				stack.append_array(poppable_cells)
+				for c in poppable_cells:
+					poppables[c] = 1
+	
+	if poppables.keys().size():
+		undo_queue.PushPop(cell(at).GetMushroom().ID, poppables.keys())
+		for c in poppables.keys():
+			board_state[c.x][c.y] = 0
+		# After popping, some cells might become vacant for spore relocation
+		Relocate()
+		return true
+	return false
 
 
-func free_mushroom(_mushroom: Mushroom, _anim_name: String, where: Cell):
-	where.PopMushroom().queue_free()
-
-
-func count_dir(startCell: Cell, dir: Vector2i) -> int:
-	var result = 0
+func count_dir(start: Vector2i, dir: Vector2i) -> Array[Vector2i]:
+	var result: Array[Vector2i] = [start]
+	var mushroom_id = cell(start).GetMushroom().ID
 	for forward in [-1, 1]:
 		for i in range(1, 9):
-			var pos = coord(startCell) + i*dir*forward
-			var cll = cell(pos)
-			if cll != null and cll.HasMushroom() and cll.GetMushroom().ID == startCell.GetMushroom().ID:
-				result += 1
+			var pos = start + i*dir*forward
+			var c = cell(pos)
+			if c != null and c.HasMushroom() and c.GetMushroom().ID == mushroom_id:
+				result.append(pos)
 			else:
 				break
-	return result + 1 #+1 for startCell
+	return result
 
 
-# Paint color_canvas in specified direction and starting point
-# Return array of coords of new cells painted
-func paint_dir(startCell: Cell, dir: Vector2i, color_canvas: Array) -> Array:
-	var new_cells_painted = []
-	var crd = coord(startCell)
-	for forward in [-1, 1]:
-		for i in range(0, 9):
-			var pos = crd + i*dir*forward
-			var cll = cell(pos)
-			if cll != null and cll.HasMushroom() and cll.GetMushroom().ID == startCell.GetMushroom().ID:
-				if color_canvas[pos.x][pos.y] == 0:
-					color_canvas[pos.x][pos.y] = 1
-					new_cells_painted.append(pos)
-			else:
-				break
-	return new_cells_painted
 
+func Sprout():
+	var cells = $Grid.get_children()
+	cells.shuffle()
+	
+	spores.clear()
+	for c in cells:
+		if spores.size() >= spore_per_turn:
+			break
+		if c.IsEmpty():
+			spores.push_back(coord(c))
+	
+	undo_queue.PushSprout($MushroomGenerator.GenerateNewIDs(spore_per_turn), spores.duplicate(true))
 
+	
 func IsFull():
 	for cll in $Grid.get_children():
 		if cll.IsEmpty():
@@ -165,90 +208,72 @@ func IsFull():
 	return true
 
 
-func GrowSpores():
-	RelocateSporesIfNeeded()
+func Grow():
+	Relocate()
 	
-	for sc in spored_cells:
-		if sc.HasMushroom(): #TODO: The board is full. Remove these spores 
-			pass #sc.Pop()
+	var grow_cells: Array[Vector2i] = []
+	for s in spores:
+		var c = cell(s)
+		if c.HasMushroom():
+			#TODO: The board is full. Remove these spores 
+			# TODO: free()?
+			c.PopSpore().queue_free()
 		else:
-			sc.GrowSporeIntoMushroom()
+			grow_cells.push_back(s)
+			board_state[s.x][s.y] = c.GetSpore().ID
+	undo_queue.PushGrow(grow_cells)
 	
-	for sc in spored_cells:
-		PopLines(coord(sc))
-	spored_cells.clear()
+	for s in spores:
+		PopLines(s)
+	spores.clear()
 	
 	if IsFull():
 		emit_signal("full")
 
 
-#TODO: Relocate after popping lines
-func RelocateSporesIfNeeded():
+func Relocate():
 	var mush_on_spore_cells = []
-	var spores_to_relocate = []
-	for sc in spored_cells:
-		if sc.HasMushroom():
-			mush_on_spore_cells.append(sc)
+	for s in spores:
+		if cell(s).HasMushroom():
+			mush_on_spore_cells.append([s, cell(s)])
 
-	for mosc in mush_on_spore_cells:
-		spored_cells.erase(mosc)
-		spores_to_relocate.append(mosc.PopSpore())
-	AddSpores(spores_to_relocate)
-
-
-func GetScreenshot() -> ImageTexture:
-	var rect = $Grid.get_rect()
-	rect.position = $Grid.get_screen_position()
-	return ImageTexture.create_from_image(get_viewport().get_texture().get_image().get_region(rect))
+	if mush_on_spore_cells.size():
+		var emptyCells = GetEmptyCells()
+		emptyCells.shuffle()
+		for mosc in mush_on_spore_cells:
+			if emptyCells.size() == 0:
+				break
+			undo_queue.PushRelocate(mosc[0], emptyCells.back())
+			spores.erase(mosc[0])
+			spores.append(emptyCells.pop_back())
 
 
-
-func GetSaveData():
-	var canvas = CreateCanvas(0)
-	for cll in $Grid.get_children():
-		var c = coord(cll)
-		if cll.HasMushroom():
-			canvas[c.x][c.y] = cll.GetMushroom().ID
-		elif cll.HasSpore():
-			canvas[c.x][c.y] = - cll.GetSpore().ID
-	
-	var nts = []
-	for i in next_turn_spore:
-		nts.push_back(i.ID)
-		
-	return {
-		"type": "board",
-		"path": get_path(),
-		
-		# Positive id is mushroom. Negative is Spore
-		"canvas": canvas,
-		"next_turn_spore": nts,
-		"generator": $MushroomGenerator.GetSaveData()
-		}
+func GetEmptyCells() -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for i in range(0, $Grid.columns):	
+		for j in range(0, $Grid.columns):
+			if board_state[i][j] == 0 and cell(Vector2i(i, j)).IsEmpty():
+				result.push_back(Vector2i(i, j))
+	return result
 
 
-func LoadSaveData(save_data: Dictionary):
-	$MushroomGenerator.LoadSaveData(save_data["generator"])
-	
-	# TODO: Freeing is not my concern for now
-	#for sc in spored_cells:
-	#	spored_cells.free()
-	
-	spored_cells.clear()
-	for i in range(0, 9):
-		for j in range(0, 9):
-			var c = cell(Vector2i(i, j))
-			c.Clear()
-			
-			var id = save_data["canvas"][i][j]
-			if id < 0:
-				c.AddSpore($MushroomGenerator.GetNewMushroom(-id))
-				spored_cells.push_back(c)
-			elif id > 0:
-				c.AddMushroom($MushroomGenerator.GetNewMushroom(id))
-				
-	# TODO: Freeing is not my concern for now
-	next_turn_spore.clear()
-	for id in save_data["next_turn_spore"]:
-		next_turn_spore.push_back($MushroomGenerator.GetNewMushroom(id))
-	
+# TODO:
+func Execute(activities):
+	var activity = activities.pop_back()
+	match activity[0]:
+		UndoQueue.MOVE:
+			pass
+		UndoQueue.RELOCATE:
+			pass
+		UndoQueue.GROW:
+			pass
+		UndoQueue.UN_GROW:
+			pass
+		UndoQueue.SPROUT:
+			pass
+		UndoQueue.UN_SPROUT:
+			pass
+		UndoQueue.POP:
+			pass
+		UndoQueue.UN_POP:
+			pass

@@ -17,5 +17,9 @@ script = ExtResource("2_sw661")
 
 [node name="Center" type="Node2D" parent="."]
 
+[node name="Spore" type="Node2D" parent="Center"]
+
+[node name="Mushroom" type="Node2D" parent="Center"]
+
 [connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

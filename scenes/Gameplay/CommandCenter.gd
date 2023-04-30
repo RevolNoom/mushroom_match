@@ -2,15 +2,18 @@ extends Node
 
 
 signal move(from: Vector2i, to: Vector2i)
-signal relocate(from: Vector2i, to: Vector2i)
+
+# TODO: Is AddSpore necessary? Or Sprout is enough?
+signal add_spore(id: int, at: Vector2i)
+signal remove_spore(at: Vector2i)
 
 signal grow(at: Array[Vector2i])
 signal un_grow(at: Array[Vector2i])
 
 signal sprout(ids: PackedInt32Array, at: Array[Vector2i])
-signal un_sprout(ids: PackedInt32Array, at: Array[Vector2i])
+signal un_sprout(at: Array[Vector2i])
 
-signal pop(id: int, at: Array[Vector2i])
+signal pop(at: Array[Vector2i])
 signal un_pop(id: int, at: Array[Vector2i])
 
 signal done_execute
@@ -27,7 +30,7 @@ var move_deque: Array[Array] = []
 var activity_stack: Array
 var _cur: int = 0 #current index in move_deque
 @export var undo_limit: int = 5
-@onready var _board = get_parent()
+#@onready var _board = get_parent()
 
 
 enum Command{
@@ -52,7 +55,8 @@ enum Command{
 
 func _ready():
 	move_deque.resize(undo_limit)
-	move_deque.resize(0)
+	move_deque.resize(1)
+	move_deque[0] = []
 
 
 func Undo():
@@ -69,7 +73,7 @@ func Undo():
 				activity_stack.push_back([Command.UN_GROW, activity[1]])
 				
 			Command.SPROUT:
-				activity_stack.push_back([Command.UN_SPROUT, activity[1], activity[2]])
+				activity_stack.push_back([Command.UN_SPROUT, activity[2]])
 				
 			Command.POP:
 				activity_stack.push_back([Command.UN_POP, activity[1], activity[2]])
@@ -87,7 +91,6 @@ func Execute():
 	if activity_stack.size() > 0:
 		var activity = activity_stack.pop_back()
 		match activity[0]:
-			# Change from->to to to->from
 			Command.MOVE:
 				emit_signal("move", Vector2i(activity[1], activity[2]),\
 									Vector2i(activity[3], activity[4]))
@@ -102,10 +105,10 @@ func Execute():
 			Command.SPROUT:
 				emit_signal("sprout", activity[1], get_coords_array(activity[2]))
 			Command.UN_SPROUT:
-				emit_signal("un_sprout", activity[1], get_coords_array(activity[2]))
+				emit_signal("un_sprout", get_coords_array(activity[2]))
 				
 			Command.POP:
-				emit_signal("pop", activity[1], get_coords_array(activity[2]))
+				emit_signal("pop", get_coords_array(activity[2]))
 			Command.UN_POP:
 				emit_signal("un_pop", activity[1], get_coords_array(activity[2]))
 				
@@ -134,19 +137,13 @@ func Move(from: Vector2i, to: Vector2i):
 	activity_stack.push_back(move_deque.back())
 
 
-
 func Sprout(id: PackedInt32Array, at: Array[Vector2i]):
-	var command = [Command.SPROUT]
-	command.append_array(id)
-	command.append_array(get_ints_array(at))
-	move_deque.back().push_back(command)
+	move_deque.back().push_back([Command.SPROUT, id, get_ints_array(at)])
 	activity_stack.push_front(move_deque.back().back())
 
 
 func Grow(at: Array[Vector2i]):
-	var command = [Command.GROW]
-	command.append_array(get_ints_array(at))
-	move_deque.back().push_back(command)
+	move_deque.back().push_back([Command.GROW, get_ints_array(at)])
 	activity_stack.push_front(move_deque.back().back())
 
 
@@ -170,10 +167,10 @@ func LoadSaveData():
 	pass
 
 
-func get_coords_array(int_array):
-	var coords = []
-	for i in range(0, int_array[1].size()/2):
-		coords.push_back(Vector2i(int_array[i*2], int_array[i*2+1]))
+func get_coords_array(input: PackedInt32Array) -> Array[Vector2i]:
+	var coords: Array[Vector2i] = []
+	for i in range(0, input.size()/2):
+		coords.push_back(Vector2i(input[i*2], input[i*2+1]))
 	return coords
 	
 	
