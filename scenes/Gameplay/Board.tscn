@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://csxalycdojsqd"]
+[gd_scene load_steps=5 format=3 uid="uid://csxalycdojsqd"]
 
 [ext_resource type="Script" path="res://scenes/Gameplay/Board.gd" id="1_2u2a1"]
 [ext_resource type="PackedScene" uid="uid://b5uxslxvdjakk" path="res://scenes/Gameplay/Cell.tscn" id="2_xab4r"]
 [ext_resource type="PackedScene" uid="uid://62xvfeetnjw" path="res://scenes/Gameplay/MushroomGenerator.tscn" id="3_1efq1"]
+
+[sub_resource type="Curve2D" id="Curve2D_n7fc3"]
 
 [node name="Board" type="AspectRatioContainer"]
 anchors_preset = 15
@@ -262,3 +264,15 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="MushroomGenerator" parent="." instance=ExtResource("3_1efq1")]
+
+[node name="MovePath" type="Path2D" parent="."]
+z_index = 1
+curve = SubResource("Curve2D_n7fc3")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovePath"]
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="MovePath/PathFollow2D"]
+z_index = 1
+update_rotation = false
+update_scale = false

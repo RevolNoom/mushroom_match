@@ -20,15 +20,18 @@ func Pause():
 	
 
 func _on_board_next_turn():
-	UpdateNextTurnSpores()
+	# TODO:
+	#UpdateNextTurnSpores()
+	pass
 
 
 func UpdateNextTurnSpores():
 	for i in range(0, $VBox/Top/NextSpawn.get_child_count()):
 		var cell = $VBox/Top/NextSpawn.get_child(i)
-		if i < $VBox/Board.spore_per_turn:
+		var spores = [] #$VBox/Board.GetSporeCells()
+		if i < spores.size():
 			cell.visible = true
-			cell.texture = $VBox/Board.GetNextTurnSpores()[i].texture
+			#cell.texture = $VBox/Board.cell(spores[i]).GetSpore().texture
 		else:
 			cell.visible = false
 

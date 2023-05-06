@@ -15,10 +15,16 @@ func Add(mushroom: Mushroom):
 	else:
 		$Center/Mushroom.add_child(mushroom)
 	mushroom.position = Vector2()
+	mushroom.connect("grown", _on_mushroom_grown)
 	mushroom.connect("ungrown", _on_mushroom_ungrown)
-	mushroom.connect("grown", _on_mushroom_ungrown)
 	mushroom.connect("popped", _on_mushroom_popped)
+	mushroom.connect("sprouted", _on_mushroom_sprouted)
 
+
+func _on_mushroom_sprouted(mushroom):
+	mushroom.get_parent().remove_child(mushroom)
+	$Center/Spore.add_child(mushroom)
+	
 
 func _on_mushroom_ungrown(mushroom):
 	mushroom.get_parent().remove_child(mushroom)
@@ -65,8 +71,10 @@ func HasMushroom() -> bool:
 func HasSpore() -> bool:
 	return $Center/Spore.get_child_count()
 
-
+func center_position():
+	return global_position + size / 2
+	
 var MushroomTextureSize = Vector2(16, 16)
 func _on_item_rect_changed():
 	$Center.scale = size / MushroomTextureSize
-	$Center.global_position = global_position + size / 2
+	$Center.global_position = center_position()

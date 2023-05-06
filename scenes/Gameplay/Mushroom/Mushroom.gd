@@ -63,6 +63,7 @@ func GetCell():
 func Sprout():
 	$AP.play("sprout")
 	await $AP.animation_finished
+	#print(str(get_path()) + " sprout scale: " + str(scale) )
 	add_to_group("spore")
 	emit_signal("sprouted", self)
 
@@ -77,6 +78,7 @@ func Unsprout():
 func Grow():
 	$AP.play("grow")
 	await $AP.animation_finished
+	#print(str(get_path()) + " grown scale: " + str(scale) )
 	remove_from_group("spore")
 	emit_signal("grown", self)
 
