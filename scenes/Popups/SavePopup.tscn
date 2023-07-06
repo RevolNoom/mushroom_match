@@ -19,7 +19,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ou62e"]
 
-[node name="SavePopup" groups=["savable"] instance=ExtResource("1_x8m5x")]
+[node name="SavePopup" instance=ExtResource("1_x8m5x")]
 script = ExtResource("2_m4525")
 
 [node name="Title" parent="ARC/VBox" index="0"]

@@ -2,22 +2,19 @@ extends Sprite2D
 
 class_name Mushroom
 
-@export var ID = 0
-
 
 # Signals emitted after animation is complete
 
-signal sprouted(_self: Mushroom)
-signal unsprouted(_self: Mushroom)
-
-signal grown(_self: Mushroom)
-signal ungrown(_self: Mushroom)
-
-signal popped(_self: Mushroom)
-signal unpopped(_self: Mushroom)
+signal state_changed(_mushroom: Mushroom, is_spore: bool)
 
 const SPORE_SCALE = Vector2(0.3, 0.3)
 const GROWN_SCALE = Vector2(1, 1)
+
+@export var ID = 0
+var _is_spore := true:
+	set(value): 
+		_is_spore = value
+		emit_signal("state_changed", self, value)
 
 
 func _ready():
@@ -25,7 +22,7 @@ func _ready():
 
 
 func IsSpore():
-	return is_in_group("spore")
+	return _is_spore
 	
 
 func SwingLazily():
@@ -56,48 +53,41 @@ func BoingBoing():
 	$AP.play("boing_boing")
 
 
-func GetCell():
-	return get_parent()
+func GetCell() -> Cell:
+	return get_parent().get_parent().get_parent()
 
 
 func Sprout():
+	_is_spore = true
+	scale = Vector2()
 	$AP.play("sprout")
-	await $AP.animation_finished
-	#print(str(get_path()) + " sprout scale: " + str(scale) )
-	add_to_group("spore")
-	emit_signal("sprouted", self)
 
 
 func Unsprout():
 	$AP.play_backwards("sprout")
+	_is_spore = true
 	await $AP.animation_finished
-	add_to_group("spore")
-	emit_signal("unsprout", self)
+	get_parent().remove_child(self)
+	queue_free()
 
 
 func Grow():
+	_is_spore = false
 	$AP.play("grow")
-	await $AP.animation_finished
-	#print(str(get_path()) + " grown scale: " + str(scale) )
-	remove_from_group("spore")
-	emit_signal("grown", self)
-
+	
 
 func Ungrow():
+	_is_spore = true
 	$AP.play_backwards("grow")
-	await $AP.animation_finished
-	add_to_group("spore")
-	emit_signal("ungrown", self)
 
 
 func Pop():
 	$AP.play("pop")
 	await $AP.animation_finished
-	emit_signal("popped", self)
-	
+	get_parent().remove_child(self)
+	queue_free()
+
 
 func Unpop():
+	_is_spore = false
 	$AP.play_backwards("pop")
-	await $AP.animation_finished
-	remove_from_group("spore")
-	emit_signal("unpopped", self)

@@ -1,9 +1,12 @@
 extends Node
 
+class_name MushroomGenerator
+
 
 @onready var mushroom_scn = load("res://scenes/Gameplay/Mushroom/Mushroom.tscn")
-
 @export var gen_set_size = 7
+
+
 var gen_set: Array[Mushroom]
 
 

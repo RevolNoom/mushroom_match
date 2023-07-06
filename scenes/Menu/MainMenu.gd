@@ -27,10 +27,6 @@ func changeScene(node):
 
 func _on_main_menu_b_continue():
 	changeScene($Margin/VBox/Center/SavePopup)
-	
-	
-func _on_save_popup_load_save(save_data):
-	emit_signal("new_game", "casual", save_data)
 
 
 func _on_main_menu_b_credits():
@@ -69,3 +65,5 @@ func _on_choose_game_mode_time_rush():
 	pass # Replace with function body.
 
 
+func _on_save_popup_game_loaded(save_data):
+	emit_signal("new_game", "casual", save_data)

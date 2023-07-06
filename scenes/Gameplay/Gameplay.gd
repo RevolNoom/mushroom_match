@@ -5,39 +5,22 @@ signal to_main_menu
 
 func _ready():
 	#$VBox/Top/ARC.ratio = $VBox/Board.spore_per_turn
-	UpdateNextTurnSpores()
+	update_next_turn_spores()
+	check_unredo_state()
 	#Pause()
 
 
 func Play():
 	$VBox/Top/Clock.Resume()
-	$VBox/Board.EnableInput(true)
 
 
 func Pause():
 	$VBox/Top/Clock.Pause()
-	$VBox/Board.EnableInput(false)
-	
-
-func _on_board_next_turn():
-	# TODO:
-	#UpdateNextTurnSpores()
-	pass
 
 
-func UpdateNextTurnSpores():
-	for i in range(0, $VBox/Top/NextSpawn.get_child_count()):
-		var cell = $VBox/Top/NextSpawn.get_child(i)
-		var spores = [] #$VBox/Board.GetSporeCells()
-		if i < spores.size():
-			cell.visible = true
-			#cell.texture = $VBox/Board.cell(spores[i]).GetSpore().texture
-		else:
-			cell.visible = false
-
-
-func _on_board_add_score(amount):
-	$VBox/Top/ScoreBoard/Value.text = str(int($VBox/Top/ScoreBoard/Value.text)+amount)
+func _on_board_mushroom_popped(amount: int):
+	var score = amount * (abs(amount) - 4)
+	$VBox/Top/ScoreBoard/Value.text = str(int($VBox/Top/ScoreBoard/Value.text) + score)
 
 
 func _on_home_pressed():
@@ -86,23 +69,58 @@ func _on_x_pressed():
 
 
 func _on_save_load_pressed():
-	$Popups/SavePopup.GatherCurrentSaveData()
+	$Popups/SavePopup.gather_save_data()
 	ShowPopup($Popups/SavePopup)
-
 
 
 func GetSaveData():
 	return {
 		"type": "gameplay",
-		"path": get_path(),
 		"score": $VBox/Top/ScoreBoard/Value.text,
-		"time_elapsed": $VBox/Top/Clock/Value.text
-		# undo/redo array
-		# index of un/redo array
+		"time_elapsed": $VBox/Top/Clock/Value.text,
+		"date": Time.get_datetime_dict_from_system(),
 	}
 
 
 func LoadSaveData(save_data: Dictionary):
-	$VBox/Top/ScoreBoard/Value.text = save_data["score"]
-	$VBox/Top/Clock.time_elapsed = $VBox/Top/Clock.ConvertFromString(save_data["time_elapsed"])
+	$VBox/Top/ScoreBoard/Value.text = save_data["gameplay"]["score"]
+	$VBox/Top/Clock.time_elapsed = $VBox/Top/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
+	$VBox/Board.LoadSaveData(save_data["board"])
+	
+	update_next_turn_spores()
+	check_unredo_state()
 
+
+func _on_undo_pressed():
+	$VBox/Board.undo()
+	check_unredo_state()
+
+
+func _on_redo_pressed():
+	$VBox/Board.redo()
+	check_unredo_state()
+
+
+func _on_board_new_move():
+	update_next_turn_spores()
+	check_unredo_state()
+
+
+func update_next_turn_spores():
+	var spores = $VBox/Board.get_next_turn_spores()
+	for i in range(0, $VBox/Top/NextSpawn.get_child_count()):
+		var cell = $VBox/Top/NextSpawn.get_child(i)
+		if i < spores.size():
+			cell.visible = true
+			cell.texture = spores[i]
+		else:
+			cell.visible = false
+			
+			
+func check_unredo_state():
+	$VBox/Bottom/Move/Undo.disabled = not $VBox/Board.is_undoable()
+	$VBox/Bottom/Move/Redo.disabled = not $VBox/Board.is_redoable()
+
+
+func _on_save_popup_game_loaded(save_data):
+	LoadSaveData(save_data)

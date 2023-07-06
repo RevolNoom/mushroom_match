@@ -1,9 +1,5 @@
 class_name UndoQueue
 
-
-var move_deque: Array[Array] = []
-
-var _cur: int = 0 #current index in move_deque
 @export var undo_limit: int = 5:
 	set(new_limit):
 		if new_limit > undo_limit:
@@ -13,71 +9,29 @@ var _cur: int = 0 #current index in move_deque
 			_cur -= less
 			move_deque = move_deque.slice(less)
 
-var bs = BoardState.new()
-
-class BoardState:
-	
-	# 3-dim matrix
-	#board_state[x][y][0] = Mushroom ID
-	#board_state[x][y][1] = Spore ID
-	var state: Array[Array]
-	
-	func raw():
-		return state
-		
-
-	func GetSporeCells() -> Array[Vector2i]:
-		var result: Array[Vector2i] = []
-		for x in range(0, state[0].size()):	
-			for y in range(0, state.size()):
-				if state[x][y][1] != 0:
-					result.push_back(Vector2i(x, y))
-		return result
+var move_deque: Array = []
+var _cur: int = -1 #current index in move_deque
 
 
-	func GetEmptyCells() -> Array[Vector2i]:
-		var result: Array[Vector2i] = []
-		for x in range(0, state[0].size()):	
-			for y in range(0, state.size()):
-				if state[x][y] == [0, 0]:
-					result.push_back(Vector2i(x, y))
-		return result
-
-
+# cid: Cell id
 enum{
-	MOVE, #[MOVE, from.x, from.y, to.x, to.y]
-	RELOCATE,	#[RELOCATE, from.x, from.y, to.x, to.y]
-	GROW,	#[GROW, [m1.x, m1.y, m2.x, m2.y, ...]]
-	UN_GROW,
-	SPROUT,	#[SPROUT, [m1.id, m2.id,...], [m1.x, m1.y, m2.x, m2.y, ...]]
-	UN_SPROUT,
-	POP,	#[POP, id, [m1.x, m1.y, m2.x, m2.y,...]]
-	UN_POP,
+	MOVE = 0, #[MOVE, from.cid, to.cid]
+	RELOCATE = 1,	#[RELOCATE, [from1.cid, from2.cid,...], [to1.cid, to2.cid,...])
+	GROW = 2,	#[GROW, [m1.cid, m2.cid, ...]]
+	UN_GROW = 3,#[UNGROW, [m1.cid, m2.cid, ...]]
+	SPROUT = 4,	#[SPROUT, [m1.id, m2.id,...], [m1.cid, m2.cid, ...]]
+	UN_SPROUT = 5,#[UNSPROUT, [m1.cid, m2.cid, ...]]
+	POP = 6,	#[POP, mid, [m1.cid, m2.cid,...]]
+	UN_POP = 7, #[UNPOP, mid, [m1.cid, m2.cid,...]]
 }
 
 
-func Init(canvas: Array[Array], mushroom_ids: PackedInt32Array, m_at: Array[Vector2i],\
-			spore_ids: PackedInt32Array, s_at: Array[Vector2i]):
-	bs.state = canvas
-	for i in range(0, m_at.size()):
-		bs.raw()[m_at[i].x][m_at[i].y][0] = mushroom_ids[i]
-	for i in range(0, s_at.size()):
-		bs.raw()[s_at[i].x][s_at[i].y][1] = spore_ids[i]
-	move_deque.resize(undo_limit)
-	move_deque.resize(1)
-	move_deque[0] = []
-
-
-func State() -> BoardState:
-	return bs
-
-
 func Next():
-	_cur = clamp(_cur + 1, 0, move_deque.size() - 1)
+	_cur = clamp(_cur + 1, -1, move_deque.size() - 1)
 
 
 func Prev():
-	_cur = clamp(_cur - 1, 0, move_deque.size() - 1)
+	_cur = clamp(_cur - 1, -1, move_deque.size() - 1)
 	
 
 func HasNext() -> bool:
@@ -85,21 +39,21 @@ func HasNext() -> bool:
 
 
 func HasPrev() -> bool:
-	return _cur > 0
+	return _cur >= 0
 
 
 func GetActivities() -> Array:
-	return move_deque[_cur]
+	return move_deque[_cur].duplicate(true)
 
 
 func GetActivitiesUndo() -> Array:
-	var actitivies = GetActivities().duplicate(true)
-	actitivies.reverse()
+	var activities = GetActivities()
+	activities.reverse()
 	var result = []
-	for activity in actitivies:
-		match activity[0]:
+	for activity in activities:
+		match int(activity[0]):
 			MOVE:
-				result.push_back([MOVE, activity[3], activity[4], activity[1], activity[2]])
+				result.push_back([MOVE, activity[2], activity[1]])
 			RELOCATE:
 				result.push_back([RELOCATE, activity[2], activity[1]])
 			GROW:
@@ -111,13 +65,11 @@ func GetActivitiesUndo() -> Array:
 	return result
 
 
-func PushMove(from: Vector2i, to: Vector2i):
+func PushMove(from: int, to: int):
 	if HasNext():
 		move_deque = move_deque.slice(0, _cur+1)
 		
-	move_deque.push_back([[MOVE, from.x, from.y, to.x, to.y]])
-	bs.raw()[to.x][to.y][0] = bs.raw()[from.x][from.y][0]
-	bs.raw()[from.x][from.y][0] = 0
+	move_deque.push_back([[MOVE, from, to]])
 	
 	if move_deque.size() > undo_limit:
 		move_deque.pop_front()
@@ -125,50 +77,45 @@ func PushMove(from: Vector2i, to: Vector2i):
 	
 
 
-func PushSprout(id: PackedInt32Array, at: Array[Vector2i]):
-	for i in range(0, id.size()):
-		bs.raw()[at[i].x][at[i].y][1] = id[i]
-	move_deque.back().push_back([SPROUT, id, get_ints_array(at)])
+func PushSprout(ids: PackedInt32Array, cids: PackedInt32Array):
+	move_deque.back().push_back([SPROUT, ids, cids])
 
 
-func PushGrow(at: Array[Vector2i]):
-	for a in at:
-		bs.raw()[a.x][a.y][0] = bs.raw()[a.x][a.y][1]
-		bs.raw()[a.x][a.y][1] = 0
-	move_deque.back().push_back([GROW, get_ints_array(at)])
+func PushGrow(cids: PackedInt32Array):
+	move_deque.back().push_back([GROW, cids])
 	
 
-func PushRelocate(from: Vector2i, to: Vector2i):
-	bs.raw()[to.x][to.y][1] = bs.raw()[from.x][from.y][1]
-	bs.raw()[from.x][from.y][1] = 0
-	move_deque.back().push_back([RELOCATE, from.x, from.y, to.x, to.y])
+func PushRelocate(from: PackedInt32Array, to: PackedInt32Array):
+	move_deque.back().push_back([RELOCATE, from, to])
 
 
-func PushPop(id: int, at: Array[Vector2i]):
-	for a in at:
-		bs.raw()[a.x][a.y][0] = 0
-	var command = [POP, id]
-	command.append_array(get_ints_array(at))
-	move_deque.back().push_back(command)
+func PushPop(mid: int, cids: PackedInt32Array):
+	move_deque.back().push_back([POP, mid, cids])
 
 
 func GetSaveData() -> Dictionary:
-	return {}
+	return {
+		"move_deque": move_deque,
+		"_cur": _cur,
+		"undo_limit": undo_limit
+	}
 
 
-func LoadSaveData():
-	pass
-
-
-func get_coords_array(input: PackedInt32Array) -> Array[Vector2i]:
-	var coords: Array[Vector2i] = []
-	for i in range(0, input.size()/2):
-		coords.push_back(Vector2i(input[i*2], input[i*2+1]))
-	return coords
-	
-	
-func get_ints_array(coords_array)->PackedInt32Array:
-	var ints: PackedInt32Array = []
-	for i in range(0, coords_array.size()):
-		ints.append_array([coords_array[i].x, coords_array[i].y])
-	return ints
+func LoadSaveData(save_data: Dictionary):
+	var dirty_md = save_data["move_deque"]
+	move_deque = []
+	for move in range(0, dirty_md.size()):
+		move_deque.push_back([])
+		for activity in range(0, dirty_md[move].size()):
+			move_deque[move].push_back([])
+			for element in range(0, dirty_md[move][activity].size()):
+				var elem = dirty_md[move][activity][element]
+				if typeof(elem) == TYPE_ARRAY:
+					move_deque[move][activity].push_back([])
+					for sub_elem in elem:
+						move_deque[move][activity][element].push_back(int(sub_elem))
+				else:
+					move_deque[move][activity].push_back(int(elem))
+					
+	_cur = int(save_data["_cur"])
+	undo_limit = int(save_data["undo_limit"])

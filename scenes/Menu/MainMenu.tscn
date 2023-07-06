@@ -83,4 +83,5 @@ texture_normal = ExtResource("10_qi0xs")
 [connection signal="custom_mode" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_custom_mode"]
 [connection signal="four_seasons" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_four_seasons"]
 [connection signal="time_rush" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_time_rush"]
+[connection signal="game_loaded" from="Margin/VBox/Center/SavePopup" to="." method="_on_save_popup_game_loaded"]
 [connection signal="pressed" from="Margin/VBox/Center/Return" to="." method="_on_return_pressed"]

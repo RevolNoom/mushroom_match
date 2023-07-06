@@ -211,10 +211,16 @@ size_flags_vertical = 0
 texture_normal = ExtResource("15_g4616")
 flip_h = true
 
+[connection signal="full" from="VBox/Board" to="." method="_on_board_full"]
+[connection signal="mushroom_popped" from="VBox/Board" to="." method="_on_board_mushroom_popped"]
+[connection signal="new_move" from="VBox/Board" to="." method="_on_board_new_move"]
 [connection signal="pressed" from="VBox/Bottom/Options/SaveLoad" to="." method="_on_save_load_pressed"]
 [connection signal="pressed" from="VBox/Bottom/Options/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBox/Bottom/Options/Home" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Move/Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Move/Redo" to="." method="_on_redo_pressed"]
 [connection signal="confirm" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_confirm"]
 [connection signal="b_home" from="Popups/GameOver" to="." method="_on_game_over_b_home"]
 [connection signal="b_retry" from="Popups/GameOver" to="." method="_on_game_over_b_retry"]
+[connection signal="game_loaded" from="Popups/SavePopup" to="." method="_on_save_popup_game_loaded"]
 [connection signal="pressed" from="Popups/X" to="." method="_on_x_pressed"]
