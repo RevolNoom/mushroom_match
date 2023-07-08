@@ -1,24 +1,24 @@
 [gd_scene load_steps=7 format=3 uid="uid://djtmkg12f8h7c"]
 
 [ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_5o3oo"]
-[ext_resource type="Texture2D" uid="uid://cj6wyemjw7uvx" path="res://assets/CustomTheme/Original/SoundOn.png" id="2_pryxk"]
+[ext_resource type="Texture2D" uid="uid://c4lcwyeh0cd0m" path="res://assets/CustomTheme/Original/SoundOn.png" id="2_pryxk"]
 [ext_resource type="Script" path="res://scenes/Popups/Settings.gd" id="2_qts0a"]
-[ext_resource type="Texture2D" uid="uid://slj2hc5s7byl" path="res://assets/CustomTheme/Original/SoundOff.png" id="3_5eef6"]
-[ext_resource type="Texture2D" uid="uid://di222ga80ee2f" path="res://assets/CustomTheme/Original/MusicOn.png" id="3_k7jsf"]
-[ext_resource type="Texture2D" uid="uid://cal6ucq4l8eau" path="res://assets/CustomTheme/Original/MusicOff.png" id="4_byqa7"]
+[ext_resource type="Texture2D" uid="uid://dbmjly7mtk1kk" path="res://assets/CustomTheme/Original/SoundOff.png" id="3_5eef6"]
+[ext_resource type="Texture2D" uid="uid://dwstxavpola7m" path="res://assets/CustomTheme/Original/MusicOn.png" id="3_k7jsf"]
+[ext_resource type="Texture2D" uid="uid://dyy540jyaalku" path="res://assets/CustomTheme/Original/MusicOff.png" id="4_byqa7"]
 
 [node name="Settings" instance=ExtResource("1_5o3oo")]
 script = ExtResource("2_qts0a")
 
-[node name="Title" parent="ARC/VBox" index="0"]
+[node name="Title" parent="H/V" index="0"]
 text = "SETTINGS"
 
-[node name="Grid" type="GridContainer" parent="ARC/VBox/Content" index="0"]
+[node name="Grid" type="GridContainer" parent="H/V/Content" index="0"]
 layout_mode = 2
 columns = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Music" type="CheckBox" parent="ARC/VBox/Content/Grid" index="0"]
+[node name="Music" type="CheckBox" parent="H/V/Content/Grid" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -27,14 +27,14 @@ theme_override_icons/unchecked = ExtResource("4_byqa7")
 button_pressed = true
 expand_icon = true
 
-[node name="MSlider" type="HSlider" parent="ARC/VBox/Content/Grid" index="1"]
+[node name="MSlider" type="HSlider" parent="H/V/Content/Grid" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 min_value = -15.0
 max_value = 15.0
 
-[node name="Sfx" type="CheckBox" parent="ARC/VBox/Content/Grid" index="2"]
+[node name="Sfx" type="CheckBox" parent="H/V/Content/Grid" index="2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -42,19 +42,19 @@ theme_override_icons/checked = ExtResource("2_pryxk")
 theme_override_icons/unchecked = ExtResource("3_5eef6")
 button_pressed = true
 
-[node name="SSlider" type="HSlider" parent="ARC/VBox/Content/Grid" index="3"]
+[node name="SSlider" type="HSlider" parent="H/V/Content/Grid" index="3"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 min_value = -15.0
 max_value = 15.0
 
-[node name="EnableAds" type="CheckBox" parent="ARC/VBox/Content/Grid" index="4"]
+[node name="EnableAds" type="CheckBox" parent="H/V/Content/Grid" index="4"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EAExplanation" type="Label" parent="ARC/VBox/Content/Grid" index="5"]
+[node name="EAExplanation" type="Label" parent="H/V/Content/Grid" index="5"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -63,10 +63,10 @@ text = "Enable Ads
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NationalFlag" type="TextureButton" parent="ARC/VBox/Content/Grid" index="6"]
+[node name="NationalFlag" type="TextureButton" parent="H/V/Content/Grid" index="6"]
 layout_mode = 2
 
-[node name="Language" type="Label" parent="ARC/VBox/Content/Grid" index="7"]
+[node name="Language" type="Label" parent="H/V/Content/Grid" index="7"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -75,7 +75,7 @@ text = "Language
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="toggled" from="ARC/VBox/Content/Grid/Music" to="." method="_on_music_toggled"]
-[connection signal="value_changed" from="ARC/VBox/Content/Grid/MSlider" to="." method="_on_m_slider_value_changed"]
-[connection signal="toggled" from="ARC/VBox/Content/Grid/Sfx" to="." method="_on_sfx_toggled"]
-[connection signal="drag_ended" from="ARC/VBox/Content/Grid/SSlider" to="." method="_on_s_slider_drag_ended"]
+[connection signal="toggled" from="H/V/Content/Grid/Music" to="." method="_on_music_toggled"]
+[connection signal="value_changed" from="H/V/Content/Grid/MSlider" to="." method="_on_m_slider_value_changed"]
+[connection signal="toggled" from="H/V/Content/Grid/Sfx" to="." method="_on_sfx_toggled"]
+[connection signal="drag_ended" from="H/V/Content/Grid/SSlider" to="." method="_on_s_slider_drag_ended"]

@@ -10,14 +10,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xp1qe")
 
-[node name="ARC" type="AspectRatioContainer" parent="."]
-layout_mode = 2
-ratio = 0.7
-
-[node name="VBox" type="VBoxContainer" parent="ARC"]
+[node name="H" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="ARC/VBox"]
+[node name="Pad" type="Control" parent="H"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="H"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="Title" type="Label" parent="H/V"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.28
@@ -25,17 +31,22 @@ theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pad" type="Control" parent="ARC/VBox"]
+[node name="Pad" type="Control" parent="H/V"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.17
 
-[node name="Content" type="MarginContainer" parent="ARC/VBox"]
+[node name="Content" type="MarginContainer" parent="H/V"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 
-[node name="Pad2" type="Control" parent="ARC/VBox"]
+[node name="Pad2" type="Control" parent="H/V"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+
+[node name="Pad2" type="Control" parent="H"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

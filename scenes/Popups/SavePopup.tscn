@@ -22,18 +22,18 @@
 [node name="SavePopup" instance=ExtResource("1_x8m5x")]
 script = ExtResource("2_m4525")
 
-[node name="Title" parent="ARC/VBox" index="0"]
+[node name="Title" parent="H/V" index="0"]
 text = "SAVE/LOAD"
 
-[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content" index="0"]
+[node name="VBox" type="VBoxContainer" parent="H/V/Content" index="0"]
 layout_mode = 2
 
-[node name="ARC" type="AspectRatioContainer" parent="ARC/VBox/Content/VBox" index="0"]
+[node name="ARC" type="AspectRatioContainer" parent="H/V/Content/VBox" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EmptySlotNotice" type="Label" parent="ARC/VBox/Content/VBox/ARC" index="0"]
+[node name="EmptySlotNotice" type="Label" parent="H/V/Content/VBox/ARC" index="0"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Empty Slot
@@ -42,37 +42,37 @@ Touch To Save"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MC" type="MarginContainer" parent="ARC/VBox/Content/VBox/ARC" index="1"]
+[node name="MC" type="MarginContainer" parent="H/V/Content/VBox/ARC" index="1"]
 visible = false
 layout_mode = 2
 
-[node name="Background" type="TextureRect" parent="ARC/VBox/Content/VBox/ARC/MC" index="0"]
+[node name="Background" type="TextureRect" parent="H/V/Content/VBox/ARC/MC" index="0"]
 layout_mode = 2
 texture = ExtResource("3_wyfa8")
 
-[node name="Board" parent="ARC/VBox/Content/VBox/ARC/MC" index="1" instance=ExtResource("4_a7185")]
+[node name="Board" parent="H/V/Content/VBox/ARC/MC" index="1" instance=ExtResource("4_a7185")]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content/VBox/ARC/MC/Board" index="3"]
+[node name="VBox" type="VBoxContainer" parent="H/V/Content/VBox/ARC/MC/Board" index="3"]
 layout_mode = 2
 alignment = 2
 
-[node name="Score" type="Label" parent="ARC/VBox/Content/VBox/ARC/MC/Board/VBox" index="0"]
+[node name="Score" type="Label" parent="H/V/Content/VBox/ARC/MC/Board/VBox" index="0"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "Score:"
 
-[node name="Date" type="Label" parent="ARC/VBox/Content/VBox/ARC/MC/Board/VBox" index="1"]
+[node name="Date" type="Label" parent="H/V/Content/VBox/ARC/MC/Board/VBox" index="1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "Date:"
 
-[node name="Gametime" type="Label" parent="ARC/VBox/Content/VBox/ARC/MC/Board/VBox" index="2"]
+[node name="Gametime" type="Label" parent="H/V/Content/VBox/ARC/MC/Board/VBox" index="2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "Gametime:"
 
-[node name="SaveArea" type="Button" parent="ARC/VBox/Content/VBox/ARC" index="2"]
+[node name="SaveArea" type="Button" parent="H/V/Content/VBox/ARC" index="2"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6m7ru")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ucx0x")
@@ -81,79 +81,70 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_r6muj")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ou62e")
 flat = true
 
-[node name="HBox" type="HBoxContainer" parent="ARC/VBox/Content/VBox" index="1"]
+[node name="HBox" type="HBoxContainer" parent="H/V/Content/VBox" index="1"]
 layout_mode = 2
 alignment = 1
 
-[node name="Left" type="TextureButton" parent="ARC/VBox/Content/VBox/HBox" index="0"]
+[node name="Left" type="TextureButton" parent="H/V/Content/VBox/HBox" index="0"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 texture_normal = ExtResource("2_583km")
 stretch_mode = 5
 
-[node name="HBox" type="HBoxContainer" parent="ARC/VBox/Content/VBox/HBox" index="1"]
+[node name="HBox" type="HBoxContainer" parent="H/V/Content/VBox/HBox" index="1"]
 layout_mode = 2
 
-[node name="Current" type="Label" parent="ARC/VBox/Content/VBox/HBox/HBox" index="0"]
+[node name="Current" type="Label" parent="H/V/Content/VBox/HBox/HBox" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 horizontal_alignment = 1
 
-[node name="Slash" type="Label" parent="ARC/VBox/Content/VBox/HBox/HBox" index="1"]
+[node name="Slash" type="Label" parent="H/V/Content/VBox/HBox/HBox" index="1"]
 layout_mode = 2
 text = "/"
 
-[node name="Max" type="Label" parent="ARC/VBox/Content/VBox/HBox/HBox" index="2"]
+[node name="Max" type="Label" parent="H/V/Content/VBox/HBox/HBox" index="2"]
 layout_mode = 2
 text = "1"
 
-[node name="Right" type="TextureButton" parent="ARC/VBox/Content/VBox/HBox" index="2"]
+[node name="Right" type="TextureButton" parent="H/V/Content/VBox/HBox" index="2"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 texture_normal = ExtResource("3_3o121")
 stretch_mode = 5
 
-[node name="Delete" type="TextureButton" parent="ARC/VBox/Content" index="1"]
+[node name="Delete" type="TextureButton" parent="H/V/Content/VBox" index="2"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture_normal = ExtResource("3_kykl7")
 
-[node name="PromptDelete" parent="ARC/VBox/Content" index="2" instance=ExtResource("6_gsn3l")]
+[node name="PromptDelete" parent="H/V/Content/VBox" index="3" instance=ExtResource("6_gsn3l")]
 visible = false
 layout_mode = 2
 
-[node name="Title" parent="ARC/VBox/Content/PromptDelete/ARC/VBox" index="0"]
-text = "DELETE"
+[node name="V" parent="H/V/Content/VBox/PromptDelete/H" index="1"]
+size_flags_horizontal = 1
+size_flags_stretch_ratio = 1.0
 
-[node name="Message" parent="ARC/VBox/Content/PromptDelete/ARC/VBox/Content/VBox" index="0"]
-text = "Deleting Save File
-Are you sure?"
-
-[node name="PromptLoad" parent="ARC/VBox/Content" index="3" instance=ExtResource("6_gsn3l")]
+[node name="PromptLoad" parent="H/V/Content/VBox" index="4" instance=ExtResource("6_gsn3l")]
 visible = false
 layout_mode = 2
 
-[node name="Title" parent="ARC/VBox/Content/PromptLoad/ARC/VBox" index="0"]
-theme_override_font_sizes/font_size = 35
-text = "Load Game"
+[node name="V" parent="H/V/Content/VBox/PromptLoad/H" index="1"]
+size_flags_horizontal = 1
+size_flags_stretch_ratio = 1.0
 
-[node name="Message" parent="ARC/VBox/Content/PromptLoad/ARC/VBox/Content/VBox" index="0"]
-text = "Loading will lose
-current game progress
+[connection signal="pressed" from="H/V/Content/VBox/ARC/SaveArea" to="." method="_on_save_area_pressed"]
+[connection signal="pressed" from="H/V/Content/VBox/HBox/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="H/V/Content/VBox/HBox/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="H/V/Content/VBox/Delete" to="." method="_on_delete_pressed"]
+[connection signal="confirm" from="H/V/Content/VBox/PromptDelete" to="." method="_on_prompt_delete_confirm"]
+[connection signal="confirm" from="H/V/Content/VBox/PromptLoad" to="." method="_on_prompt_load_confirm"]
 
-Are you sure?"
-
-[connection signal="pressed" from="ARC/VBox/Content/VBox/ARC/SaveArea" to="." method="_on_save_area_pressed"]
-[connection signal="pressed" from="ARC/VBox/Content/VBox/HBox/Left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="ARC/VBox/Content/VBox/HBox/Right" to="." method="_on_right_pressed"]
-[connection signal="pressed" from="ARC/VBox/Content/Delete" to="." method="_on_delete_pressed"]
-[connection signal="confirm" from="ARC/VBox/Content/PromptDelete" to="." method="_on_prompt_delete_confirm"]
-[connection signal="confirm" from="ARC/VBox/Content/PromptLoad" to="." method="_on_prompt_load_confirm"]
-
-[editable path="ARC/VBox/Content/PromptDelete"]
-[editable path="ARC/VBox/Content/PromptLoad"]
+[editable path="H/V/Content/VBox/PromptDelete"]
+[editable path="H/V/Content/VBox/PromptLoad"]

@@ -4,93 +4,93 @@
 
 [node name="Credits" instance=ExtResource("1_c57hs")]
 
-[node name="Title" parent="ARC/VBox" index="0"]
+[node name="Title" parent="H/V" index="0"]
 text = "CREDITS"
 
-[node name="Scroll" type="ScrollContainer" parent="ARC/VBox/Content" index="0"]
+[node name="Scroll" type="ScrollContainer" parent="H/V/Content" index="0"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="VBox" type="VBoxContainer" parent="ARC/VBox/Content/Scroll" index="0"]
+[node name="VBox" type="VBoxContainer" parent="H/V/Content/Scroll" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MadeBy" type="Label" parent="ARC/VBox/Content/Scroll/VBox" index="0"]
+[node name="MadeBy" type="Label" parent="H/V/Content/Scroll/VBox" index="0"]
 layout_mode = 2
 text = "Made By"
 horizontal_alignment = 1
 
-[node name="Contributors" type="Label" parent="ARC/VBox/Content/Scroll/VBox" index="1"]
+[node name="Contributors" type="Label" parent="H/V/Content/Scroll/VBox" index="1"]
 layout_mode = 2
 text = "Contributors:"
 horizontal_alignment = 1
 
-[node name="SpecialThanks" type="Label" parent="ARC/VBox/Content/Scroll/VBox" index="2"]
+[node name="SpecialThanks" type="Label" parent="H/V/Content/Scroll/VBox" index="2"]
 layout_mode = 2
 text = "Special thanks to:"
 horizontal_alignment = 1
 
-[node name="Info" type="Label" parent="ARC/VBox/Content/Scroll/VBox" index="3"]
+[node name="Info" type="Label" parent="H/V/Content/Scroll/VBox" index="3"]
 layout_mode = 2
 text = "This game is open-sourced.
 Everyone is welcomed
 to make a fork of their own."
 horizontal_alignment = 1
 
-[node name="Links" type="Label" parent="ARC/VBox/Content/Scroll/VBox" index="4"]
+[node name="Links" type="Label" parent="H/V/Content/Scroll/VBox" index="4"]
 layout_mode = 2
 text = "Credits:"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="ARC/VBox/Content/Scroll/VBox" index="5"]
+[node name="GridContainer" type="GridContainer" parent="H/V/Content/Scroll/VBox" index="5"]
 layout_mode = 2
 columns = 2
 
-[node name="FbIcon" type="TextureButton" parent="ARC/VBox/Content/Scroll/VBox/GridContainer" index="0"]
+[node name="FbIcon" type="TextureButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="0"]
 layout_mode = 2
 
-[node name="FbLink" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/GridContainer" index="1"]
+[node name="FbLink" type="LinkButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="1"]
 layout_mode = 2
 
-[node name="GithubIcon" type="TextureButton" parent="ARC/VBox/Content/Scroll/VBox/GridContainer" index="2"]
+[node name="GithubIcon" type="TextureButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="2"]
 layout_mode = 2
 
-[node name="GithubLink" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/GridContainer" index="3"]
+[node name="GithubLink" type="LinkButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="3"]
 layout_mode = 2
 
-[node name="PatreonIcon" type="TextureButton" parent="ARC/VBox/Content/Scroll/VBox/GridContainer" index="4"]
+[node name="PatreonIcon" type="TextureButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="4"]
 layout_mode = 2
 
-[node name="PatreonLink" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/GridContainer" index="5"]
+[node name="PatreonLink" type="LinkButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="5"]
 layout_mode = 2
 
-[node name="Attributions" type="VBoxContainer" parent="ARC/VBox/Content/Scroll/VBox" index="6"]
+[node name="Attributions" type="VBoxContainer" parent="H/V/Content/Scroll/VBox" index="6"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="UIButtons1" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/Attributions" index="0"]
+[node name="UIButtons1" type="LinkButton" parent="H/V/Content/Scroll/VBox/Attributions" index="0"]
 layout_mode = 2
 text = "UI from Freepik."
 uri = "https://www.freepik.com/free-vector/design-complete-set-score-button-game-pop-up-icon-window-elements-creating-medieval-rpg-video-games_14246137.htm"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ARC/VBox/Content/Scroll/VBox/Attributions/UIButtons1" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="H/V/Content/Scroll/VBox/Attributions/UIButtons1" index="0"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="UIButtons2" type="LinkButton" parent="ARC/VBox/Content/Scroll/VBox/Attributions" index="1"]
+[node name="UIButtons2" type="LinkButton" parent="H/V/Content/Scroll/VBox/Attributions" index="1"]
 layout_mode = 2
 text = "UI Buttons 2"
 uri = "https://www.freepik.com/free-vector/button-set-designed-game-user-interface-gui-illustration-video-games-computers_17631634.htm"
 
-[node name="Label" type="Label" parent="ARC/VBox/Content/Scroll/VBox/Attributions" index="2"]
+[node name="Label" type="Label" parent="H/V/Content/Scroll/VBox/Attributions" index="2"]
 layout_mode = 2
 text = "Freepik"
 
-[node name="Label2" type="Label" parent="ARC/VBox/Content/Scroll/VBox/Attributions" index="3"]
+[node name="Label2" type="Label" parent="H/V/Content/Scroll/VBox/Attributions" index="3"]
 layout_mode = 2
 text = "https://pixerelia.itch.io/vf-edible-mushrooms"
 autowrap_mode = 2
