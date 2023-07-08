@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="5_2s72k"]
 [ext_resource type="PackedScene" uid="uid://csxalycdojsqd" path="res://scenes/Gameplay/Board.tscn" id="6_itgpe"]
 [ext_resource type="Texture2D" uid="uid://vfwcbfcaxkmq" path="res://assets/CustomTheme/Resized/flaticon_yogi_aprelliyanto.png" id="7_01mw8"]
-[ext_resource type="Texture2D" uid="uid://cj27djmj7ha8s" path="res://assets/CustomTheme/Original/SettingButton.png" id="8_0678b"]
-[ext_resource type="Texture2D" uid="uid://bu0o5dfvrq1lx" path="res://assets/CustomTheme/Original/HomeButton.png" id="9_bey7g"]
-[ext_resource type="Texture2D" uid="uid://03k486rv50m" path="res://assets/CustomTheme/Original/RightArrowButton.png" id="10_oj4sa"]
+[ext_resource type="Texture2D" uid="uid://n6crxl47coom" path="res://assets/CustomTheme/Resized/SettingButton.png" id="8_ghx0s"]
+[ext_resource type="Texture2D" uid="uid://6oeb054rvt4w" path="res://assets/CustomTheme/Resized/HomeButton.png" id="9_ma8xw"]
+[ext_resource type="Texture2D" uid="uid://dwvy0fk0x8mb2" path="res://assets/CustomTheme/Resized/RightArrowButton.png" id="10_8v3as"]
 [ext_resource type="PackedScene" uid="uid://bsirh5bwycn0u" path="res://scenes/Popups/ToMainMenu.tscn" id="11_g477v"]
 [ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="12_ksbu7"]
-[ext_resource type="PackedScene" path="res://scenes/Popups/GameOver.tscn" id="13_sc8i3"]
+[ext_resource type="PackedScene" uid="uid://d3c44c8jxmirp" path="res://scenes/Popups/GameOver.tscn" id="13_sc8i3"]
 [ext_resource type="PackedScene" uid="uid://dxuerlu0buwg5" path="res://scenes/Popups/SavePopup.tscn" id="14_5tkq4"]
 [ext_resource type="Texture2D" uid="uid://cktt68qkxost4" path="res://assets/CustomTheme/Original/X.png" id="15_g4616"]
 
@@ -34,10 +34,11 @@ texture = ExtResource("3_l6g7i")
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Top" type="HBoxContainer" parent="VBox"]
+[node name="Top" type="VBoxContainer" parent="VBox"]
 layout_mode = 2
 
 [node name="NextSpawn" type="HBoxContainer" parent="VBox/Top"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 2
 
@@ -105,13 +106,16 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScoreBoard" type="VBoxContainer" parent="VBox/Top"]
+[node name="Board" type="HBoxContainer" parent="VBox/Top"]
+layout_mode = 2
+
+[node name="Score" type="VBoxContainer" parent="VBox/Top/Board"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox/Top/ScoreBoard"]
+[node name="Label" type="Label" parent="VBox/Top/Board/Score"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -120,7 +124,31 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="VBox/Top/ScoreBoard"]
+[node name="Value" type="Label" parent="VBox/Top/Board/Score"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Best" type="VBoxContainer" parent="VBox/Top/Board"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBox/Top/Board/Best"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Best"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Value" type="Label" parent="VBox/Top/Board/Best"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -151,30 +179,44 @@ texture_normal = ExtResource("7_01mw8")
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("8_0678b")
+texture_normal = ExtResource("8_ghx0s")
 
 [node name="Home" type="TextureButton" parent="VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("9_bey7g")
+texture_normal = ExtResource("9_ma8xw")
 
 [node name="Move" type="HBoxContainer" parent="VBox/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Undo" type="TextureButton" parent="VBox/Bottom/Move"]
+[node name="Undo" type="Control" parent="VBox/Bottom/Move"]
+custom_minimum_size = Vector2(156, 80)
 layout_mode = 2
+
+[node name="B" type="TextureButton" parent="VBox/Bottom/Move/Undo"]
+layout_mode = 2
+offset_left = 8.0
+offset_right = 72.0
+offset_bottom = 90.0
 size_flags_horizontal = 8
-texture_normal = ExtResource("10_oj4sa")
+texture_normal = ExtResource("10_8v3as")
 stretch_mode = 5
 flip_h = true
 
-[node name="Redo" type="TextureButton" parent="VBox/Bottom/Move"]
+[node name="Redo" type="Control" parent="VBox/Bottom/Move"]
+custom_minimum_size = Vector2(156, 80)
 layout_mode = 2
+
+[node name="B" type="TextureButton" parent="VBox/Bottom/Move/Redo"]
+layout_mode = 2
+offset_left = 4.0
+offset_right = 68.0
+offset_bottom = 90.0
 size_flags_horizontal = 8
-texture_normal = ExtResource("10_oj4sa")
+texture_normal = ExtResource("10_8v3as")
 stretch_mode = 5
 
 [node name="Popups" type="MarginContainer" parent="."]
@@ -217,8 +259,8 @@ flip_h = true
 [connection signal="pressed" from="VBox/Bottom/Options/SaveLoad" to="." method="_on_save_load_pressed"]
 [connection signal="pressed" from="VBox/Bottom/Options/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBox/Bottom/Options/Home" to="." method="_on_home_pressed"]
-[connection signal="pressed" from="VBox/Bottom/Move/Undo" to="." method="_on_undo_pressed"]
-[connection signal="pressed" from="VBox/Bottom/Move/Redo" to="." method="_on_redo_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Move/Undo/B" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Move/Redo/B" to="." method="_on_redo_pressed"]
 [connection signal="confirm" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_confirm"]
 [connection signal="b_home" from="Popups/GameOver" to="." method="_on_game_over_b_home"]
 [connection signal="b_retry" from="Popups/GameOver" to="." method="_on_game_over_b_retry"]

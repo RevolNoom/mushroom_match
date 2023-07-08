@@ -4,10 +4,18 @@ signal to_main_menu
 
 
 func _ready():
-	#$VBox/Top/ARC.ratio = $VBox/Board.spore_per_turn
-	update_next_turn_spores()
-	check_unredo_state()
+	#update_next_turn_spores()
 	#Pause()
+	_reset()
+
+
+func _reset():
+	HidePopup()
+	$VBox/Top/Board/Best/Value.text = str(Settings.get_value("player", "highscore"))
+	$VBox/Top/Board/Score/Value.text = "0"
+	$VBox/Top/Clock.reset()
+	$VBox/Board.reset()
+	check_unredo_state()
 
 
 func Play():
@@ -51,13 +59,12 @@ func _on_board_full():
 	ShowPopup($Popups/GameOver)
 
 
-#TODO: Update highscores
 func _on_game_over_b_home():
 	_on_to_main_menu_confirm(true)
 	
 	
 func _on_game_over_b_retry():
-	pass # Replace with function body.
+	_reset()
 
 
 func _on_settings_pressed():
@@ -87,7 +94,7 @@ func LoadSaveData(save_data: Dictionary):
 	$VBox/Top/Clock.time_elapsed = $VBox/Top/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
 	$VBox/Board.LoadSaveData(save_data["board"])
 	
-	update_next_turn_spores()
+	#update_next_turn_spores()
 	check_unredo_state()
 
 
@@ -102,7 +109,7 @@ func _on_redo_pressed():
 
 
 func _on_board_new_move():
-	update_next_turn_spores()
+	#update_next_turn_spores()
 	check_unredo_state()
 
 
@@ -118,8 +125,8 @@ func update_next_turn_spores():
 			
 			
 func check_unredo_state():
-	$VBox/Bottom/Move/Undo.disabled = not $VBox/Board.is_undoable()
-	$VBox/Bottom/Move/Redo.disabled = not $VBox/Board.is_redoable()
+	$VBox/Bottom/Move/Undo/B.visible = $VBox/Board.is_undoable()
+	$VBox/Bottom/Move/Redo/B.visible = $VBox/Board.is_redoable()
 
 
 func _on_save_popup_game_loaded(save_data):

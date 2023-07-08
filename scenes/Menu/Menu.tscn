@@ -33,6 +33,7 @@ size_flags_vertical = 3
 text = "Continue"
 
 [node name="Tutorial" type="Button" parent="VBox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Tutorial"
@@ -53,6 +54,7 @@ texture_normal = ExtResource("4_ttj2j")
 stretch_mode = 5
 
 [node name="Highscore" type="TextureButton" parent="VBox/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("5_riphu")

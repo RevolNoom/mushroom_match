@@ -38,7 +38,8 @@ func _on_main_menu_b_highscore():
 	pass
 
 func _on_main_menu_b_play():
-	changeScene($Margin/VBox/Center/ChooseGameMode)
+	emit_signal("new_game", "casual", null)
+	#changeScene($Margin/VBox/Center/ChooseGameMode)
 
 
 func _on_main_menu_b_settings():

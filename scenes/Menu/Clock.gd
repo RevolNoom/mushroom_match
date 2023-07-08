@@ -6,7 +6,7 @@ var time_elapsed: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Reset()
+	reset()
 
 
 func _process(delta):
@@ -22,7 +22,7 @@ func Resume():
 	set_process(true)
 
 
-func Reset():
+func reset():
 	time_elapsed = 0
 	
 

@@ -6,6 +6,10 @@ signal game_loaded(save_data: Dictionary)
 
 # This export is a shortcut for Main menu's Continue
 @export var DirectLoadOnPress = false
+@export var disable_saving = false:
+	set(value):
+		disable_saving = value
+		$H/V/Content/VBox/ARC/V/SaveNotice.visible = not disable_saving
 
 
 var slot_filename: Array = []
@@ -18,7 +22,7 @@ func _ready():
 # Return current index in savefile_path
 # which is 1-unit less than shown on UI
 func current_slot():
-	return int($ARC/VBox/Content/VBox/HBox/HBox/Current.text) - 1
+	return int($H/V/Content/VBox/HBox/HBox/Current.text) - 1
 
 
 func refresh_info():
@@ -28,28 +32,28 @@ func refresh_info():
 
 func refresh_ui():
 	if current_slot() >= slot_filename.size():
-		$ARC/VBox/Content/VBox/ARC/MC.hide()
-		$ARC/VBox/Content/Delete.hide()
+		$H/V/Content/VBox/ARC/MC.hide()
+		$H/V/Content/Delete.hide()
 		return
 	else:
-		$ARC/VBox/Content/VBox/ARC/MC.show()
-		$ARC/VBox/Content/Delete.show()
+		$H/V/Content/VBox/ARC/MC.show()
+		$H/V/Content/Delete.show()
 	
 	var savedata = get_slot_json(current_slot())
 	var date = savedata["date"]
-	$ARC/VBox/Content/VBox/ARC/MC/Board/VBox/Date.text =\
+	$H/V/Content/VBox/ARC/MC/Board/VBox/Date.text =\
 		"Date: " + ("0" if date["day"] < 10 else "") + str(date["day"]) + "-"\
 				+ ("0" if date["month"] < 10 else "") + str(date["month"]) + "-"\
 				+ str(date["year"]) + " "\
 				+ ("0" if date["hour"] < 10 else "") + str(date["hour"]) + ":"\
 				+ ("0" if date["minute"] < 10 else "") + str(date["minute"])
 				
-	$ARC/VBox/Content/VBox/ARC/MC/Board/VBox/Score.text = "Score: " + savedata["gameplay"]["score"]
-	$ARC/VBox/Content/VBox/ARC/MC/Board/VBox/Gametime.text = "Gametime: " + savedata["gameplay"]["time_elapsed"]
-	$ARC/VBox/Content/VBox/ARC/MC/Board.LoadSaveData(savedata["board"])
+	$H/V/Content/VBox/ARC/MC/Board/VBox/Score.text = "Score: " + savedata["gameplay"]["score"]
+	$H/V/Content/VBox/ARC/MC/Board/VBox/Gametime.text = "Gametime: " + savedata["gameplay"]["time_elapsed"]
+	$H/V/Content/VBox/ARC/MC/Board.LoadSaveData(savedata["board"])
 	
-	$ARC/VBox/Content/VBox/ARC/MC.show()
-	$ARC/VBox/Content/Delete.show()
+	$H/V/Content/VBox/ARC/MC.show()
+	$H/V/Content/Delete.show()
 
 
 func refresh_savefile_list():
@@ -64,7 +68,7 @@ func refresh_savefile_list():
 		if file.begins_with("save"):
 			slot_filename.append(file)
 	
-	$ARC/VBox/Content/VBox/HBox/HBox/Max.text = str(slot_filename.size() + 1)
+	$H/V/Content/VBox/HBox/HBox/Max.text = str(slot_filename.size() + 1)
 	dir.list_dir_end()
 
 
@@ -96,17 +100,12 @@ func delete(slot: int):
 
 
 func _on_save_area_pressed():
-	print("pressed")
 	if get_slot_json(current_slot()) != null:
-		print("1")
 		if DirectLoadOnPress:
-			print("11")
 			emit_signal("game_loaded", get_slot_json(current_slot()))
 		else:
-			print("12")
-			$ARC/VBox/Content/PromptLoad.show()
-	else:
-		print("2")
+			$H/V/Content/PromptLoad.show()
+	elif not disable_saving:
 		save_to(current_slot())
 
 
@@ -153,22 +152,22 @@ func _on_right_pressed():
 
 
 func _move_page(step: int):
-	$ARC/VBox/Content/VBox/HBox/HBox/Current.text = str(posmod(current_slot() + step, slot_filename.size()+1) + 1)
+	$H/V/Content/VBox/HBox/HBox/Current.text = str(posmod(current_slot() + step, slot_filename.size()+1) + 1)
 	refresh_info()
 
 
 func _on_delete_pressed():
-	$ARC/VBox/Content/PromptDelete.show()
+	$H/V/Content/PromptDelete.show()
 
 
 func _on_prompt_delete_confirm(yes):
-	$ARC/VBox/Content/PromptDelete.hide()
+	$H/V/Content/PromptDelete.hide()
 	if yes:
 		delete(current_slot())
 		refresh_info()
 
 
 func _on_prompt_load_confirm(yes):
-	$ARC/VBox/Content/PromptLoad.hide()
+	$H/V/Content/PromptLoad.hide()
 	if yes:
 		emit_signal("game_loaded", get_slot_json(current_slot()))

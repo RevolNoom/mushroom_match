@@ -33,10 +33,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EmptySlotNotice" type="Label" parent="H/V/Content/VBox/ARC" index="0"]
+[node name="V" type="VBoxContainer" parent="H/V/Content/VBox/ARC" index="0"]
+layout_mode = 2
+alignment = 1
+
+[node name="EmptySlotNotice" type="Label" parent="H/V/Content/VBox/ARC/V" index="0"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Empty Slot
+text = "Empty Slot"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SaveNotice" type="Label" parent="H/V/Content/VBox/ARC/V" index="1"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "
 
 Touch To Save"
 horizontal_alignment = 1
@@ -116,22 +127,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource("3_3o121")
 stretch_mode = 5
 
-[node name="Delete" type="TextureButton" parent="H/V/Content/VBox" index="2"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture_normal = ExtResource("3_kykl7")
-
-[node name="PromptDelete" parent="H/V/Content/VBox" index="3" instance=ExtResource("6_gsn3l")]
-visible = false
-layout_mode = 2
-
-[node name="V" parent="H/V/Content/VBox/PromptDelete/H" index="1"]
-size_flags_horizontal = 1
-size_flags_stretch_ratio = 1.0
-
-[node name="PromptLoad" parent="H/V/Content/VBox" index="4" instance=ExtResource("6_gsn3l")]
+[node name="PromptLoad" parent="H/V/Content/VBox" index="2" instance=ExtResource("6_gsn3l")]
 visible = false
 layout_mode = 2
 
@@ -139,12 +135,27 @@ layout_mode = 2
 size_flags_horizontal = 1
 size_flags_stretch_ratio = 1.0
 
+[node name="Delete" type="TextureButton" parent="H/V/Content" index="1"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("3_kykl7")
+
+[node name="PromptDelete" parent="H/V/Content" index="2" instance=ExtResource("6_gsn3l")]
+visible = false
+layout_mode = 2
+
+[node name="V" parent="H/V/Content/PromptDelete/H" index="1"]
+size_flags_horizontal = 1
+size_flags_stretch_ratio = 1.0
+
 [connection signal="pressed" from="H/V/Content/VBox/ARC/SaveArea" to="." method="_on_save_area_pressed"]
 [connection signal="pressed" from="H/V/Content/VBox/HBox/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="H/V/Content/VBox/HBox/Right" to="." method="_on_right_pressed"]
-[connection signal="pressed" from="H/V/Content/VBox/Delete" to="." method="_on_delete_pressed"]
-[connection signal="confirm" from="H/V/Content/VBox/PromptDelete" to="." method="_on_prompt_delete_confirm"]
 [connection signal="confirm" from="H/V/Content/VBox/PromptLoad" to="." method="_on_prompt_load_confirm"]
+[connection signal="pressed" from="H/V/Content/Delete" to="." method="_on_delete_pressed"]
+[connection signal="confirm" from="H/V/Content/PromptDelete" to="." method="_on_prompt_delete_confirm"]
 
-[editable path="H/V/Content/VBox/PromptDelete"]
 [editable path="H/V/Content/VBox/PromptLoad"]
+[editable path="H/V/Content/PromptDelete"]
