@@ -33,8 +33,10 @@ func _on_mushroom_popped(mushroom):
 
 func Clear():
 	if HasSpore():
+		#print("PopSpore()")
 		PopSpore().queue_free()
-	elif HasMushroom():
+	if HasMushroom():
+		#print("PopMushroom()")
 		PopMushroom().queue_free()
 
 

@@ -13,12 +13,27 @@ var _astar = AStar2D.new()
 
 
 func _ready():
+	#_expand_to_shorter_edge()
 	for c in $Grid.get_children():
 		c.connect("chosen", _on_Cell_pressed)
-		
+	reset()
+
+
+func _expand_to_shorter_edge():
+	var shorter_edge = min(\
+			ProjectSettings.get_setting("display/window/size/viewport_width"),
+			ProjectSettings.get_setting("display/window/size/viewport_height"))
+	custom_minimum_size = Vector2(shorter_edge, shorter_edge)
+
+
+func reset():
 	_init_astar()
 
 	var c = $Grid.get_children()
+	for cll in c:
+		cll.Clear()
+		_astar.set_point_disabled(id(cll), false)
+		
 	c.shuffle()
 	
 	var temp_cell = c.slice(0, initial_mushrooms)
@@ -125,9 +140,11 @@ func Move(from: int, to: int):
 	DoMove(from, to)
 	
 	if not PopLines(to):
+		Settings.PlaySfx("Mushroom")
 		Grow()
 		Sprout()
-	
+	else:
+		Settings.PlaySfx("MushroomPop")
 	emit_signal("new_move")
 
 
@@ -256,7 +273,6 @@ func _get_spore_cells() -> PackedInt32Array:
 
 # TODO:
 func Execute(activities):
-	print("Executing: " + str(activities))
 	while activities.size():
 		var activity = activities.pop_front()
 		match activity[0]:
@@ -277,14 +293,11 @@ func Execute(activities):
 			UndoQueue.UN_POP:
 				Unpop(activity[1], activity[2])
 	
-	print("Executed")
-	print()
 	emit_signal("new_move")
 
 
 func DoMove(from: int, to: int):
-	print("Move " + str(from) + " " + str(to))
-	$"/root/Settings".PlaySfx("Mushroom")
+	#print("Move " + str(from) + " " + str(to))
 
 	var path = _astar.get_id_path(from, to)
 	$MovePath.global_position = Vector2()
@@ -305,7 +318,10 @@ func DoMove(from: int, to: int):
 	tween.tween_property($MovePath/PathFollow2D, "progress_ratio", 1,\
 			0.3 + path.size()*0.06).set_trans(Tween.TRANS_SINE)
 	await tween.finished
-	mushroom.z_index = 0
+	
+	# Sometimes the mushroom is popped before it got to the end
+	if is_instance_valid(mushroom):
+		mushroom.z_index = 0
 
 
 func DoRelocate(from: PackedInt32Array, to: PackedInt32Array):
@@ -316,7 +332,7 @@ func DoRelocate(from: PackedInt32Array, to: PackedInt32Array):
 
 
 func DoPop(m_cids: PackedInt32Array):
-	print("DoPop " + str(m_cids))
+	#print("DoPop " + str(m_cids))
 	for cid in m_cids:
 		var mushroom = cell(cid).GetMushroom()
 		var t = mushroom.global_transform
@@ -328,7 +344,7 @@ func DoPop(m_cids: PackedInt32Array):
 
 
 func DoSprout(s_ids: PackedInt32Array, s_cids: PackedInt32Array):
-	print("DoSprout " + str(s_ids) + " " + str(s_cids))
+	#print("DoSprout " + str(s_ids) + " " + str(s_cids))
 	for i in range(0, s_cids.size()):
 		var spore = $MushroomGenerator.GetNewMushroom(s_ids[i])
 		cell(s_cids[i]).Add(spore)
@@ -336,7 +352,7 @@ func DoSprout(s_ids: PackedInt32Array, s_cids: PackedInt32Array):
 
 
 func DoGrow(s_cids: PackedInt32Array):
-	print("Dogrow " + str(s_cids))
+	#print("Dogrow " + str(s_cids))
 	for cid in s_cids:
 		var c = cell(cid)
 		if c.HasMushroom():
@@ -347,7 +363,7 @@ func DoGrow(s_cids: PackedInt32Array):
 
 
 func Ungrow(m_cids: PackedInt32Array):
-	print("Ungrow " + str(m_cids))
+	#print("Ungrow " + str(m_cids))
 	for cid in m_cids:
 		if cell(cid).HasMushroom():
 			cell(cid).GetMushroom().Ungrow()
@@ -355,7 +371,7 @@ func Ungrow(m_cids: PackedInt32Array):
 
 
 func Unsprout(s_cids: PackedInt32Array):
-	print("Unsprout " + str(s_cids))
+	#print("Unsprout " + str(s_cids))
 	for cid in s_cids:
 		if cell(cid).HasSpore():
 			var spore = cell(cid).GetSpore()
@@ -366,7 +382,7 @@ func Unsprout(s_cids: PackedInt32Array):
 
 
 func Unpop(m_id: int, m_cids: PackedInt32Array):
-	print("Unpop " + str(m_id) + " " + str(m_cids))
+	#print("Unpop " + str(m_id) + " " + str(m_cids))
 	for cid in m_cids:
 		var mushroom = $MushroomGenerator.GetNewMushroom(m_id)
 		cell(cid).Add(mushroom)
