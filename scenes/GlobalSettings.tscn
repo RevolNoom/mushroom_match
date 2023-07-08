@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjhsr4vr41g4j"]
+[gd_scene load_steps=6 format=3 uid="uid://cjhsr4vr41g4j"]
 
 [ext_resource type="Script" path="res://scenes/GlobalSettings.gd" id="1_orkt1"]
 [ext_resource type="AudioStream" uid="uid://cgk7j7a5vkjtu" path="res://assets/Music_SFX/memories-relaxing-acoustic-nylon-guitar-138313.mp3" id="2_vx5rm"]
-[ext_resource type="AudioStream" uid="uid://blfre28hlt7ad" path="res://assets/Music_SFX/boing-98466.mp3" id="3_vw7hh"]
-[ext_resource type="AudioStream" uid="uid://18p0uvuvqjl7" path="res://assets/Music_SFX/mixkit-cartoon-punch-2149-1.wav" id="4_7l2mu"]
+[ext_resource type="AudioStream" uid="uid://snjb66cq0v8d" path="res://assets/Music_SFX/springboard-b-92439.mp3" id="3_euqik"]
+[ext_resource type="AudioStream" uid="uid://ca3bvoqajmh8e" path="res://assets/Music_SFX/ping.mp3" id="4_07pix"]
+[ext_resource type="AudioStream" uid="uid://bhmsb57tsfy2r" path="res://assets/Music_SFX/decidemp3-14575.mp3" id="5_c8oq8"]
 
 [node name="Settings" type="Node"]
 script = ExtResource("1_orkt1")
@@ -15,8 +16,17 @@ autoplay = true
 
 [node name="Sfx" type="Node" parent="."]
 
-[node name="Mushroom" type="AudioStreamPlayer" parent="Sfx"]
-stream = ExtResource("3_vw7hh")
-
 [node name="UI" type="AudioStreamPlayer" parent="Sfx"]
-stream = ExtResource("4_7l2mu")
+stream = ExtResource("3_euqik")
+
+[node name="Mushroom" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource("4_07pix")
+
+[node name="MushroomPop" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource("5_c8oq8")
+volume_db = -10.0
+
+[node name="ResaveTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ResaveTimer" to="." method="_on_resave_timer_timeout"]
