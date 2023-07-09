@@ -1,13 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdep4tr33absd"]
+[gd_scene load_steps=11 format=3 uid="uid://cdep4tr33absd"]
 
-[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_ph67v"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/CustomTheme.tres" id="1_aligb"]
 [ext_resource type="Script" path="res://scenes/Menu/MainMenu.gd" id="2_de2p0"]
 [ext_resource type="Texture2D" uid="uid://c5vpioee4qinq" path="res://assets/CustomTheme/Resized/Credit.png" id="3_ncfb8"]
 [ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_nodmb"]
 [ext_resource type="Texture2D" uid="uid://n6crxl47coom" path="res://assets/CustomTheme/Resized/SettingButton.png" id="4_a0cf2"]
 [ext_resource type="PackedScene" uid="uid://b1svk6m7jhvse" path="res://scenes/Menu/banner.tscn" id="4_odt08"]
 [ext_resource type="PackedScene" uid="uid://cuh8pj245mgas" path="res://scenes/Menu/Credits.tscn" id="6_uwyw1"]
-[ext_resource type="PackedScene" uid="uid://d2a6gfd1cildk" path="res://scenes/Menu/ChooseGameMode.tscn" id="7_6f18a"]
 [ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="8_ak8ep"]
 [ext_resource type="PackedScene" uid="uid://dxuerlu0buwg5" path="res://scenes/Popups/SavePopup.tscn" id="9_310sy"]
 [ext_resource type="Texture2D" uid="uid://cktt68qkxost4" path="res://assets/CustomTheme/Original/X.png" id="10_qi0xs"]
@@ -18,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_ph67v")
+theme = ExtResource("1_aligb")
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -35,20 +34,6 @@ theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 50
-
-[node name="Credits" type="TextureButton" parent="Margin"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("3_ncfb8")
-stretch_mode = 5
-
-[node name="Settings" type="TextureButton" parent="Margin"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-texture_normal = ExtResource("4_a0cf2")
-stretch_mode = 5
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
@@ -83,10 +68,6 @@ text = "Continue"
 visible = false
 layout_mode = 2
 
-[node name="ChooseGameMode" parent="Margin/VBox/Center" instance=ExtResource("7_6f18a")]
-visible = false
-layout_mode = 2
-
 [node name="Settings" parent="Margin/VBox/Center" instance=ExtResource("8_ak8ep")]
 visible = false
 layout_mode = 2
@@ -95,6 +76,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 DirectLoadOnPress = true
+disable_saving = true
 
 [node name="Return" type="TextureButton" parent="Margin/VBox/Center"]
 visible = false
@@ -103,13 +85,23 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 texture_normal = ExtResource("10_qi0xs")
 
-[connection signal="pressed" from="Margin/Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="Margin/Settings" to="." method="_on_settings_pressed"]
+[node name="Credits" type="TextureButton" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_ncfb8")
+stretch_mode = 5
+
+[node name="Settings" type="TextureButton" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture_normal = ExtResource("4_a0cf2")
+stretch_mode = 5
+
 [connection signal="pressed" from="Margin/VBox/Center/Menu/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Margin/VBox/Center/Menu/Continue" to="." method="_on_continue_pressed"]
-[connection signal="casual" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_casual"]
-[connection signal="custom_mode" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_custom_mode"]
-[connection signal="four_seasons" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_four_seasons"]
-[connection signal="time_rush" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_time_rush"]
 [connection signal="game_loaded" from="Margin/VBox/Center/SavePopup" to="." method="_on_save_popup_game_loaded"]
 [connection signal="pressed" from="Margin/VBox/Center/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Margin/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Margin/Settings" to="." method="_on_settings_pressed"]

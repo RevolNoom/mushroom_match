@@ -5,9 +5,9 @@ signal to_main_menu
 
 
 func _ready():
-	update_next_turn_spores()
-	#Pause()
+	Pause()
 	_reset()
+	update_next_turn_spores()
 
 
 func _reset():
@@ -49,10 +49,9 @@ func HidePopup():
 
 
 func _on_to_main_menu_confirm(yes):
+	HidePopup()
 	if yes:
 		emit_signal("to_main_menu")
-	else:
-		HidePopup()
 
 
 func _on_board_full():
@@ -126,9 +125,14 @@ func update_next_turn_spores():
 			
 			
 func check_unredo_state():
-	$MC/VBox/Bottom/Move/Undo/B.visible = $MC/VBox/Board.is_undoable()
-	$MC/VBox/Bottom/Move/Redo/B.visible = $MC/VBox/Board.is_redoable()
+	$MC/VBox/Bottom/Move/Undo/Undo.visible = $MC/VBox/Board.is_undoable()
+	$MC/VBox/Bottom/Move/Redo/Redo.visible = $MC/VBox/Board.is_redoable()
 
 
 func _on_save_popup_game_loaded(save_data):
+	HidePopup()
 	LoadSaveData(save_data)
+
+
+func _on_b_pressed():
+	pass # Replace with function body.

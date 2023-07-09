@@ -26,11 +26,6 @@ func _on_mushroom_state_changed(mushroom: Mushroom, is_spore: bool):
 		$Center/Mushroom.add_child(mushroom)
 
 
-# TODO: Disconnect signals then delete it?
-func _on_mushroom_popped(mushroom):
-	mushroom.queue_free()
-
-
 func Clear():
 	if HasSpore():
 		#print("PopSpore()")
@@ -72,6 +67,7 @@ func HasSpore() -> bool:
 
 func center_position():
 	return $Center.global_position
+	
 	
 var MushroomTextureSize = Vector2(16, 16)
 func _on_item_rect_changed():

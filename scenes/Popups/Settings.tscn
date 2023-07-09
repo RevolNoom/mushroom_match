@@ -20,7 +20,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Music" type="CheckBox" parent="H/V/Content/Grid" index="0"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_icons/checked = ExtResource("3_k7jsf")
 theme_override_icons/unchecked = ExtResource("4_byqa7")
@@ -36,7 +35,6 @@ max_value = 15.0
 
 [node name="Sfx" type="CheckBox" parent="H/V/Content/Grid" index="2"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_icons/checked = ExtResource("2_pryxk")
 theme_override_icons/unchecked = ExtResource("3_5eef6")
@@ -50,11 +48,13 @@ min_value = -15.0
 max_value = 15.0
 
 [node name="EnableAds" type="CheckBox" parent="H/V/Content/Grid" index="4"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="EAExplanation" type="Label" parent="H/V/Content/Grid" index="5"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -62,11 +62,14 @@ text = "Enable Ads
 (Actually does nothing for now)"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="NationalFlag" type="TextureButton" parent="H/V/Content/Grid" index="6"]
+visible = false
 layout_mode = 2
 
 [node name="Language" type="Label" parent="H/V/Content/Grid" index="7"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

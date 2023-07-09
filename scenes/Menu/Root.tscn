@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnn5g8asjvp3s"]
+[gd_scene load_steps=5 format=3 uid="uid://dnn5g8asjvp3s"]
 
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/CustomTheme.tres" id="1_frvmx"]
 [ext_resource type="Script" path="res://scenes/Menu/Root.gd" id="2_tm68g"]
 [ext_resource type="PackedScene" uid="uid://cui0n60ureh55" path="res://scenes/Gameplay/Gameplay.tscn" id="3_apcy6"]
 [ext_resource type="PackedScene" uid="uid://cdep4tr33absd" path="res://scenes/Menu/MainMenu.tscn" id="3_vte2y"]
@@ -10,13 +11,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_frvmx")
 script = ExtResource("2_tm68g")
+
+[node name="Gameplay" parent="." instance=ExtResource("3_apcy6")]
+visible = false
+layout_mode = 2
 
 [node name="MainMenu" parent="." instance=ExtResource("3_vte2y")]
 layout_mode = 2
 
-[node name="Gameplay" parent="." instance=ExtResource("3_apcy6")]
-layout_mode = 2
-
-[connection signal="new_game" from="MainMenu" to="." method="_on_main_menu_new_game"]
 [connection signal="to_main_menu" from="Gameplay" to="." method="_on_gameplay_to_main_menu"]
+[connection signal="new_game" from="MainMenu" to="." method="_on_main_menu_new_game"]

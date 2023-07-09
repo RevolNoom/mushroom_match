@@ -26,8 +26,8 @@ func current_slot():
 
 
 func refresh_info():
-	refresh_ui()
 	refresh_savefile_list()
+	refresh_ui()
 
 
 func refresh_ui():
@@ -35,9 +35,9 @@ func refresh_ui():
 		$H/V/Content/VBox/ARC/MC.hide()
 		$H/V/Content/Delete.hide()
 		return
-	else:
-		$H/V/Content/VBox/ARC/MC.show()
-		$H/V/Content/Delete.show()
+		
+	$H/V/Content/VBox/ARC/MC.show()
+	$H/V/Content/Delete.show()
 	
 	var savedata = get_slot_json(current_slot())
 	var date = savedata["date"]
@@ -52,8 +52,6 @@ func refresh_ui():
 	$H/V/Content/VBox/ARC/MC/Board/VBox/Gametime.text = "Gametime: " + savedata["gameplay"]["time_elapsed"]
 	$H/V/Content/VBox/ARC/MC/Board.LoadSaveData(savedata["board"])
 	
-	$H/V/Content/VBox/ARC/MC.show()
-	$H/V/Content/Delete.show()
 
 
 func refresh_savefile_list():
@@ -67,7 +65,7 @@ func refresh_savefile_list():
 			break
 		if file.begins_with("save"):
 			slot_filename.append(file)
-	
+
 	$H/V/Content/VBox/HBox/HBox/Max.text = str(slot_filename.size() + 1)
 	dir.list_dir_end()
 

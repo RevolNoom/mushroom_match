@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://cui0n60ureh55"]
 
-[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/CustomTheme.tres" id="1_ryl8a"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/CustomTheme.tres" id="1_ml3cc"]
 [ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="1_tam4a"]
 [ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="2_rs7im"]
 [ext_resource type="Texture2D" uid="uid://c2a8vhc28w6gl" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="4_5u4ug"]
@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_ryl8a")
+theme = ExtResource("1_ml3cc")
 texture = ExtResource("1_tam4a")
 script = ExtResource("2_rs7im")
 
@@ -54,6 +54,7 @@ script = ExtResource("5_2s72k")
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+theme_override_font_sizes/font_size = 40
 text = "Time"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -63,6 +64,7 @@ uppercase = true
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -81,6 +83,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+theme_override_font_sizes/font_size = 40
 text = "Score"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -90,6 +93,7 @@ uppercase = true
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+theme_override_font_sizes/font_size = 40
 text = "0
 "
 horizontal_alignment = 1
@@ -105,6 +109,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+theme_override_font_sizes/font_size = 40
 text = "Best"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -114,6 +119,7 @@ uppercase = true
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
+theme_override_font_sizes/font_size = 40
 text = "0
 "
 horizontal_alignment = 1
@@ -218,7 +224,7 @@ alignment = 2
 custom_minimum_size = Vector2(156, 80)
 layout_mode = 2
 
-[node name="B" type="TextureButton" parent="MC/VBox/Bottom/Move/Undo"]
+[node name="Undo" type="TextureButton" parent="MC/VBox/Bottom/Move/Undo"]
 layout_mode = 2
 offset_left = 8.0
 offset_right = 72.0
@@ -232,7 +238,7 @@ flip_h = true
 custom_minimum_size = Vector2(156, 80)
 layout_mode = 2
 
-[node name="B" type="TextureButton" parent="MC/VBox/Bottom/Move/Redo"]
+[node name="Redo" type="TextureButton" parent="MC/VBox/Bottom/Move/Redo"]
 layout_mode = 2
 offset_left = 4.0
 offset_right = 68.0
@@ -244,11 +250,16 @@ stretch_mode = 5
 [node name="Popups" type="MarginContainer" parent="."]
 visible = false
 z_index = 10
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
+theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 100
 
 [node name="ToMainMenu" parent="Popups" instance=ExtResource("11_g477v")]
 visible = false
@@ -278,3 +289,13 @@ flip_h = true
 [connection signal="full" from="MC/VBox/Board" to="." method="_on_board_full"]
 [connection signal="mushroom_popped" from="MC/VBox/Board" to="." method="_on_board_mushroom_popped"]
 [connection signal="new_move" from="MC/VBox/Board" to="." method="_on_board_new_move"]
+[connection signal="pressed" from="MC/VBox/Bottom/Options/SaveLoad" to="." method="_on_save_load_pressed"]
+[connection signal="pressed" from="MC/VBox/Bottom/Options/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MC/VBox/Bottom/Options/Home" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="MC/VBox/Bottom/Move/Undo/Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="MC/VBox/Bottom/Move/Redo/Redo" to="." method="_on_redo_pressed"]
+[connection signal="confirm" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_confirm"]
+[connection signal="b_home" from="Popups/GameOver" to="." method="_on_game_over_b_home"]
+[connection signal="b_retry" from="Popups/GameOver" to="." method="_on_game_over_b_retry"]
+[connection signal="game_loaded" from="Popups/SavePopup" to="." method="_on_save_popup_game_loaded"]
+[connection signal="pressed" from="Popups/X" to="." method="_on_x_pressed"]

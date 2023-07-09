@@ -1,96 +1,70 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuh8pj245mgas"]
+[gd_scene load_steps=4 format=3 uid="uid://cuh8pj245mgas"]
 
 [ext_resource type="PackedScene" uid="uid://dvx63rshikhmc" path="res://scenes/Popups/Popup.tscn" id="1_c57hs"]
+[ext_resource type="Texture2D" uid="uid://bhiqaaebpbwt0" path="res://icon.svg" id="2_b3nuc"]
+[ext_resource type="Texture2D" uid="uid://dmp5skjrood4d" path="res://assets/UI/Octicons-mark-github.png" id="3_s65s8"]
 
 [node name="Credits" instance=ExtResource("1_c57hs")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Title" parent="H/V" index="0"]
 text = "CREDITS"
 
-[node name="Scroll" type="ScrollContainer" parent="H/V/Content" index="0"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
-
-[node name="VBox" type="VBoxContainer" parent="H/V/Content/Scroll" index="0"]
+[node name="VBox" type="VBoxContainer" parent="H/V/Content" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MadeBy" type="Label" parent="H/V/Content/Scroll/VBox" index="0"]
+[node name="MadeWith" type="HBoxContainer" parent="H/V/Content/VBox" index="0"]
 layout_mode = 2
-text = "Made By"
+
+[node name="Icon" type="TextureRect" parent="H/V/Content/VBox/MadeWith" index="0"]
+layout_mode = 2
+texture = ExtResource("2_b3nuc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Name" type="Label" parent="H/V/Content/VBox/MadeWith" index="1"]
+layout_mode = 2
+text = "Made with Godot "
 horizontal_alignment = 1
 
-[node name="Contributors" type="Label" parent="H/V/Content/Scroll/VBox" index="1"]
+[node name="Info" type="Label" parent="H/V/Content/VBox" index="1"]
 layout_mode = 2
-text = "Contributors:"
+text = "Made By RevolNoom
+This game is open-sourced. Everyone is welcomed to make a fork of their own."
+autowrap_mode = 3
+
+[node name="Git" type="HBoxContainer" parent="H/V/Content/VBox" index="2"]
+layout_mode = 2
+
+[node name="GithubIcon" type="TextureRect" parent="H/V/Content/VBox/Git" index="0"]
+layout_mode = 2
+texture = ExtResource("3_s65s8")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="GithubLink" type="LinkButton" parent="H/V/Content/VBox/Git" index="1"]
+layout_mode = 2
+text = "Github"
+uri = "https://github.com/RevolNoom/mushroom_match"
+
+[node name="Links" type="Label" parent="H/V/Content/VBox" index="3"]
+layout_mode = 2
+text = "
+Credits:
+
+"
 horizontal_alignment = 1
 
-[node name="SpecialThanks" type="Label" parent="H/V/Content/Scroll/VBox" index="2"]
+[node name="Attribution" type="Label" parent="H/V/Content/VBox" index="4"]
 layout_mode = 2
-text = "Special thanks to:"
-horizontal_alignment = 1
+text = "UI elements by Freepik.
 
-[node name="Info" type="Label" parent="H/V/Content/Scroll/VBox" index="3"]
-layout_mode = 2
-text = "This game is open-sourced.
-Everyone is welcomed
-to make a fork of their own."
-horizontal_alignment = 1
+Sound effects by UNIVERSFIELD, Pixabay
 
-[node name="Links" type="Label" parent="H/V/Content/Scroll/VBox" index="4"]
-layout_mode = 2
-text = "Credits:"
-horizontal_alignment = 1
+Music by William_King on Pixabay
 
-[node name="GridContainer" type="GridContainer" parent="H/V/Content/Scroll/VBox" index="5"]
-layout_mode = 2
-columns = 2
-
-[node name="FbIcon" type="TextureButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="0"]
-layout_mode = 2
-
-[node name="FbLink" type="LinkButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="1"]
-layout_mode = 2
-
-[node name="GithubIcon" type="TextureButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="2"]
-layout_mode = 2
-
-[node name="GithubLink" type="LinkButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="3"]
-layout_mode = 2
-
-[node name="PatreonIcon" type="TextureButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="4"]
-layout_mode = 2
-
-[node name="PatreonLink" type="LinkButton" parent="H/V/Content/Scroll/VBox/GridContainer" index="5"]
-layout_mode = 2
-
-[node name="Attributions" type="VBoxContainer" parent="H/V/Content/Scroll/VBox" index="6"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="UIButtons1" type="LinkButton" parent="H/V/Content/Scroll/VBox/Attributions" index="0"]
-layout_mode = 2
-text = "UI from Freepik."
-uri = "https://www.freepik.com/free-vector/design-complete-set-score-button-game-pop-up-icon-window-elements-creating-medieval-rpg-video-games_14246137.htm"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="H/V/Content/Scroll/VBox/Attributions/UIButtons1" index="0"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="UIButtons2" type="LinkButton" parent="H/V/Content/Scroll/VBox/Attributions" index="1"]
-layout_mode = 2
-text = "UI Buttons 2"
-uri = "https://www.freepik.com/free-vector/button-set-designed-game-user-interface-gui-illustration-video-games-computers_17631634.htm"
-
-[node name="Label" type="Label" parent="H/V/Content/Scroll/VBox/Attributions" index="2"]
-layout_mode = 2
-text = "Freepik"
-
-[node name="Label2" type="Label" parent="H/V/Content/Scroll/VBox/Attributions" index="3"]
-layout_mode = 2
-text = "https://pixerelia.itch.io/vf-edible-mushrooms"
-autowrap_mode = 2
+Mushroom sprites by Atelier Pixerelia."
+autowrap_mode = 3
