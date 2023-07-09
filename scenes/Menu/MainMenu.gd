@@ -7,7 +7,7 @@ extends MarginContainer
 signal new_game(mode, savedata)
 
 func PlayButtonSfx():
-	$"/root/Settings".PlaySfx("UI")
+	Settings.PlaySfx("UI")
 
 
 func _on_return_pressed():
@@ -24,30 +24,6 @@ func changeScene(node):
 	node.show()
 	$Margin/VBox/Center/Return.visible = true
 
-
-func _on_main_menu_b_continue():
-	changeScene($Margin/VBox/Center/SavePopup)
-
-
-func _on_main_menu_b_credits():
-	changeScene($Margin/VBox/Center/Credits)
-
-
-func _on_main_menu_b_highscore():
-	#changeScene()
-	pass
-
-func _on_main_menu_b_play():
-	emit_signal("new_game", "casual", null)
-	#changeScene($Margin/VBox/Center/ChooseGameMode)
-
-
-func _on_main_menu_b_settings():
-	changeScene($Margin/VBox/Center/Settings)
-
-
-func _on_main_menu_b_tutorial():
-	pass # Replace with function body.
 
 
 func _on_choose_game_mode_casual():
@@ -68,3 +44,19 @@ func _on_choose_game_mode_time_rush():
 
 func _on_save_popup_game_loaded(save_data):
 	emit_signal("new_game", "casual", save_data)
+
+
+func _on_play_pressed():
+	emit_signal("new_game", "casual", null)
+
+
+func _on_credits_pressed():
+	changeScene($Margin/VBox/Center/Credits)
+
+
+func _on_settings_pressed():
+	changeScene($Margin/VBox/Center/Settings)
+	
+
+func _on_continue_pressed():
+	changeScene($Margin/VBox/Center/SavePopup)

@@ -1,34 +1,35 @@
-extends MarginContainer
+extends TextureRect
+
 
 signal to_main_menu
 
 
 func _ready():
-	#update_next_turn_spores()
+	update_next_turn_spores()
 	#Pause()
 	_reset()
 
 
 func _reset():
 	HidePopup()
-	$VBox/Top/Board/Best/Value.text = str(Settings.get_value("player", "highscore"))
-	$VBox/Top/Board/Score/Value.text = "0"
-	$VBox/Top/Clock.reset()
-	$VBox/Board.reset()
+	$MC/VBox/Top/Board/Best/Value.text = str(Settings.get_value("player", "highscore"))
+	$MC/VBox/Top/Board/Score/Value.text = "0"
+	$MC/VBox/Top/Clock.reset()
+	$MC/VBox/Board.reset()
 	check_unredo_state()
 
 
 func Play():
-	$VBox/Top/Clock.Resume()
+	$MC/VBox/Top/Clock.Resume()
 
 
 func Pause():
-	$VBox/Top/Clock.Pause()
+	$MC/VBox/Top/Clock.Pause()
 
 
 func _on_board_mushroom_popped(amount: int):
 	var score = amount * (abs(amount) - 4)
-	$VBox/Top/ScoreBoard/Value.text = str(int($VBox/Top/ScoreBoard/Value.text) + score)
+	$MC/VBox/Top/Board/Score/Value.text = str(int($MC/VBox/Top/Board/Score/Value.text) + score)
 
 
 func _on_home_pressed():
@@ -55,7 +56,7 @@ func _on_to_main_menu_confirm(yes):
 
 
 func _on_board_full():
-	$Popups/GameOver.SetScore($VBox/Top/ScoreBoard/Value.text)
+	$Popups/GameOver.SetScore($MC/VBox/Top/Board/Score/Value.text)
 	ShowPopup($Popups/GameOver)
 
 
@@ -83,40 +84,40 @@ func _on_save_load_pressed():
 func GetSaveData():
 	return {
 		"type": "gameplay",
-		"score": $VBox/Top/ScoreBoard/Value.text,
-		"time_elapsed": $VBox/Top/Clock/Value.text,
+		"score": $MC/VBox/Top/Board/Score/Value.text,
+		"time_elapsed": $MC/VBox/Top/Clock/Value.text,
 		"date": Time.get_datetime_dict_from_system(),
 	}
 
 
 func LoadSaveData(save_data: Dictionary):
-	$VBox/Top/ScoreBoard/Value.text = save_data["gameplay"]["score"]
-	$VBox/Top/Clock.time_elapsed = $VBox/Top/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
-	$VBox/Board.LoadSaveData(save_data["board"])
+	$MC/VBox/Top/Board/Score/Value.text = save_data["gameplay"]["score"]
+	$MC/VBox/Top/Clock.time_elapsed = $MC/VBox/Top/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
+	$MC/VBox/Board.LoadSaveData(save_data["board"])
 	
-	#update_next_turn_spores()
+	update_next_turn_spores()
 	check_unredo_state()
 
 
 func _on_undo_pressed():
-	$VBox/Board.undo()
+	$MC/VBox/Board.undo()
 	check_unredo_state()
 
 
 func _on_redo_pressed():
-	$VBox/Board.redo()
+	$MC/VBox/Board.redo()
 	check_unredo_state()
 
 
 func _on_board_new_move():
-	#update_next_turn_spores()
+	update_next_turn_spores()
 	check_unredo_state()
 
 
 func update_next_turn_spores():
-	var spores = $VBox/Board.get_next_turn_spores()
-	for i in range(0, $VBox/Top/NextSpawn.get_child_count()):
-		var cell = $VBox/Top/NextSpawn.get_child(i)
+	var spores = $MC/VBox/Board.get_next_turn_spores()
+	for i in range(0, $MC/VBox/ARC/NextSpawn.get_child_count()):
+		var cell = $MC/VBox/ARC/NextSpawn.get_child(i)
 		if i < spores.size():
 			cell.visible = true
 			cell.texture = spores[i]
@@ -125,8 +126,8 @@ func update_next_turn_spores():
 			
 			
 func check_unredo_state():
-	$VBox/Bottom/Move/Undo/B.visible = $VBox/Board.is_undoable()
-	$VBox/Bottom/Move/Redo/B.visible = $VBox/Board.is_redoable()
+	$MC/VBox/Bottom/Move/Undo/B.visible = $MC/VBox/Board.is_undoable()
+	$MC/VBox/Bottom/Move/Redo/B.visible = $MC/VBox/Board.is_redoable()
 
 
 func _on_save_popup_game_loaded(save_data):

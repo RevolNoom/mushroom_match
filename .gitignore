@@ -19,5 +19,7 @@ mono_crash.*.json
 
 # Executable
 *.apk
+# Whatever this is, I don't know
+*.apk.*
 
 

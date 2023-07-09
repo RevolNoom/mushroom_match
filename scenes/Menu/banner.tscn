@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1svk6m7jhvse"]
 
-[ext_resource type="Texture2D" uid="uid://bqt4g41ioss2f" path="res://assets/CustomTheme/Resized/Banner.png" id="1_rqkkq"]
-[ext_resource type="Texture2D" uid="uid://bn3d6e32xvl8" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="7_rumnj"]
-[ext_resource type="Texture2D" uid="uid://clehyt6bw2vek" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Enoki.png" id="8_0katg"]
+[ext_resource type="Texture2D" uid="uid://lq51eni6uxhn" path="res://assets/CustomTheme/Resized/Banner.png" id="1_rqkkq"]
+[ext_resource type="Texture2D" uid="uid://c2a8vhc28w6gl" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="7_rumnj"]
+[ext_resource type="Texture2D" uid="uid://cqr6vs2kqmow" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Enoki.png" id="8_0katg"]
 
 [node name="Banner" type="TextureRect"]
 anchors_preset = 15
@@ -44,7 +44,6 @@ stretch_mode = 5
 
 [node name="VBox" type="VBoxContainer" parent="VBox/HBox/Name"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
 [node name="GameName" type="Label" parent="VBox/HBox/Name/VBox"]
@@ -52,7 +51,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.8
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 text = "MUSHROOM
 MATCH"
 horizontal_alignment = 1

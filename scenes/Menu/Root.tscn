@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dnn5g8asjvp3s"]
 
 [ext_resource type="Script" path="res://scenes/Menu/Root.gd" id="2_tm68g"]
+[ext_resource type="PackedScene" uid="uid://cui0n60ureh55" path="res://scenes/Gameplay/Gameplay.tscn" id="3_apcy6"]
 [ext_resource type="PackedScene" uid="uid://cdep4tr33absd" path="res://scenes/Menu/MainMenu.tscn" id="3_vte2y"]
-[ext_resource type="PackedScene" uid="uid://cuy5gd2to2yp4" path="res://scenes/Gameplay/Gameplay.tscn" id="3_yfjp2"]
 
 [node name="Root" type="MarginContainer"]
 anchors_preset = 15
@@ -15,8 +15,7 @@ script = ExtResource("2_tm68g")
 [node name="MainMenu" parent="." instance=ExtResource("3_vte2y")]
 layout_mode = 2
 
-[node name="Gameplay" parent="." instance=ExtResource("3_yfjp2")]
-visible = false
+[node name="Gameplay" parent="." instance=ExtResource("3_apcy6")]
 layout_mode = 2
 
 [connection signal="new_game" from="MainMenu" to="." method="_on_main_menu_new_game"]

@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cuy5gd2to2yp4"]
+[gd_scene load_steps=16 format=3 uid="uid://cui0n60ureh55"]
 
-[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_44wjr"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://assets/CustomTheme/CustomTheme.tres" id="1_ryl8a"]
+[ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="1_tam4a"]
 [ext_resource type="Script" path="res://scenes/Gameplay/Gameplay.gd" id="2_rs7im"]
-[ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_l6g7i"]
 [ext_resource type="Texture2D" uid="uid://c2a8vhc28w6gl" path="res://assets/ValleyFriends_Edible_Mushrooms/items/Aspen.png" id="4_5u4ug"]
 [ext_resource type="Script" path="res://scenes/Menu/Clock.gd" id="5_2s72k"]
 [ext_resource type="PackedScene" uid="uid://csxalycdojsqd" path="res://scenes/Gameplay/Board.tscn" id="6_itgpe"]
@@ -16,80 +16,41 @@
 [ext_resource type="PackedScene" uid="uid://dxuerlu0buwg5" path="res://scenes/Popups/SavePopup.tscn" id="14_5tkq4"]
 [ext_resource type="Texture2D" uid="uid://cktt68qkxost4" path="res://assets/CustomTheme/Original/X.png" id="15_g4616"]
 
-[node name="Gameplay" type="MarginContainer" groups=["savable"]]
+[node name="Gameplay" type="TextureRect" groups=["savable"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_44wjr")
+theme = ExtResource("1_ryl8a")
+texture = ExtResource("1_tam4a")
 script = ExtResource("2_rs7im")
 
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("3_l6g7i")
+[node name="MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="MC"]
 layout_mode = 2
 
-[node name="Top" type="VBoxContainer" parent="VBox"]
+[node name="Top" type="VBoxContainer" parent="MC/VBox"]
 layout_mode = 2
 
-[node name="NextSpawn" type="HBoxContainer" parent="VBox/Top"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="1" type="TextureRect" parent="VBox/Top/NextSpawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_5u4ug")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="2" type="TextureRect" parent="VBox/Top/NextSpawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_5u4ug")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="3" type="TextureRect" parent="VBox/Top/NextSpawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_5u4ug")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="4" type="TextureRect" parent="VBox/Top/NextSpawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_5u4ug")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="5" type="TextureRect" parent="VBox/Top/NextSpawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_5u4ug")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Clock" type="VBoxContainer" parent="VBox/Top"]
+[node name="Clock" type="VBoxContainer" parent="MC/VBox/Top"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("5_2s72k")
 
-[node name="Label" type="Label" parent="VBox/Top/Clock"]
+[node name="Label" type="Label" parent="MC/VBox/Top/Clock"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -98,7 +59,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="VBox/Top/Clock"]
+[node name="Value" type="Label" parent="MC/VBox/Top/Clock"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -106,16 +67,17 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Board" type="HBoxContainer" parent="VBox/Top"]
+[node name="Board" type="HBoxContainer" parent="MC/VBox/Top"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="Score" type="VBoxContainer" parent="VBox/Top/Board"]
+[node name="Score" type="VBoxContainer" parent="MC/VBox/Top/Board"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox/Top/Board/Score"]
+[node name="Label" type="Label" parent="MC/VBox/Top/Board/Score"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -124,7 +86,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="VBox/Top/Board/Score"]
+[node name="Value" type="Label" parent="MC/VBox/Top/Board/Score"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -133,13 +95,13 @@ text = "0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Best" type="VBoxContainer" parent="VBox/Top/Board"]
+[node name="Best" type="VBoxContainer" parent="MC/VBox/Top/Board"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox/Top/Board/Best"]
+[node name="Label" type="Label" parent="MC/VBox/Top/Board/Best"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -148,7 +110,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Value" type="Label" parent="VBox/Top/Board/Best"]
+[node name="Value" type="Label" parent="MC/VBox/Top/Board/Best"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -157,46 +119,106 @@ text = "0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Board" parent="VBox" groups=["savable"] instance=ExtResource("6_itgpe")]
+[node name="Pad" type="Control" parent="MC/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="ARC" type="AspectRatioContainer" parent="MC/VBox"]
+layout_mode = 2
+
+[node name="NextSpawn" type="HBoxContainer" parent="MC/VBox/ARC"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+alignment = 1
+
+[node name="1" type="TextureRect" parent="MC/VBox/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="2" type="TextureRect" parent="MC/VBox/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="3" type="TextureRect" parent="MC/VBox/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="4" type="TextureRect" parent="MC/VBox/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="5" type="TextureRect" parent="MC/VBox/ARC/NextSpawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_5u4ug")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Pad2" type="Control" parent="MC/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="Board" parent="MC/VBox" groups=["savable"] instance=ExtResource("6_itgpe")]
 layout_mode = 2
 size_flags_horizontal = 1
+alignment_vertical = 0
+initial_mushrooms = 15
 
-[node name="Bottom" type="HBoxContainer" parent="VBox"]
+[node name="Bottom" type="HBoxContainer" parent="MC/VBox"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Options" type="HBoxContainer" parent="VBox/Bottom"]
+[node name="Options" type="HBoxContainer" parent="MC/VBox/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SaveLoad" type="TextureButton" parent="VBox/Bottom/Options"]
+[node name="SaveLoad" type="TextureButton" parent="MC/VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("7_01mw8")
 
-[node name="Settings" type="TextureButton" parent="VBox/Bottom/Options"]
+[node name="Settings" type="TextureButton" parent="MC/VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("8_ghx0s")
 
-[node name="Home" type="TextureButton" parent="VBox/Bottom/Options"]
+[node name="Home" type="TextureButton" parent="MC/VBox/Bottom/Options"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("9_ma8xw")
 
-[node name="Move" type="HBoxContainer" parent="VBox/Bottom"]
+[node name="Move" type="HBoxContainer" parent="MC/VBox/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Undo" type="Control" parent="VBox/Bottom/Move"]
+[node name="Undo" type="Control" parent="MC/VBox/Bottom/Move"]
 custom_minimum_size = Vector2(156, 80)
 layout_mode = 2
 
-[node name="B" type="TextureButton" parent="VBox/Bottom/Move/Undo"]
+[node name="B" type="TextureButton" parent="MC/VBox/Bottom/Move/Undo"]
 layout_mode = 2
 offset_left = 8.0
 offset_right = 72.0
@@ -206,11 +228,11 @@ texture_normal = ExtResource("10_8v3as")
 stretch_mode = 5
 flip_h = true
 
-[node name="Redo" type="Control" parent="VBox/Bottom/Move"]
+[node name="Redo" type="Control" parent="MC/VBox/Bottom/Move"]
 custom_minimum_size = Vector2(156, 80)
 layout_mode = 2
 
-[node name="B" type="TextureButton" parent="VBox/Bottom/Move/Redo"]
+[node name="B" type="TextureButton" parent="MC/VBox/Bottom/Move/Redo"]
 layout_mode = 2
 offset_left = 4.0
 offset_right = 68.0
@@ -222,7 +244,7 @@ stretch_mode = 5
 [node name="Popups" type="MarginContainer" parent="."]
 visible = false
 z_index = 10
-layout_mode = 2
+layout_mode = 0
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
@@ -253,16 +275,6 @@ size_flags_vertical = 0
 texture_normal = ExtResource("15_g4616")
 flip_h = true
 
-[connection signal="full" from="VBox/Board" to="." method="_on_board_full"]
-[connection signal="mushroom_popped" from="VBox/Board" to="." method="_on_board_mushroom_popped"]
-[connection signal="new_move" from="VBox/Board" to="." method="_on_board_new_move"]
-[connection signal="pressed" from="VBox/Bottom/Options/SaveLoad" to="." method="_on_save_load_pressed"]
-[connection signal="pressed" from="VBox/Bottom/Options/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="VBox/Bottom/Options/Home" to="." method="_on_home_pressed"]
-[connection signal="pressed" from="VBox/Bottom/Move/Undo/B" to="." method="_on_undo_pressed"]
-[connection signal="pressed" from="VBox/Bottom/Move/Redo/B" to="." method="_on_redo_pressed"]
-[connection signal="confirm" from="Popups/ToMainMenu" to="." method="_on_to_main_menu_confirm"]
-[connection signal="b_home" from="Popups/GameOver" to="." method="_on_game_over_b_home"]
-[connection signal="b_retry" from="Popups/GameOver" to="." method="_on_game_over_b_retry"]
-[connection signal="game_loaded" from="Popups/SavePopup" to="." method="_on_save_popup_game_loaded"]
-[connection signal="pressed" from="Popups/X" to="." method="_on_x_pressed"]
+[connection signal="full" from="MC/VBox/Board" to="." method="_on_board_full"]
+[connection signal="mushroom_popped" from="MC/VBox/Board" to="." method="_on_board_mushroom_popped"]
+[connection signal="new_move" from="MC/VBox/Board" to="." method="_on_board_new_move"]

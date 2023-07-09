@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdep4tr33absd"]
+[gd_scene load_steps=12 format=3 uid="uid://cdep4tr33absd"]
 
-[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_5q2at"]
+[ext_resource type="Theme" uid="uid://c8f0qsywcxaql" path="res://theme.tres" id="1_ph67v"]
 [ext_resource type="Script" path="res://scenes/Menu/MainMenu.gd" id="2_de2p0"]
+[ext_resource type="Texture2D" uid="uid://c5vpioee4qinq" path="res://assets/CustomTheme/Resized/Credit.png" id="3_ncfb8"]
 [ext_resource type="Texture2D" uid="uid://bgf00ftgaycwq" path="res://assets/Background/game-element-template-design-set/BrightForest.png" id="3_nodmb"]
+[ext_resource type="Texture2D" uid="uid://n6crxl47coom" path="res://assets/CustomTheme/Resized/SettingButton.png" id="4_a0cf2"]
 [ext_resource type="PackedScene" uid="uid://b1svk6m7jhvse" path="res://scenes/Menu/banner.tscn" id="4_odt08"]
-[ext_resource type="PackedScene" uid="uid://b4uyws5r0r76f" path="res://scenes/Menu/Menu.tscn" id="5_wx6n4"]
 [ext_resource type="PackedScene" uid="uid://cuh8pj245mgas" path="res://scenes/Menu/Credits.tscn" id="6_uwyw1"]
 [ext_resource type="PackedScene" uid="uid://d2a6gfd1cildk" path="res://scenes/Menu/ChooseGameMode.tscn" id="7_6f18a"]
 [ext_resource type="PackedScene" uid="uid://djtmkg12f8h7c" path="res://scenes/Popups/Settings.tscn" id="8_ak8ep"]
@@ -17,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_5q2at")
+theme = ExtResource("1_ph67v")
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -30,10 +31,24 @@ texture = ExtResource("3_nodmb")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 50
+theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 50
+theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 50
+
+[node name="Credits" type="TextureButton" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_ncfb8")
+stretch_mode = 5
+
+[node name="Settings" type="TextureButton" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture_normal = ExtResource("4_a0cf2")
+stretch_mode = 5
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
@@ -46,8 +61,23 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Menu" parent="Margin/VBox/Center" instance=ExtResource("5_wx6n4")]
+[node name="Menu" type="VBoxContainer" parent="Margin/VBox/Center"]
 layout_mode = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="Margin/VBox/Center/Menu"]
+custom_minimum_size = Vector2(450, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="Continue" type="Button" parent="Margin/VBox/Center/Menu"]
+custom_minimum_size = Vector2(450, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Continue"
 
 [node name="Credits" parent="Margin/VBox/Center" instance=ExtResource("6_uwyw1")]
 visible = false
@@ -73,12 +103,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 texture_normal = ExtResource("10_qi0xs")
 
-[connection signal="b_continue" from="Margin/VBox/Center/Menu" to="." method="_on_main_menu_b_continue"]
-[connection signal="b_credits" from="Margin/VBox/Center/Menu" to="." method="_on_main_menu_b_credits"]
-[connection signal="b_highscore" from="Margin/VBox/Center/Menu" to="." method="_on_main_menu_b_highscore"]
-[connection signal="b_play" from="Margin/VBox/Center/Menu" to="." method="_on_main_menu_b_play"]
-[connection signal="b_settings" from="Margin/VBox/Center/Menu" to="." method="_on_main_menu_b_settings"]
-[connection signal="b_tutorial" from="Margin/VBox/Center/Menu" to="." method="_on_main_menu_b_tutorial"]
+[connection signal="pressed" from="Margin/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Margin/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Margin/VBox/Center/Menu/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Margin/VBox/Center/Menu/Continue" to="." method="_on_continue_pressed"]
 [connection signal="casual" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_casual"]
 [connection signal="custom_mode" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_custom_mode"]
 [connection signal="four_seasons" from="Margin/VBox/Center/ChooseGameMode" to="." method="_on_choose_game_mode_four_seasons"]
