@@ -325,7 +325,7 @@ func DoMove(from: int, to: int):
 
 
 func DoRelocate(from: PackedInt32Array, to: PackedInt32Array):
-	print("DoRelocate " + str(from) + " " + str(to))
+	#print("DoRelocate " + str(from) + " " + str(to))
 	for i in range(0, from.size()):
 		cell(to[i]).Add(cell(from[i]).PopSpore())
 		cell(to[i]).GetSpore().Sprout()

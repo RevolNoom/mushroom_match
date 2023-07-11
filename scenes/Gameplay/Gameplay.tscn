@@ -247,8 +247,7 @@ size_flags_horizontal = 8
 texture_normal = ExtResource("10_8v3as")
 stretch_mode = 5
 
-[node name="Popups" type="MarginContainer" parent="."]
-visible = false
+[node name="Popups" type="AspectRatioContainer" parent="."]
 z_index = 10
 layout_mode = 1
 anchors_preset = 15
@@ -256,10 +255,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 100
 
 [node name="ToMainMenu" parent="Popups" instance=ExtResource("11_g477v")]
 visible = false

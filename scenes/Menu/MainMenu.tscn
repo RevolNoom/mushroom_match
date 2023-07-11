@@ -64,15 +64,19 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 40
 text = "Continue"
 
-[node name="Credits" parent="Margin/VBox/Center" instance=ExtResource("6_uwyw1")]
+[node name="ARC" type="AspectRatioContainer" parent="Margin/VBox/Center"]
 visible = false
 layout_mode = 2
 
-[node name="Settings" parent="Margin/VBox/Center" instance=ExtResource("8_ak8ep")]
+[node name="Credits" parent="Margin/VBox/Center/ARC" instance=ExtResource("6_uwyw1")]
 visible = false
 layout_mode = 2
 
-[node name="SavePopup" parent="Margin/VBox/Center" instance=ExtResource("9_310sy")]
+[node name="Settings" parent="Margin/VBox/Center/ARC" instance=ExtResource("8_ak8ep")]
+visible = false
+layout_mode = 2
+
+[node name="SavePopup" parent="Margin/VBox/Center/ARC" instance=ExtResource("9_310sy")]
 visible = false
 layout_mode = 2
 DirectLoadOnPress = true
@@ -101,7 +105,7 @@ stretch_mode = 5
 
 [connection signal="pressed" from="Margin/VBox/Center/Menu/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Margin/VBox/Center/Menu/Continue" to="." method="_on_continue_pressed"]
-[connection signal="game_loaded" from="Margin/VBox/Center/SavePopup" to="." method="_on_save_popup_game_loaded"]
+[connection signal="game_loaded" from="Margin/VBox/Center/ARC/SavePopup" to="." method="_on_save_popup_game_loaded"]
 [connection signal="pressed" from="Margin/VBox/Center/Return" to="." method="_on_return_pressed"]
 [connection signal="pressed" from="Margin/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Margin/Settings" to="." method="_on_settings_pressed"]

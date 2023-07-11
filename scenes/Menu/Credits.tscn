@@ -11,6 +11,9 @@ size_flags_vertical = 3
 [node name="Title" parent="H/V" index="0"]
 text = "CREDITS"
 
+[node name="Pad" parent="H/V" index="1"]
+size_flags_stretch_ratio = 0.12
+
 [node name="VBox" type="VBoxContainer" parent="H/V/Content" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -27,11 +30,13 @@ stretch_mode = 4
 
 [node name="Name" type="Label" parent="H/V/Content/VBox/MadeWith" index="1"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Made with Godot "
 horizontal_alignment = 1
 
 [node name="Info" type="Label" parent="H/V/Content/VBox" index="1"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Made By RevolNoom
 This game is open-sourced. Everyone is welcomed to make a fork of their own."
 autowrap_mode = 3
@@ -52,6 +57,7 @@ uri = "https://github.com/RevolNoom/mushroom_match"
 
 [node name="Links" type="Label" parent="H/V/Content/VBox" index="3"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "
 Credits:
 
@@ -60,6 +66,7 @@ horizontal_alignment = 1
 
 [node name="Attribution" type="Label" parent="H/V/Content/VBox" index="4"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "UI elements by Freepik.
 
 Sound effects by UNIVERSFIELD, Pixabay
@@ -68,3 +75,6 @@ Music by William_King on Pixabay
 
 Mushroom sprites by Atelier Pixerelia."
 autowrap_mode = 3
+
+[node name="Pad2" parent="H/V" index="3"]
+size_flags_stretch_ratio = 0.15

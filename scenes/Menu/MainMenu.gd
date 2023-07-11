@@ -13,6 +13,7 @@ func PlayButtonSfx():
 func _on_return_pressed():
 	PlayButtonSfx()
 	_sceneStack.pop_back().hide()
+	$Margin/VBox/Center/ARC.hide()
 	$Margin/VBox/Center/Return.visible = _sceneStack.size() > 1
 	_sceneStack.back().show()
 
@@ -22,7 +23,8 @@ func changeScene(node):
 	_sceneStack.back().hide()
 	_sceneStack.push_back(node)
 	node.show()
-	$Margin/VBox/Center/Return.visible = true
+	$Margin/VBox/Center/ARC.show()
+	$Margin/VBox/Center/Return.show()
 
 
 
@@ -51,12 +53,12 @@ func _on_play_pressed():
 
 
 func _on_credits_pressed():
-	changeScene($Margin/VBox/Center/Credits)
+	changeScene($Margin/VBox/Center/ARC/Credits)
 
 
 func _on_settings_pressed():
-	changeScene($Margin/VBox/Center/Settings)
+	changeScene($Margin/VBox/Center/ARC/Settings)
 	
 
 func _on_continue_pressed():
-	changeScene($Margin/VBox/Center/SavePopup)
+	changeScene($Margin/VBox/Center/ARC/SavePopup)
