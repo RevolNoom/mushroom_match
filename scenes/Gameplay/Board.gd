@@ -79,9 +79,8 @@ func redo():
 
 
 func _init_astar():
-	for c in $Grid.get_children():
-		_astar.add_point(id(c), c.center_position())
-		
+	_set_astar_point_pos()
+	
 	for c in $Grid.get_children():
 		var cid = id(c)
 		for adj_coord in [
@@ -95,6 +94,18 @@ func _init_astar():
 				_astar.connect_points(cid, adj_coord)
 
 
+func _set_astar_point_pos():
+	for c in $Grid.get_children():
+		var cid = id(c)
+		var center = Vector2(cid/10, cid%10)
+		# For some fucking reason, 
+		# c.center_position() returns the same position here
+		# But it does fine in DoMove
+		# for all cells
+		#print(str(id(c)) + " center: " + str(center))
+		_astar.add_point(id(c), center)
+
+
 func get_empty_cells() -> PackedInt32Array:
 	var result: PackedInt32Array = []
 	for c in $Grid.get_children():
@@ -104,9 +115,9 @@ func get_empty_cells() -> PackedInt32Array:
 	
 
 func cell(cid: int) -> Cell:
-	if 10 < cid and cid < 100 and cid%10 != 0:
-		return $Grid.get_node(str(cid))
-	return null
+	if cid%10 == 0 or cid > 99 or cid < 11:
+		return null
+	return $Grid.get_node(str(cid))
 
 
 # Return cell coordinate in [x, y]
@@ -299,12 +310,14 @@ func Execute(activities):
 func DoMove(from: int, to: int):
 	#print("Move " + str(from) + " " + str(to))
 
-	var path = _astar.get_id_path(from, to)
 	$MovePath.global_position = Vector2()
 	$MovePath.curve.clear_points()
+	
+	var path = _astar.get_id_path(from, to)
 	for cid in path:
 		$MovePath.curve.add_point(cell(cid).center_position())
 	$MovePath/PathFollow2D.progress_ratio = 0
+	
 	
 	var mushroom = cell(from).GetMushroom()
 	cell(to).Add(cell(from).PopMushroom())
@@ -432,4 +445,3 @@ func LoadSaveData(save_data: Dictionary):
 
 func _on__item_rect_changed():
 	$VanishingMushrooms.scale = $Grid.get_child(0).get_node("Center").scale
-

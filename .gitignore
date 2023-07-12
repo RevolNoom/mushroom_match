@@ -19,6 +19,10 @@ mono_crash.*.json
 
 # Executable
 *.apk
+*.zip
+# HTML executable waiting to be zipped
+MushroomMatch
+
 # Whatever this is, I don't know
 *.apk.*
 

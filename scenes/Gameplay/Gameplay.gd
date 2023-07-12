@@ -14,17 +14,17 @@ func _reset():
 	HidePopup()
 	$MC/VBox/Top/Board/Best/Value.text = str(Settings.get_value("player", "highscore"))
 	$MC/VBox/Top/Board/Score/Value.text = "0"
-	$MC/VBox/Top/Clock.reset()
+	$MC/VBox/Top/Right/Clock.reset()
 	$MC/VBox/Board.reset()
 	check_unredo_state()
 
 
 func Play():
-	$MC/VBox/Top/Clock.Resume()
+	$MC/VBox/Top/Right/Clock.Resume()
 
 
 func Pause():
-	$MC/VBox/Top/Clock.Pause()
+	$MC/VBox/Top/Right/Clock.Pause()
 
 
 func _on_board_mushroom_popped(amount: int):
@@ -84,14 +84,14 @@ func GetSaveData():
 	return {
 		"type": "gameplay",
 		"score": $MC/VBox/Top/Board/Score/Value.text,
-		"time_elapsed": $MC/VBox/Top/Clock/Value.text,
+		"time_elapsed": $MC/VBox/Top/Right/Clock/Value.text,
 		"date": Time.get_datetime_dict_from_system(),
 	}
 
 
 func LoadSaveData(save_data: Dictionary):
 	$MC/VBox/Top/Board/Score/Value.text = save_data["gameplay"]["score"]
-	$MC/VBox/Top/Clock.time_elapsed = $MC/VBox/Top/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
+	$MC/VBox/Top/Right/Clock.time_elapsed = $MC/VBox/Top/Right/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
 	$MC/VBox/Board.LoadSaveData(save_data["board"])
 	
 	update_next_turn_spores()
@@ -115,8 +115,8 @@ func _on_board_new_move():
 
 func update_next_turn_spores():
 	var spores = $MC/VBox/Board.get_next_turn_spores()
-	for i in range(0, $MC/VBox/ARC/NextSpawn.get_child_count()):
-		var cell = $MC/VBox/ARC/NextSpawn.get_child(i)
+	for i in range(0, $MC/VBox/Top/Right/NextSpawn.get_child_count()):
+		var cell = $MC/VBox/Top/Right/NextSpawn.get_child(i)
 		if i < spores.size():
 			cell.visible = true
 			cell.texture = spores[i]
@@ -125,14 +125,10 @@ func update_next_turn_spores():
 			
 			
 func check_unredo_state():
-	$MC/VBox/Bottom/Move/Undo/Undo.visible = $MC/VBox/Board.is_undoable()
-	$MC/VBox/Bottom/Move/Redo/Redo.visible = $MC/VBox/Board.is_redoable()
+	$MC/VBox/Bottom/Move/Undo.visible = $MC/VBox/Board.is_undoable()
+	$MC/VBox/Bottom/Move/SeatKeeper/Redo.visible = $MC/VBox/Board.is_redoable()
 
 
 func _on_save_popup_game_loaded(save_data):
 	HidePopup()
 	LoadSaveData(save_data)
-
-
-func _on_b_pressed():
-	pass # Replace with function body.
