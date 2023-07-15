@@ -7,7 +7,6 @@ signal to_main_menu
 func _ready():
 	Pause()
 	_reset()
-	update_next_turn_spores()
 
 
 func _reset():
@@ -16,10 +15,12 @@ func _reset():
 	$MC/VBox/Top/Board/Score/Value.text = "0"
 	$MC/VBox/Top/Right/Clock.reset()
 	$MC/VBox/Board.reset()
+	update_next_turn_spores()
 	check_unredo_state()
 
 
 func Play():
+	_reset()
 	$MC/VBox/Top/Right/Clock.Resume()
 
 
@@ -94,6 +95,7 @@ func LoadSaveData(save_data: Dictionary):
 	$MC/VBox/Top/Right/Clock.time_elapsed = $MC/VBox/Top/Right/Clock.ConvertFromString(save_data["gameplay"]["time_elapsed"])
 	$MC/VBox/Board.LoadSaveData(save_data["board"])
 	
+	$MC/VBox/Top/Right/Clock.Resume()
 	update_next_turn_spores()
 	check_unredo_state()
 

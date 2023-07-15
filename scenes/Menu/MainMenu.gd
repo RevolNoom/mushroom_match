@@ -10,6 +10,14 @@ func PlayButtonSfx():
 	Settings.PlaySfx("UI")
 
 
+func refresh():
+	$Margin/VBox/Center/Return.visible = false
+	$Margin/VBox/Center/ARC.hide()
+	while _sceneStack.size() > 1:
+		_sceneStack.pop_back().hide()
+	_sceneStack.back().show()
+
+
 func _on_return_pressed():
 	PlayButtonSfx()
 	_sceneStack.pop_back().hide()

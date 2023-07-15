@@ -428,6 +428,7 @@ func GetSaveData():
 
 
 func LoadSaveData(save_data: Dictionary):
+	
 	$MushroomGenerator.LoadSaveData(save_data["generator"])
 	
 	uq.LoadSaveData(save_data["uq"])

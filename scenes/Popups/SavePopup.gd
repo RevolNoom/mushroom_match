@@ -132,7 +132,6 @@ func save_to(slot: int):
 func gather_save_data() -> Dictionary:
 	var save_nodes = get_tree().get_nodes_in_group("savable")
 	var current_save = {}
-	current_save[str(get_path())] = {}
 	for node in save_nodes:
 		var save_data = node.GetSaveData()
 		current_save[save_data["type"]] = save_data
